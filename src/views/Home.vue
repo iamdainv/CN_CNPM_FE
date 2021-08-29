@@ -6,6 +6,7 @@
     </template>
     <template v-else-if="loadingData === false">
       <HelloWorld :msg="msg" />
+      <HelloWorld :msg="msg" />
     </template>
   </div>
 </template>
