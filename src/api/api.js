@@ -1,0 +1,91 @@
+// eslint-disable-next-line semi
+import axios from 'axios'; // eslint-disable-next-line semi
+import { envConfig } from '../config'; // eslint-disable-next-line semi
+import { objectToQueryString } from '../helpers'; // eslint-disable-next-line semi
+import request from '../assets/response';
+
+const instance = axios.create({
+  baseURL: envConfig.baseUrl,
+  headers: {
+    'Content-Type': 'application/json'
+  }
+})
+
+// Request interceptor for API calls
+instance.interceptors.request.use(
+  async config => {
+    // eslint-disable-next-line semi
+    const accessToken = '';
+    config.headers = {
+      Accept: 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+
+    if (!config.url.includes('login')) {
+      config.headers.Authorization = `Bearer ${accessToken}`
+    }
+
+    return config
+  },
+  error => {
+    Promise.reject(error)
+  }
+)
+
+// Response interceptor for API calls
+instance.interceptors.response.use(
+  response => {
+    return response
+  },
+  async function (error) {
+    const originalRequest = error.config
+    if (error.response.status === 403 && !originalRequest._retry) {
+      originalRequest._retry = true
+      // TODO refreshAccessToken when token exprie
+      // const access_token = await refreshAccessToken();
+      // axios.defaults.headers.common['Authorization'] = 'Bearer ' + access_token;
+      // return axiosApiInstance(originalRequest);
+    }
+    return Promise.reject(error)
+  }
+)
+
+class ApiService {
+  makeRequest (method = 'GET', url = '', body = null, headers = {}) {
+    return instance({
+      url: url,
+      method,
+      headers: { ...instance.defaults.headers, ...headers },
+      body
+    })
+  }
+
+  get (url, params = {}, headers = {}) {
+    const queryString = objectToQueryString(params)
+    // eslint-disable-next-line semi
+    const urlParam = queryString ? `?${queryString}` : '';
+    return this.makeRequest('GET', url + urlParam, null, headers)
+  }
+
+  post (url, body, headers = {}) {
+    return this.makeRequest('POST', url, body, headers)
+  }
+
+  put (url, body = {}, headers = {}) {
+    return this.makeRequest('PUT', url, body, headers)
+  }
+
+  delete (url, body = {}, headers = {}) {
+    return this.makeRequest('DELETE', url, body, headers)
+  }
+
+  getMockResponse (url, timeout = 300) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => resolve(request[url]), timeout)
+    })
+  }
+
+  upload () {}
+}
+
+export const apiService = new ApiService()
