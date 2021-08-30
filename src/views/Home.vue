@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/shobbe.png" />
+    <img alt="Vue logo" class="flex m-auto" src="../assets/shobbe.png" />
     <template v-if="loadingData">
       <div><a-spin size="small" /></div>
     </template>

@@ -1,8 +1,7 @@
-// eslint-disable-next-line semi
-import axios from 'axios'; // eslint-disable-next-line semi
-import { envConfig } from '../config'; // eslint-disable-next-line semi
-import { objectToQueryString } from '../helpers'; // eslint-disable-next-line semi
-import request from '../assets/response';
+import axios from 'axios'
+import { envConfig } from '@/config'
+import { objectToQueryString } from '@/helpers'
+import request from '@/assets/response'
 
 const instance = axios.create({
   baseURL: envConfig.baseUrl,
@@ -81,7 +80,11 @@ class ApiService {
 
   getMockResponse (url, timeout = 300) {
     return new Promise((resolve, reject) => {
-      setTimeout(() => resolve(request[url]), timeout)
+      try {
+        setTimeout(() => resolve(request[url]), timeout)
+      } catch (error) {
+        reject(error)
+      }
     })
   }
 
