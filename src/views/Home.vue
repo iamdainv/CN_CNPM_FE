@@ -7,6 +7,8 @@
     <template v-else-if="loadingData === false">
       <HelloWorld :msg="msg" />
       <HelloWorld :msg="msg" />
+      <p> Test call api axios </p>
+      <pre> {{ JSON.stringify(jsonParse, null, '\t') }} </pre>
     </template>
   </div>
 </template>
@@ -23,14 +25,18 @@ export default {
   data () {
     return {
       msg: 'Các bạn sịn',
+      jsonParse: '',
       loadingData: true
     }
   },
   mounted () {
     // DEMO get mock api
-    apiService.getMockResponse('demo', 1000).then(res => {
-      this.msg = res.demo.text
+    const queryParams = {
+      page: 2
+    }
+    apiService.get('/users', queryParams).then(res => {
       this.loadingData = false
+      this.jsonParse = res.data
     })
   }
 }

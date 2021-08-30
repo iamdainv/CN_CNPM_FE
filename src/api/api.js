@@ -61,8 +61,8 @@ class ApiService {
 
   get (url, params = {}, headers = {}) {
     const queryString = objectToQueryString(params)
-    // eslint-disable-next-line semi
-    const urlParam = queryString ? `?${queryString}` : '';
+    const urlParam = queryString ? `?${queryString}` : ''
+    console.log('queryString', queryString)
     return this.makeRequest('GET', url + urlParam, null, headers)
   }
 

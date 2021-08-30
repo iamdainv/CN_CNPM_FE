@@ -2,7 +2,7 @@ export const objectToQueryString = (obj = {}, prefix = null) => {
   const str = []
 
   for (const p in obj) {
-    if (Object.prototype.isPrototypeOf.call(obj, p)) {
+    if (Object.prototype.hasOwnProperty.call(obj, p)) {
       const k = prefix ? prefix + '[' + p + ']' : p
       const v = obj[p]
       str.push(
@@ -12,5 +12,6 @@ export const objectToQueryString = (obj = {}, prefix = null) => {
       )
     }
   }
+
   return str.join('&')
 }
