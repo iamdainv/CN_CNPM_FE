@@ -1,18 +1,31 @@
-import Home from '@/views/Home'
+import UserLayout from '@/views/user'
 
 export const asyncRouterMap = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: UserLayout,
+    children: [
+      {
+        path: '/',
+        name: 'home',
+        component: () => import('@/views/user/home')
+      },
+      {
+        path: '/category/:categoryId',
+        name: 'productsByCategory',
+        component: () => import('@/views/user/products_by_category')
+      },
+      {
+        path: '/product-detail/:productId',
+        name: 'product-detail',
+        component: () => import('@/views/user/product_detail')
+      },
+      {
+        path: '/cart',
+        name: 'cart',
+        component: () => import('@/views/user/cart')
+      }
+    ]
   }
 ]
 
