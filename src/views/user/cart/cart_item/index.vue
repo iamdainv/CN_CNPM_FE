@@ -40,56 +40,56 @@
 
 <script>
 export default {
-  name: 'cart-item',
-  props: {
-    index: {
-      type: Number,
-      required: true
+    name: 'cart-item',
+    props: {
+        index: {
+            type: Number,
+            required: true
+        },
+        bill: {
+            type: Object,
+            required: true
+        }
     },
-    bill: {
-      type: Object,
-      required: true
+    data () {
+        return {
+            newPrice: 0,
+            total: 0
+        }
+    },
+    mounted () {
+        this.newPrice = this.bill.product.price - Math.floor((this.bill.product.discount / 100) * this.bill.product.price)
+        this.calcTotalPrice()
+    },
+    updated () {
+        this.calcTotalPrice()
+    },
+    methods: {
+        calcTotalPrice () {
+            this.total = this.newPrice * this.bill.quantity
+        },
+        handleSubQuantityProduct () {
+            if (this.bill.quantity > 1) {
+                this.$emit('changeQuantityProduct', { indexBill: this.index, n: this.bill.quantity - 1 })
+            }
+        },
+        handleAddQuantityProduct () {
+            if (this.bill.quantity < 99) {
+                this.$emit('changeQuantityProduct', { indexBill: this.index, n: this.bill.quantity + 1 })
+            }
+        },
+        handleChangeQuantityProduct (e) {
+            this.$refs.inputQuantity.focus()
+            let value = Number.parseInt(e.target.value)
+            if (value <= 0 || !value) {
+                value = 1
+            }
+            this.$emit('changeQuantityProduct', { indexBill: this.index, n: value })
+        },
+        handleChecked () {
+            this.$emit('productChecked', { indexBill: this.index })
+        }
     }
-  },
-  data () {
-    return {
-      newPrice: 0,
-      total: 0
-    }
-  },
-  mounted () {
-    this.newPrice = this.bill.product.price - Math.floor((this.bill.product.discount / 100) * this.bill.product.price)
-    this.calcTotalPrice()
-  },
-  updated () {
-    this.calcTotalPrice()
-  },
-  methods: {
-    calcTotalPrice () {
-      this.total = this.newPrice * this.bill.quantity
-    },
-    handleSubQuantityProduct () {
-      if (this.bill.quantity > 1) {
-        this.$emit('changeQuantityProduct', { indexBill: this.index, n: this.bill.quantity - 1 })
-      }
-    },
-    handleAddQuantityProduct () {
-      if (this.bill.quantity < 99) {
-        this.$emit('changeQuantityProduct', { indexBill: this.index, n: this.bill.quantity + 1 })
-      }
-    },
-    handleChangeQuantityProduct (e) {
-      this.$refs.inputQuantity.focus()
-      let value = Number.parseInt(e.target.value)
-      if (value <= 0 || !value) {
-        value = 1
-      }
-      this.$emit('changeQuantityProduct', { indexBill: this.index, n: value })
-    },
-    handleChecked () {
-      this.$emit('productChecked', { indexBill: this.index })
-    }
-  }
 }
 </script>
 

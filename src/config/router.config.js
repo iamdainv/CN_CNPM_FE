@@ -24,6 +24,32 @@ export const asyncRouterMap = [
         path: '/cart',
         name: 'cart',
         component: () => import('@/views/user/cart')
+      },
+      {
+        path: '/user-info',
+        component: () => import('@/views/user/user_workspace'),
+        children: [
+          {
+            path: '/',
+            name: 'userInfo',
+            component: () => import('@/views/user/user_workspace/user_info')
+          },
+          {
+            path: '/user-address',
+            name: 'userAddress',
+            component: () => import('@/views/user/user_workspace/user_address')
+          },
+          {
+            path: '/user-pass',
+            name: 'userPass',
+            component: () => import('@/views/user/user_workspace/user_pass')
+          },
+          {
+            path: '/purchase',
+            name: 'purchase',
+            component: () => import('@/views/user/user_workspace/purchase')
+          }
+        ]
       }
     ]
   }
