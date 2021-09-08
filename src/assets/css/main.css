@@ -1268,6 +1268,7 @@ span.home-produce-item__origin-name {
     text-overflow: ellipsis;
     overflow: hidden;
     height: 28px;
+    text-align: end;
 }
 
 .home-produce-item__favourite {

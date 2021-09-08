@@ -13,6 +13,7 @@ import '@/assets/css/base.css'
 import '@/assets/css/main.css'
 import '@/assets/css/footer.css'
 import '@/assets/css/responsive.css'
+import '@/assets/css/theme.css'
 
 import HeaderUser from '@/components/user/header/index.vue'
 import FooterUser from '@/components/user/footer/index.vue'

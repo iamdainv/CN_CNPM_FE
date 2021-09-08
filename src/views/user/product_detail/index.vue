@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container app__container">
         <div class="row product">
             <div class="col col-lg-5 col-md-5 col-sm-12">
                 <!-- depicted product -->
