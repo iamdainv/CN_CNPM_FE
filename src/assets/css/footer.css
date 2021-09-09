@@ -23,9 +23,9 @@
     color: #737373;
 }
 
-    .footer-item__link:hover {
-        color: var(--primary-color);
-    }
+.footer-item__link:hover {
+    color: var(--primary-color);
+}
 
 .footer-item__icon {
     font-size: 1.6rem;
