@@ -24,3 +24,4 @@ pnpm-debug.log*
 
 #file lock
 *.lock
+package-lock.json
