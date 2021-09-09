@@ -17,6 +17,7 @@
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
 import { apiService } from '@/api/api'
+import { staticClientStorage } from '@/service/localStorage.service.ts'
 export default {
   name: 'Home',
   components: {
@@ -34,6 +35,7 @@ export default {
     const queryParams = {
       page: 2
     }
+    staticClientStorage.set('abc', '1234')
     apiService.get('/users', queryParams).then(res => {
       this.loadingData = false
       this.jsonParse = res.data
