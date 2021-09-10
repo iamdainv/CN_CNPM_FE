@@ -1,118 +1,153 @@
 <template>
-<div class="header">
-  <div class="grid wide">
-    <nav class="header__navbar hide-on-mobile-tablet">
+  <div class="header">
+    <div class="grid wide">
+      <nav class="header__navbar hide-on-mobile-tablet">
         <ul class="header__navbar-list">
-            <li class="header__navbar-item">
-              <a class="header__navbar-title--no-pointer btn-linkto-producer" href="#">Vào trang người bán</a>
-            </li>
-            <li class="header__navbar-item header__navbar-item--has-qr header__navbar-item--separate">
-                Vào cửa hàng ứng dụng
-                <div class="header__qr">
-                    <img src="@/assets/img/QR.png" alt="QR code" class="header__qr-img">
-                    <div class="header__qr-apps">
-                        <a href="#" class="header__qr-link">
-                            <img
-                                src="@/assets/img/GooglePlay.png"
-                                alt="Google play"
-                                class="header__qr-download-img">
-                        </a>
-                        <a href="#" class="header__qr-link">
-                            <img
-                                src="@/assets/img/AppStore.png"
-                                alt="App store"
-                                class="header__qr-download-img">
-                        </a>
-                    </div>
-                </div>
-            </li>
-            <li class="header__navbar-item">
-                <span class="header__navbar-title--no-pointer">Kết nối</span>
-                <div class="header_navbar-icon-link">
-                    <i class="header__navbar-icon fab fa-facebook"></i>
-                    <i class="header__navbar-icon fab fa-instagram"></i>
-                </div>
-            </li>
+          <li class="header__navbar-item">
+            <a
+              class="header__navbar-title--no-pointer btn-linkto-producer"
+              href="#"
+              >Vào trang người bán</a
+            >
+          </li>
+          <li
+            class="header__navbar-item header__navbar-item--has-qr header__navbar-item--separate"
+          >
+            Vào cửa hàng ứng dụng
+            <div class="header__qr">
+              <img
+                src="@/assets/img/QR.png"
+                alt="QR code"
+                class="header__qr-img"
+              />
+              <div class="header__qr-apps">
+                <a href="#" class="header__qr-link">
+                  <img
+                    src="@/assets/img/GooglePlay.png"
+                    alt="Google play"
+                    class="header__qr-download-img"
+                  />
+                </a>
+                <a href="#" class="header__qr-link">
+                  <img
+                    src="@/assets/img/AppStore.png"
+                    alt="App store"
+                    class="header__qr-download-img"
+                  />
+                </a>
+              </div>
+            </div>
+          </li>
+          <li class="header__navbar-item">
+            <span class="header__navbar-title--no-pointer">Kết nối</span>
+            <div class="header_navbar-icon-link">
+              <i class="header__navbar-icon fab fa-facebook"></i>
+              <i class="header__navbar-icon fab fa-instagram"></i>
+            </div>
+          </li>
         </ul>
 
         <ul class="header__navbar-list">
-            <li class="header__navbar-item header__navbar-item--strong header__navbar-item--has-notify">
-                <a href="#" class="header__navbar-item-link">
-                    <i class="header__navbar-icon far fa-bell"></i>
-                    Thông báo
-                </a>
-                <!-- header notify -->
-                <header-notify></header-notify>
-            </li>
-            <li class="header__navbar-item header__navbar-item--strong">
-                <a href="#" class="header__navbar-item-link">
-                    <i class="header__navbar-icon far fa-question-circle"></i>
-                    Trợ giúp
-                </a>
-            </li>
-            <!-- login on pc -->
-            <li class="header__navbar-item header__navbar-item--strong header__navbar-item--separate"><a href="#" class="header__navbar-item-link">Đăng ký</a></li>
-            <li class="header__navbar-item header__navbar-item--strong"><a href="#" class="header__navbar-item-link">Đăng nhập</a></li>
-            <LoginPC></LoginPC>
+          <li
+            class="header__navbar-item header__navbar-item--strong header__navbar-item--has-notify"
+          >
+            <a href="#" class="header__navbar-item-link">
+              <i class="header__navbar-icon far fa-bell"></i>
+              Thông báo
+            </a>
+            <!-- header notify -->
+            <header-notify></header-notify>
+          </li>
+          <li class="header__navbar-item header__navbar-item--strong">
+            <a href="#" class="header__navbar-item-link">
+              <i class="header__navbar-icon far fa-question-circle"></i>
+              Trợ giúp
+            </a>
+          </li>
+          <!-- login on pc -->
+          <li
+            class="header__navbar-item header__navbar-item--strong header__navbar-item--separate"
+          >
+            <router-link
+:to="{ name: 'register' }"
+class="header__navbar-item-link"
+              >Đăng ký</router-link
+            >
+          </li>
+          <li class="header__navbar-item header__navbar-item--strong">
+            <router-link
+:to="{ name: 'login' }"
+class="header__navbar-item-link"
+              >Đăng nhập</router-link
+            >
+          </li>
+          <LoginPC></LoginPC>
         </ul>
-    </nav>
+      </nav>
 
-    <!-- Header with search -->
-    <div class="header-with-search">
+      <!-- Header with search -->
+      <div class="header-with-search">
         <label for="mobile-search-checkbox" class="header__mobile-search">
-            <i class="fas fa-search header__mobile-search-icon"></i>
+          <i class="fas fa-search header__mobile-search-icon"></i>
         </label>
 
         <div class="header__logo hide-on-tablet">
-            <a href="#" class="header__logo-link">
-                <img src="@/assets/img/logo.svg" class="header__logo-img"/>
-            </a>
+          <a href="#" class="header__logo-link">
+            <img src="@/assets/img/logo.svg" class="header__logo-img" />
+          </a>
         </div>
 
-        <input type="checkbox" hidden id="mobile-search-checkbox" class="header__search-checkbox">
+        <input
+          type="checkbox"
+          hidden
+          id="mobile-search-checkbox"
+          class="header__search-checkbox"
+        />
 
         <div class="header__search">
-            <div class="header__search-input-wrap">
-                <input type="text" class="header__search-input" placeholder="Nhập để tìm kiếm sản phẩm">
-                <div class="header__search-history">
-                    <h3 class="header__search-history-heading">Lịch sử tìm kiếm</h3>
-                    <ul class="header__search-history-list">
-                    </ul>
-                </div>
+          <div class="header__search-input-wrap">
+            <input
+              type="text"
+              class="header__search-input"
+              placeholder="Nhập để tìm kiếm sản phẩm"
+            />
+            <div class="header__search-history">
+              <h3 class="header__search-history-heading">Lịch sử tìm kiếm</h3>
+              <ul class="header__search-history-list"></ul>
             </div>
-            <div class="header__search-select">
-                <span class="header__search-select-label">Trong shop</span>
-                <i class="fas fa-angle-down header__search-select-icon"></i>
+          </div>
+          <div class="header__search-select">
+            <span class="header__search-select-label">Trong shop</span>
+            <i class="fas fa-angle-down header__search-select-icon"></i>
 
-                <ul class="header__search-option">
-                    <li class="header__search-option-item">
-                        <span>Trong shop</span>
-                        <i class="fas fa-check"></i>
-                    </li>
+            <ul class="header__search-option">
+              <li class="header__search-option-item">
+                <span>Trong shop</span>
+                <i class="fas fa-check"></i>
+              </li>
 
-                    <li class="header__search-option-item">
-                        <span>Ngoài shop</span>
-                        <i class="fas fa-check"></i>
-                    </li>
-                </ul>
-            </div>
-            <button class="header__search-btn">
-                <i class="header__search-btn-icon fas fa-search"></i>
-            </button>
+              <li class="header__search-option-item">
+                <span>Ngoài shop</span>
+                <i class="fas fa-check"></i>
+              </li>
+            </ul>
+          </div>
+          <button class="header__search-btn">
+            <i class="header__search-btn-icon fas fa-search"></i>
+          </button>
         </div>
 
         <div class="wrap-cart-login">
-            <!-- Cart -->
-            <cart-header></cart-header>
+          <!-- Cart -->
+          <cart-header></cart-header>
 
-            <!-- Login on mobile and tablet -->
-            <login-mobile-tablet></login-mobile-tablet>
+          <!-- Login on mobile and tablet -->
+          <login-mobile-tablet></login-mobile-tablet>
         </div>
         <sort-mobile></sort-mobile>
+      </div>
     </div>
-</div>
-
-</div>
+  </div>
 </template>
 
 <script>
@@ -133,6 +168,4 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

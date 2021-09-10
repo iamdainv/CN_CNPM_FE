@@ -5,6 +5,7 @@ import store from './store'
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
 import './index.scss'
+import '@/assets/css/index.scss'
 
 Vue.config.productionTip = false
 Vue.use(Antd)

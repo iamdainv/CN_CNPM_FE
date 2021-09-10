@@ -16,7 +16,14 @@ module.exports = {
           'css-loader',
           'sass-loader'
         ]
-      }
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          'babel-loader',
+          'vue-svg-loader'
+        ]
+       }
     ]
   },
   plugins: [

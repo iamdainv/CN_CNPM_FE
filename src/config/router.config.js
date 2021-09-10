@@ -1,10 +1,9 @@
-import UserLayout from '@/views/user'
 import AuthLayout from '@/views/auth'
 
 export const asyncRouterMap = [
     {
         path: '/',
-        component: UserLayout,
+        component: () => import('@/views/user'),
         children: [
             {
                 path: '/',

@@ -36,7 +36,7 @@ export default {
     .auth__container {
         width: 100%;
         min-width: 120rem;
-        background-color: var(--primary-color);
+        background-color: rgb(238, 77, 45);
     }
     .auth__content {
         display: flex;
@@ -78,7 +78,7 @@ export default {
     .wrap-forgot-password {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
     .forgot-password, .login-sms {
         color: var(--primary-color);
