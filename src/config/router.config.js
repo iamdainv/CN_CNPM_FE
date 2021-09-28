@@ -1,4 +1,5 @@
 import { UserLayout, BasicLayout } from '@/layouts'
+import AuthLayout from '@/views/client/auth'
 
 const RouteView = {
   name: 'RouteView',
@@ -67,7 +68,80 @@ export const asyncRouterMap = [
   }
 ]
 
-export const constantRouterMap = [
+export const constRouteMapClient = [
+  {
+    path: '/',
+    component: () => import('@/views/client/user/index'),
+    children: [
+      {
+        path: '/',
+        name: 'home',
+        component: () => import('@/views/client/user/home/index')
+      },
+      {
+        path: 'category/:categoryId',
+        name: 'productsByCategory',
+        component: () => import('@/views/client/user/products_by_category/index')
+      },
+      {
+        path: 'product-detail/:productId',
+        name: 'product-detail',
+        component: () => import('@/views/client/user/product_detail/index')
+      },
+      {
+        path: 'cart',
+        name: 'cart',
+        component: () => import('@/views/client/user/cart/index')
+      },
+      {
+        path: 'user-info',
+        component: () => import('@/views/client/user/user_workspace/index'),
+        children: [
+          {
+            path: '/',
+            name: 'userInfo',
+            component: () => import('@/views/client/user/user_workspace/user_info/index')
+          },
+          {
+            path: '/user-address',
+            name: 'userAddress',
+            component: () => import('@/views/client/user/user_workspace/user_address/index')
+          },
+          {
+            path: '/user-pass',
+            name: 'userPass',
+            component: () => import('@/views/client/user/user_workspace/user_pass/index')
+          },
+          {
+            path: '/purchase',
+            name: 'purchase',
+            component: () => import('@/views/client/user/user_workspace/purchase/index')
+          }
+        ]
+      }
+    ]
+  }
+]
+export const asyncRouterAuthClient = [
+  {
+    path: '/auth',
+    component: AuthLayout,
+    children: [
+      {
+        path: 'login',
+        name: 'login',
+        component: () => import('@/views/client/auth/login')
+      },
+      {
+        path: 'register',
+        name: 'register',
+        component: () => import('@/views/client/auth/register')
+      }
+    ]
+  }
+]
+
+export const constantAdminRouterMap = [
   {
     path: '/auth',
     component: UserLayout,
@@ -75,18 +149,17 @@ export const constantRouterMap = [
     hidden: true,
     children: [
       {
-        path: 'login',
-        name: 'login',
+        path: 'loginAdmin',
+        name: 'loginAdmin',
         component: () => import(/* webpackChunkName: "auth" */ '@/views/admin/general/auth/Login')
       },
       {
-        path: 'register',
-        name: 'register',
+        path: 'registerAdmin',
+        name: 'registerAdmin',
         component: () => import(/* webpackChunkName: "auth" */ '@/views/admin/general/auth/Register')
       }
     ]
   },
-
   {
     path: '/404',
     component: () => import(/* webpackChunkName: "fail" */ '@/views/admin/general/exception/404')

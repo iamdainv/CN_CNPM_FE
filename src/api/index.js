@@ -30,7 +30,7 @@ export async function executor (sys, url, parameter, method = 'get', requestConf
           if (token) {
             store.dispatch('Logout').then(() => {
               setTimeout(() => {
-                router.push({ name: 'login' })
+                router.push({ name: 'loginAdmin' })
               }, 1500)
             })
           }
@@ -62,7 +62,7 @@ export async function executor (sys, url, parameter, method = 'get', requestConf
         if (token) {
           store.dispatch('Logout').then(() => {
             setTimeout(() => {
-              router.push({ name: 'login' })
+              router.push({ name: 'loginAdmin' })
             }, 1500)
           })
         }
