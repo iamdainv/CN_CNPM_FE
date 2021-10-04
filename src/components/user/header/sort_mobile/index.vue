@@ -17,10 +17,8 @@
 
 <script>
 export default {
-  name: 'sort-mobile'
+  name: 'SortMobile'
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

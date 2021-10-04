@@ -1,22 +1,22 @@
 <template>
   <div class="app__container">
     <div class="grid wide">
-        <div class="row sm-gutter app__content">
-            <div class="col-lbr l-12 m-12 c-12">
-                <div class="home-produce">
-                    <!-- category mobile -->
-                    <category-mobile></category-mobile>
-                    <!-- home carousel -->
-                    <home-carousel></home-carousel>
-                    <!-- category home pc -->
-                    <category-home :listCategory="listCategory"></category-home>
-                    <!-- list product -->
-                    <div class="row-lbr sm-gutter list-product" style="padding-bottom: 40px; margin-top: 20px">
-                        <product-item v-for="(product, index) in listProduct" :key="index"></product-item>
-                    </div>
-                </div>
+      <div class="row sm-gutter app__content">
+        <div class="col-lbr l-12 m-12 c-12">
+          <div class="home-produce">
+            <!-- category mobile -->
+            <category-mobile></category-mobile>
+            <!-- home carousel -->
+            <home-carousel></home-carousel>
+            <!-- category home pc -->
+            <category-home :listCategory="listCategory"></category-home>
+            <!-- list product -->
+            <div class="row-lbr sm-gutter list-product" style="padding-bottom: 40px; margin-top: 20px">
+              <product-item v-for="(product, index) in listProduct" :key="index"></product-item>
             </div>
+          </div>
         </div>
+      </div>
     </div>
   </div>
 </template>
@@ -28,7 +28,7 @@ import CategoryHome from '@/components/user/category_home_pc'
 import ProductItem from '@/views/user/home/product_item'
 import { apiService } from '@/api/api'
 export default {
-  name: 'home',
+  name: 'Home',
   components: {
     HomeCarousel,
     CategoryMobile,

@@ -1,65 +1,65 @@
 <template>
-    <div class="cart">
+  <div class="cart">
     <div class="container">
-        <div class="cart__content">
-            <!-- cart header -->
-            <div class="cart-product-header">
-                <div class="cart-item__cell-checkbox">
-                    <input type="checkbox" class="stardust-checkbox__input input-check-all" :checked="checkedAll" :value="checkedAll" @change="handleCheckAll">
-                </div>
-                <div class="cart-page-product-header__product">Sản Phẩm</div>
-            </div>
-            <!-- cart list -->
-            <cart-list
-              :listBillBySeller="listBillBySeller"
-              v-on:changeQuantityProduct="handleChangeQuantityProduct"
-              v-on:productChecked="handleProductChecked"
-              v-on:cartShopChecked="handleCartShopChecked"
-              :key="keyRerender"
-            ></cart-list>
-            <!-- cart footer -->
-            <div class="cart-page-footer">
-                <div class="cart-page-footer__row1">
-                    <div class="row">
-                        <div class="col col-12 col-sm-12 col-md-12 col-lg-7"></div>
-                        <div class="col col-12 col-sm-12 col-md-12 col-lg-5">
-                            <div class=" cart-page-footer__row1-wrap">
-                                <i class="fas fa-tags icon-voucher"></i>
-                                <div class="cart-footer__voucher-message">Shopee Voucher</div>
-                                <div class="cart-page-footer-space"></div>
-                                <div class="cart-footer__voucher-choose">Chọn hoặc nhập mã</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="cart-page-footer__row2">
-                    <div class="cart-item__cell-checkbox">
-                        <input type="checkbox" class="stardust-checkbox__input input-check-all" :checked="checkedAll" :value="checkedAll" @change="handleCheckAll">
-                    </div>
-                    <label for="input-check-all" class="cart-page-footer__product-count">Chọn tất cả ({{totalProductChecked}})</label>
-                    <button class="cart-item__action btn-delete-mul-product">Xóa</button>
-                    <div class="cart-page-footer-space"></div>
-                    <div class="cart-page-footer__summary">
-                        <div class="cart-page-footer__first-summary">
-                            <div class="cart-page-footer-summary__subtotal-text">Tổng tiền hàng ({{totalProductChecked}} Sản phẩm):</div>
-                            <div class="cart-page-footer-summary__subtotal-amount">{{ new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(totalPrice) }}</div>
-                        </div>
-                        <div class="cart-page-footer__second-summary">Nhận thêm: 0 Xu</div>
-                    </div>
-                    <div class="cart-page-footer__checkout">
-                        <button type="button" class="btn shopee-button-solid" @click="buyProducts">Mua Hàng</button>
-                    </div>
-                </div>
-            </div>
+      <div class="cart__content">
+        <!-- cart header -->
+        <div class="cart-product-header">
+          <div class="cart-item__cell-checkbox">
+            <input type="checkbox" class="stardust-checkbox__input input-check-all" :checked="checkedAll" :value="checkedAll" @change="handleCheckAll">
+          </div>
+          <div class="cart-page-product-header__product">Sản Phẩm</div>
         </div>
+        <!-- cart list -->
+        <cart-list
+          :listBillBySeller="listBillBySeller"
+          @changeQuantityProduct="handleChangeQuantityProduct"
+          @productChecked="handleProductChecked"
+          @cartShopChecked="handleCartShopChecked"
+          :key="keyRerender"
+        ></cart-list>
+        <!-- cart footer -->
+        <div class="cart-page-footer">
+          <div class="cart-page-footer__row1">
+            <div class="row">
+              <div class="col col-12 col-sm-12 col-md-12 col-lg-7"></div>
+              <div class="col col-12 col-sm-12 col-md-12 col-lg-5">
+                <div class=" cart-page-footer__row1-wrap">
+                  <i class="fas fa-tags icon-voucher"></i>
+                  <div class="cart-footer__voucher-message">Shopee Voucher</div>
+                  <div class="cart-page-footer-space"></div>
+                  <div class="cart-footer__voucher-choose">Chọn hoặc nhập mã</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cart-page-footer__row2">
+            <div class="cart-item__cell-checkbox">
+              <input type="checkbox" class="stardust-checkbox__input input-check-all" :checked="checkedAll" :value="checkedAll" @change="handleCheckAll">
+            </div>
+            <label for="input-check-all" class="cart-page-footer__product-count">Chọn tất cả ({{ totalProductChecked }})</label>
+            <button class="cart-item__action btn-delete-mul-product">Xóa</button>
+            <div class="cart-page-footer-space"></div>
+            <div class="cart-page-footer__summary">
+              <div class="cart-page-footer__first-summary">
+                <div class="cart-page-footer-summary__subtotal-text">Tổng tiền hàng ({{ totalProductChecked }} Sản phẩm):</div>
+                <div class="cart-page-footer-summary__subtotal-amount">{{ new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(totalPrice) }}</div>
+              </div>
+              <div class="cart-page-footer__second-summary">Nhận thêm: 0 Xu</div>
+            </div>
+            <div class="cart-page-footer__checkout">
+              <button type="button" class="btn shopee-button-solid" @click="buyProducts">Mua Hàng</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
 import CartList from '@/views/user/cart/cart_list'
 export default {
-  name: 'cart',
+  name: 'Cart',
   components: {
     CartList
   },

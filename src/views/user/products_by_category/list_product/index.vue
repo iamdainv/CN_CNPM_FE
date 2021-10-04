@@ -1,13 +1,13 @@
 <template>
-    <div class="row-lbr sm-gutter list-product">
-        <product-item v-for="(product, index) in listProduct" :key="index"></product-item>
-    </div>
+  <div class="row-lbr sm-gutter list-product">
+    <product-item v-for="(product, index) in listProduct" :key="index"></product-item>
+  </div>
 </template>
 
 <script>
 import ProductItem from '@/views/user/products_by_category/product_item'
 export default {
-  name: 'list-product',
+  name: 'ListProduct',
   components: {
     ProductItem
   },

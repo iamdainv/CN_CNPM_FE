@@ -49,10 +49,7 @@
             <h3 class="footer__heading mt-50">Theo dõi</h3>
             <ul class="footer-list">
               <li class="footer-item">
-                <a
-                  href="#"
-                  class="footer-item__link footer-item__link-facebook"
-                >
+                <a href="#" class="footer-item__link footer-item__link-facebook">
                   <i class="footer-item__icon fab fa-facebook"></i>
                   Facebook
                 </a>
@@ -74,26 +71,14 @@
           <div class="col-lbr l-2-4 m-8 c-12-lbr">
             <h3 class="footer__heading mt-50">Vào cửa hàng trên ứng dụng</h3>
             <div class="footer__download">
-              <img
-                src="@/assets/img/QR.png"
-                alt="Max QR"
-                class="footer__download-qr"
-              />
+              <img src="@/assets/img/QR.png" alt="Max QR" class="footer__download-qr" />
               <div class="footer__download-apps">
                 <a href="#" class="footer__download-app-link">
-                  <img
-                    src="@/assets/img/AppStore.png"
-                    alt="App Store"
-                    class="footer__download-app-img"
-                  />
+                  <img src="@/assets/img/AppStore.png" alt="App Store" class="footer__download-app-img" />
                 </a>
 
                 <a href="#" class="footer__download-app-link">
-                  <img
-                    src="@/assets/img/GooglePlay.png"
-                    alt="Google Play"
-                    class="footer__download-app-img"
-                  />
+                  <img src="@/assets/img/GooglePlay.png" alt="Google Play" class="footer__download-app-img" />
                 </a>
               </div>
             </div>
@@ -108,17 +93,9 @@
         <div class="grid wide">
           <p class="footer__text contributors__text font-black">Contributors ( 5 )</p>
           <div class="flex justify-center">
-            <div
-              v-for="(contributor, index) in contributors"
-              :key="index"
-              class="user-contributor ml-6"
-            >
+            <div v-for="(contributor, index) in contributors" :key="index" class="user-contributor ml-6">
               <a :href="contributor.linkProfile" target="_blank">
-                <img
-                  :src="contributor.imageUrl"
-                  style="width: 100%"
-                  class="image-user-contributor"
-                />
+                <img :src="contributor.imageUrl" style="width: 100%" class="image-user-contributor" />
               </a>
             </div>
           </div>
@@ -132,7 +109,7 @@
 // require('@/assets/css/grid.scss')
 // require('@/assets/css/component/footer.scss')
 export default {
-  name: 'footer-auth',
+  name: 'FooterAuth',
   data: function () {
     return {
       contributors: [
@@ -179,7 +156,7 @@ export default {
 .footer {
   padding-top: 30px;
 }
-.contributors__text{
+.contributors__text {
   font-weight: bold;
 }
 .user-contributor {

@@ -1,52 +1,52 @@
 <template>
-    <div class="cart-shop">
-        <div class="cart-shop-header">
-            <div class="cart-item__cell-checkbox">
-                <input
-                  type="checkbox"
-                  class="stardust-checkbox__input input-check-brand"
-                  :checked="checkedAll"
-                  @change="handleCheckAll"
-                >
-            </div>
-            <a href="#" class="cart-page-shop-header__shop-name">
-                {{ seller }}
-            </a>
-        </div>
-        <!-- cart item -->
-        <cart-item
-          v-for="(bill, index) in bills"
-          :key="index"
-          :index="index"
-          :bill="bill"
-          v-on:changeQuantityProduct="handleChangeQuantityProduct"
-          v-on:productChecked="handleProductChecked"
-        ></cart-item>
-        <!-- cart voucher -->
-        <div class="cart-voucher">
-            <i class="fas fa-tags icon-voucher"></i>
-            <div class="cart-voucher__content">
-                <div class="cart-voucher__message">Shop Voucher giảm đến ₫29k</div>
-                <div class="cart-voucher__more">Xem thêm Voucher</div>
-            </div>
-        </div>
-        <!-- cart shipping -->
-        <div class="cart-shipping">
-            <i class="fas fa-truck icon-free-shipping"></i>
-            <div class="cart-shipping__message">
-                Miễn Phí Vận Chuyển cho đơn hàng từ ₫50.000 (giảm tối đa
-                ₫15.000)
-                Miễn Phí Vận Chuyển cho đơn hàng từ ₫300.000 (giảm tối đa ₫70.000)
-            </div>
-            <div class="shopee-drawer">Tìm hiểu thêm</div>
-        </div>
+  <div class="cart-shop">
+    <div class="cart-shop-header">
+      <div class="cart-item__cell-checkbox">
+        <input
+          type="checkbox"
+          class="stardust-checkbox__input input-check-brand"
+          :checked="checkedAll"
+          @change="handleCheckAll"
+        >
+      </div>
+      <a href="#" class="cart-page-shop-header__shop-name">
+        {{ seller }}
+      </a>
     </div>
+    <!-- cart item -->
+    <cart-item
+      v-for="(bill, index) in bills"
+      :key="index"
+      :index="index"
+      :bill="bill"
+      @changeQuantityProduct="handleChangeQuantityProduct"
+      @productChecked="handleProductChecked"
+    ></cart-item>
+    <!-- cart voucher -->
+    <div class="cart-voucher">
+      <i class="fas fa-tags icon-voucher"></i>
+      <div class="cart-voucher__content">
+        <div class="cart-voucher__message">Shop Voucher giảm đến ₫29k</div>
+        <div class="cart-voucher__more">Xem thêm Voucher</div>
+      </div>
+    </div>
+    <!-- cart shipping -->
+    <div class="cart-shipping">
+      <i class="fas fa-truck icon-free-shipping"></i>
+      <div class="cart-shipping__message">
+        Miễn Phí Vận Chuyển cho đơn hàng từ ₫50.000 (giảm tối đa
+        ₫15.000)
+        Miễn Phí Vận Chuyển cho đơn hàng từ ₫300.000 (giảm tối đa ₫70.000)
+      </div>
+      <div class="shopee-drawer">Tìm hiểu thêm</div>
+    </div>
+  </div>
 </template>
 
 <script>
 import CartItem from '@/views/user/cart/cart_item'
 export default {
-  name: 'cart-shop',
+  name: 'CartShop',
   props: {
     index: {
       type: Number,

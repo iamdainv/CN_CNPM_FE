@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'header-admin'
+  name: 'HeaderAdmin'
 }
 </script>
 

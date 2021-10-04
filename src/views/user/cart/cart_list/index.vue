@@ -1,24 +1,24 @@
 <template>
-    <div class="cart-list">
-        <cart-shop
-          v-for="(item, index) in listBillBySeller"
-          :key="index"
-          :index="index"
-          :idSeller="item.idSeller"
-          :seller="item.seller"
-          :bills="item.bills"
-          v-on:changeQuantityProduct="handleChangeQuantityProduct"
-          v-on:productChecked="handleProductChecked"
-          v-on:cartShopChecked="handleCartShopChecked"
-        >
-        </cart-shop>
-    </div>
+  <div class="cart-list">
+    <cart-shop
+      v-for="(item, index) in listBillBySeller"
+      :key="index"
+      :index="index"
+      :idSeller="item.idSeller"
+      :seller="item.seller"
+      :bills="item.bills"
+      @changeQuantityProduct="handleChangeQuantityProduct"
+      @productChecked="handleProductChecked"
+      @cartShopChecked="handleCartShopChecked"
+    >
+    </cart-shop>
+  </div>
 </template>
 
 <script>
 import CartShop from '@/views/user/cart/cart_shop'
 export default {
-  name: 'cart-list',
+  name: 'CartList',
   props: {
     listBillBySeller: {
       type: Array,

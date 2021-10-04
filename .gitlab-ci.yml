@@ -1,0 +1,25 @@
+image: docker
+services:
+  - docker:18.09.7-dind
+stages:
+  - deploy
+deploy-dev:
+  stage: deploy
+  tags:
+    - shell
+  only:
+    - develop
+  script:
+    - docker build -f Dockerfile.test -t app/vnpost-admin-dev .
+    - docker rm -f /vnpost-admin-dev
+    - docker run -d -p 8098:8098 --rm --name vnpost-admin-dev app/vnpost-admin-dev
+deploy-prod:
+  stage: deploy
+  tags:
+    - shell
+  only:
+    - master
+  script:
+    - docker build -t app/vnpost-admin .
+    - docker rm -f /vnpost-admin
+    - docker run -d -p 8099:8099 --rm --name vnpost-admin app/vnpost-admin

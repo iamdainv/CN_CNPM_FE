@@ -1,0 +1,165 @@
+@import '~ant-design-vue/es/style/themes/default.less';
+@primary-color: red;
+@text-color: red;
+html,
+body,
+#app, #root {
+  height: 100%;
+  font-family: @font-family;
+}
+
+.colorWeak {
+  filter: invert(80%);
+}
+
+.ant-layout.layout-basic {
+  height: 100vh;
+  min-height: 100vh;
+}
+
+canvas {
+  display: block;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+// 数据列表 样式
+.table-alert {
+  margin-bottom: 16px;
+}
+
+// 数据列表 操作
+.table-operator {
+  margin-bottom: 18px;
+
+  button {
+    margin-right: 8px;
+  }
+}
+
+// 数据列表 搜索条件
+.table-page-search-wrapper {
+
+  .ant-form-inline {
+    .ant-form-item {
+      display: flex;
+      margin-bottom: 24px;
+      margin-right: 0;
+
+      .ant-form-item-control-wrapper {
+        flex: 1 1;
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      > .ant-form-item-label {
+        line-height: 32px;
+        padding-right: 8px;
+        width: auto;
+      }
+
+      .ant-form-item-control {
+        height: 32px;
+        line-height: 32px;
+      }
+    }
+  }
+
+  .table-page-search-submitButtons {
+    display: block;
+    margin-bottom: 24px;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: @screen-xs) {
+  .ant-table {
+    width: 100%;
+    overflow-x: auto;
+
+    &-thead > tr,
+    &-tbody > tr {
+      > th,
+      > td {
+        white-space: pre;
+
+        > span {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+.ant-pro-sider-menu-logo svg, .ant-pro-sider-menu-logo img {
+  height: 65px;
+  width: 44px;
+  vertical-align: middle;
+  fill: #ffffff;
+}
+
+.ant-layout-sider {
+  .ant-menu {
+    .ant-menu-submenu {
+      .ant-menu-item {
+        height: 30px;
+
+        & > a {
+          font-size: 13px;
+          line-height: 30px;
+          height: 30px;
+        }
+      }
+    }
+  }
+}
+
+.ant-layout-sider-collapsed {
+  .ant-pro-sider-menu-logo {
+    a {
+      display: block;
+      text-align: center;
+
+      svg {
+        height: auto;
+        width: 55px !important;
+      }
+    }
+  }
+}
+
+.ant-menu-dark, .ant-menu-dark .ant-menu-sub, .ant-pro-sider-menu-logo, .ant-layout-sider, .ant-menu-dark .ant-menu-inline.ant-menu-sub {
+  background: #03315d;
+}
+
+.ant-menu-dark .ant-menu-inline.ant-menu-sub {
+  box-shadow: 0 2px 8px rgb(3 49 93);
+}
+
+.ant-menu-dark .ant-menu-inline.ant-menu-sub {
+  background: darken(#022d57, 1%);
+}
+.ant-pro-sider-menu-sider.light .ant-pro-sider-menu-logo {
+  svg {
+    fill: #FAAD14;
+  }
+  h1 {
+    color: #022d57 !important;
+  }
+}
+
+.ant-dropdown-menu-item, .ant-dropdown-menu-submenu-title {
+  padding: 4px 8px;
+  font-size: 12px;
+  line-height: 18px;
+}
+

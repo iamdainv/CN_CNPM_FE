@@ -2,7 +2,7 @@
   <div class="auth-header__container">
     <div class="auth-header">
       <div class="wrap-brand">
-        <router-link to="/"><img src="@/assets/img/LogoAuth.svg" class="img-brand" /></router-link>
+        <router-link to="/"><img src="@/assets/img/LogoAuth.svg" class="img-brand"/></router-link>
         <h1 class="auth-header__title">{{ authName }}</h1>
       </div>
       <div class="auth-header__help">Bạn cần trợ giúp?</div>
@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'header-auth',
+  name: 'HeaderAuth',
   data: function () {
     return {
       authName: ''

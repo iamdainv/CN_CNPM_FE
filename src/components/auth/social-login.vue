@@ -6,37 +6,21 @@
       <div class="line"></div>
     </div>
     <div class="flex justify-between">
-      <button
-        class="flex button__wrapper button-facebook justify-center items-center"
-        @click="loginWithFacebook"
-      >
+      <button class="flex button__wrapper button-facebook justify-center items-center" @click="loginWithFacebook">
         <div class="button-social__wrapper button-login-facebook">
-          <div
-            class="social-white-background social-white-fb-png social-icon"
-          ></div>
+          <div class="social-white-background social-white-fb-png social-icon"></div>
         </div>
         <div>Facebook</div>
       </button>
-      <button
-        class="flex button-google button__wrapper justify-center items-center"
-        @click="loginWithGoogle"
-      >
+      <button class="flex button-google button__wrapper justify-center items-center" @click="loginWithGoogle">
         <div class="button-social__wrapper button-login-google">
-          <div
-            class="social-white-background social-white-gg-png social-icon"
-          ></div>
+          <div class="social-white-background social-white-gg-png social-icon"></div>
         </div>
         <div>Google</div>
       </button>
-      <button
-        class="flex button-github button__wrapper justify-center items-center"
-        @click="loginWithGithub"
-      >
+      <button class="flex button-github button__wrapper justify-center items-center" @click="loginWithGithub">
         <div class="button-social__wrapper">
-          <a-icon
-            type="github"
-            class="social-black-github social-icon font-22"
-          />
+          <a-icon type="github" class="social-black-github social-icon font-22" />
         </div>
         <div>Github</div>
       </button>
@@ -45,15 +29,11 @@
 </template>
 
 <script>
-import { authService } from '@/service/auth.service.js'
-import {
-  facebookProvider,
-  googleProvider,
-  githubProvider
-} from '@/config/auth-firebase.config'
+import { authService } from '@/service/auth.service'
+import { facebookProvider, googleProvider, githubProvider } from '@/config/auth-firebase.config'
 
 export default {
-  name: 'header-auth',
+  name: 'HeaderAuth',
   methods: {
     async loginWithFacebook () {
       const res = await authService.socialMediaAuth(facebookProvider)
@@ -91,9 +71,9 @@ export default {
   background-color: rgb(66, 133, 244);
   color: rgb(255, 255, 255);
 }
-.button-github{
+.button-github {
   background-color: #333;
-    color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
 }
 .button-social__wrapper {
   width: 36px;
@@ -125,7 +105,7 @@ export default {
   height: 22px;
 }
 .social-white-background {
-  background-image: url("https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/a9e27c05087330a9581e4b9b39ad4417.png");
+  background-image: url('https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/a9e27c05087330a9581e4b9b39ad4417.png');
 }
 
 .social-white-fb-png {
@@ -136,5 +116,4 @@ export default {
   background-size: 516.667% 322.222%;
   background-position: 100% 100%;
 }
-
 </style>

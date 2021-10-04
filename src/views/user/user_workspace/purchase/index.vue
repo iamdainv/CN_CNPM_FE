@@ -1,34 +1,34 @@
 <template>
-<div>
+  <div>
     <div class="tab">
-        <button class="purchase-list-page__tab" :class="indexActive===0?' active':''" @click="changeIndexActive(0)" id="allbill" data-purchase="0">Tất cả</button>
-        <button class="purchase-list-page__tab" :class="indexActive===2?' active':''" @click="changeIndexActive(2)" id="billConfirmation" data-purchase="2">Chờ xác nhận</button>
-        <button class="purchase-list-page__tab" :class="indexActive===3?' active':''" @click="changeIndexActive(3)" id="billWaitTake" data-purchase="3">Chờ lấy hàng</button>
-        <button class="purchase-list-page__tab" :class="indexActive===4?' active':''" @click="changeIndexActive(4)" id="billDelivering" data-purchase="4">Đang giao</button>
-        <button class="purchase-list-page__tab" :class="indexActive===5?' active':''" @click="changeIndexActive(5)" id="billDelivered" data-purchase="5">Đã giao</button>
-        <button class="purchase-list-page__tab" :class="indexActive===6?' active':''" @click="changeIndexActive(6)" id="billCanceled" data-purchase="6">Đã hủy</button>
+      <button class="purchase-list-page__tab" :class="indexActive===0?' active':''" @click="changeIndexActive(0)" id="allbill" data-purchase="0">Tất cả</button>
+      <button class="purchase-list-page__tab" :class="indexActive===2?' active':''" @click="changeIndexActive(2)" id="billConfirmation" data-purchase="2">Chờ xác nhận</button>
+      <button class="purchase-list-page__tab" :class="indexActive===3?' active':''" @click="changeIndexActive(3)" id="billWaitTake" data-purchase="3">Chờ lấy hàng</button>
+      <button class="purchase-list-page__tab" :class="indexActive===4?' active':''" @click="changeIndexActive(4)" id="billDelivering" data-purchase="4">Đang giao</button>
+      <button class="purchase-list-page__tab" :class="indexActive===5?' active':''" @click="changeIndexActive(5)" id="billDelivered" data-purchase="5">Đã giao</button>
+      <button class="purchase-list-page__tab" :class="indexActive===6?' active':''" @click="changeIndexActive(6)" id="billCanceled" data-purchase="6">Đã hủy</button>
     </div>
     <div class="spinner" v-if="loading">
-        <div class="bounce1"></div>
-        <div class="bounce2"></div>
-        <div class="bounce3"></div>
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
     </div>
     <!-- <div class="purchase-empty-order__container purchase-list-page__empty-page-wrapper">
         <div class="purchase-empty-order__icon"></div>
         <div class="purchase-empty-order__text">Chưa có đơn hàng</div>
     </div> -->
     <div v-else>
-        <div class="purchase-order__container">
-            <cart-purchase :listProduct="listProduct"></cart-purchase>
-        </div>
+      <div class="purchase-order__container">
+        <cart-purchase :listProduct="listProduct"></cart-purchase>
+      </div>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
 import CartPurchase from '@/views/user/user_workspace/cart_purchase'
 export default {
-    name: 'purchase',
+    name: 'Purchase',
     components: {
         CartPurchase
     },
