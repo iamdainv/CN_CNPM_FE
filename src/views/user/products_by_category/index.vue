@@ -32,7 +32,7 @@ import CategoryMobile from '@/components/user/category_mobile'
 import ListProduct from '@/views/user/products_by_category/list_product'
 import Pagination from '@/views/user/products_by_category/pagination'
 export default {
-  name: 'products-by-category',
+  name: 'ProductsByCategory',
   components: {
     ListCategory,
     FilterProducts,

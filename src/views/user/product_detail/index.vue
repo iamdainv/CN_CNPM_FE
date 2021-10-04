@@ -1,36 +1,36 @@
 <template>
-    <div class="container app__container">
-        <div class="row product">
-            <div class="col col-lg-5 col-md-5 col-sm-12">
-                <!-- depicted product -->
-                <depicted-product></depicted-product>
-            </div>
+  <div class="container app__container">
+    <div class="row product">
+      <div class="col col-lg-5 col-md-5 col-sm-12">
+        <!-- depicted product -->
+        <depicted-product></depicted-product>
+      </div>
 
-            <div class="col col-lg-7 col-md-7 col-sm-12">
-                <!-- sale product -->
-                <sale-product></sale-product>
-                <!-- guarantee product -->
-                <a class="guarantee-product" href="#">
-                    <div>
-                        <img
-                            src="@/assets/img/GuaranteeProduct.png"
-                            alt="guarantee product"
-                            class="guarantee-product-img">
-                        <span class="guarantee-product-title">Shopee Đảm Bảo</span>
-                    </div>
-                    <span class="guarantee-product-desc">3 Ngày Trả Hàng / Hoàn Tiền</span>
-                </a>
-            </div>
-        </div>
-        <div class="row product mt-5 p-5">
-            <!-- detail product -->
-            <detail-product></detail-product>
-        </div>
-        <div class="row product mt-5 p-5">
-            <!-- comment -->
-            <comment></comment>
-        </div>
+      <div class="col col-lg-7 col-md-7 col-sm-12">
+        <!-- sale product -->
+        <sale-product></sale-product>
+        <!-- guarantee product -->
+        <a class="guarantee-product" href="#">
+          <div>
+            <img
+              src="@/assets/img/GuaranteeProduct.png"
+              alt="guarantee product"
+              class="guarantee-product-img">
+            <span class="guarantee-product-title">Shopee Đảm Bảo</span>
+          </div>
+          <span class="guarantee-product-desc">3 Ngày Trả Hàng / Hoàn Tiền</span>
+        </a>
+      </div>
     </div>
+    <div class="row product mt-5 p-5">
+      <!-- detail product -->
+      <detail-product></detail-product>
+    </div>
+    <div class="row product mt-5 p-5">
+      <!-- comment -->
+      <comment></comment>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -39,7 +39,7 @@ import SaleProduct from '@/views/user/product_detail/sale_product'
 import DetailProduct from '@/views/user/product_detail/detail_product'
 import Comment from '@/views/user/product_detail/comment'
 export default {
-  name: 'product-detail',
+  name: 'ProductDetail',
   components: {
     DepictedProduct,
     SaleProduct,

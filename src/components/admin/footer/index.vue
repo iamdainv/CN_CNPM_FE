@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'footer-admin'
+  name: 'FooterAdmin'
 }
 </script>
 

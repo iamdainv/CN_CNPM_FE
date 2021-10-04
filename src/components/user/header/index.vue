@@ -4,36 +4,18 @@
       <nav class="header__navbar hide-on-mobile-tablet">
         <ul class="header__navbar-list">
           <li class="header__navbar-item">
-            <a
-              class="header__navbar-title--no-pointer btn-linkto-producer"
-              href="#"
-              >Vào trang người bán</a
-            >
+            <a class="header__navbar-title--no-pointer btn-linkto-producer" href="#">Vào trang người bán</a>
           </li>
-          <li
-            class="header__navbar-item header__navbar-item--has-qr header__navbar-item--separate"
-          >
+          <li class="header__navbar-item header__navbar-item--has-qr header__navbar-item--separate">
             Vào cửa hàng ứng dụng
             <div class="header__qr">
-              <img
-                src="@/assets/img/QR.png"
-                alt="QR code"
-                class="header__qr-img"
-              />
+              <img src="@/assets/img/QR.png" alt="QR code" class="header__qr-img" />
               <div class="header__qr-apps">
                 <a href="#" class="header__qr-link">
-                  <img
-                    src="@/assets/img/GooglePlay.png"
-                    alt="Google play"
-                    class="header__qr-download-img"
-                  />
+                  <img src="@/assets/img/GooglePlay.png" alt="Google play" class="header__qr-download-img" />
                 </a>
                 <a href="#" class="header__qr-link">
-                  <img
-                    src="@/assets/img/AppStore.png"
-                    alt="App store"
-                    class="header__qr-download-img"
-                  />
+                  <img src="@/assets/img/AppStore.png" alt="App store" class="header__qr-download-img" />
                 </a>
               </div>
             </div>
@@ -48,9 +30,7 @@
         </ul>
 
         <ul class="header__navbar-list">
-          <li
-            class="header__navbar-item header__navbar-item--strong header__navbar-item--has-notify"
-          >
+          <li class="header__navbar-item header__navbar-item--strong header__navbar-item--has-notify">
             <a href="#" class="header__navbar-item-link">
               <i class="header__navbar-icon far fa-bell"></i>
               Thông báo
@@ -65,21 +45,11 @@
             </a>
           </li>
           <!-- login on pc -->
-          <li
-            class="header__navbar-item header__navbar-item--strong header__navbar-item--separate"
-          >
-            <router-link
-:to="{ name: 'register' }"
-class="header__navbar-item-link"
-              >Đăng ký</router-link
-            >
+          <li class="header__navbar-item header__navbar-item--strong header__navbar-item--separate">
+            <router-link :to="{ name: 'register' }" class="header__navbar-item-link">Đăng ký</router-link>
           </li>
           <li class="header__navbar-item header__navbar-item--strong">
-            <router-link
-:to="{ name: 'login' }"
-class="header__navbar-item-link"
-              >Đăng nhập</router-link
-            >
+            <router-link :to="{ name: 'login' }" class="header__navbar-item-link">Đăng nhập</router-link>
           </li>
           <LoginPC></LoginPC>
         </ul>
@@ -97,20 +67,11 @@ class="header__navbar-item-link"
           </a>
         </div>
 
-        <input
-          type="checkbox"
-          hidden
-          id="mobile-search-checkbox"
-          class="header__search-checkbox"
-        />
+        <input type="checkbox" hidden id="mobile-search-checkbox" class="header__search-checkbox" />
 
         <div class="header__search">
           <div class="header__search-input-wrap">
-            <input
-              type="text"
-              class="header__search-input"
-              placeholder="Nhập để tìm kiếm sản phẩm"
-            />
+            <input type="text" class="header__search-input" placeholder="Nhập để tìm kiếm sản phẩm" />
             <div class="header__search-history">
               <h3 class="header__search-history-heading">Lịch sử tìm kiếm</h3>
               <ul class="header__search-history-list"></ul>
@@ -157,7 +118,7 @@ import CartHeader from '@/components/user/header/cart_header'
 import SortMobile from '@/components/user/header/sort_mobile'
 import LoginMobileTablet from '@/components/user/header/login_mobile_tablet'
 export default {
-  name: 'header-user',
+  name: 'HeaderUser',
   components: {
     HeaderNotify,
     LoginPC,

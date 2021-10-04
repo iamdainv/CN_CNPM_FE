@@ -1,14 +1,29 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-import { asyncRouterMap, asyncRouterAuth, constantRouterMap } from '@/config/router.config'
+import Router from 'vue-router'
+import {
+  constantAdminRouterMap,
+  asyncRouterMap,
+  constRouteMapClient,
+  asyncRouterAuthClient
+} from '@/config/router.config'
+// import store from '@/store'
 
-Vue.use(VueRouter)
+Vue.use(Router)
 
-const router = new VueRouter({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   scrollBehavior: () => ({ y: 0 }),
-  routes: constantRouterMap.concat(asyncRouterMap, asyncRouterAuth)
+  routes: constRouteMapClient.concat(asyncRouterMap, constantAdminRouterMap, asyncRouterAuthClient)
 })
-
+router.beforeEach((routeTo, routeFrom, next) => {
+  // if (routeTo.meta.requiredLogin === true && !store.getters.token) {
+  //   next({ name: '/' })
+  // } else {
+  //   next()
+  // }
+  next()
+})
+// router.beforeResolve(async (routeTo, routeFrom, next) => {})
+// router.afterEach((routeTo, routeFrom) => {})
 export default router
