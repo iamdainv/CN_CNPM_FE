@@ -26,6 +26,7 @@ import HomeCarousel from '@/components/user/home_carousel'
 import CategoryMobile from '@/components/user/category_mobile'
 import CategoryHome from '@/components/user/category_home_pc'
 import ProductItem from '@/views/user/home/product_item'
+import { apiService } from '@/api/api'
 export default {
   name: 'home',
   components: {
@@ -39,6 +40,16 @@ export default {
       listProduct: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
       listCategory: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
     }
+  },
+  mounted () {
+    // DEMO get mock api
+    const queryParams = {
+      page: 2
+    }
+    apiService.get('/hello', queryParams).then(res => {
+      this.loadingData = false
+      this.jsonParse = res.data
+    }).catch(console.log)
   }
 }
 </script>

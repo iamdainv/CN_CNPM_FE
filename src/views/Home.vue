@@ -7,8 +7,8 @@
     <template v-else-if="loadingData === false">
       <HelloWorld :msg="msg" />
       <HelloWorld :msg="msg" />
-      <p> Test call api axios </p>
-      <pre> {{ JSON.stringify(jsonParse, null, '\t') }} </pre>
+      <p>Test call api axios</p>
+      <pre> {{ JSON.stringify(jsonParse, null, "\t") }} </pre>
     </template>
   </div>
 </template>
@@ -36,10 +36,10 @@ export default {
       page: 2
     }
     staticClientStorage.set('abc', '1234')
-    apiService.get('/users', queryParams).then(res => {
+    apiService.get('/hello', queryParams).then(res => {
       this.loadingData = false
       this.jsonParse = res.data
-    })
+    }).catch(console.log)
   }
 }
 </script>
