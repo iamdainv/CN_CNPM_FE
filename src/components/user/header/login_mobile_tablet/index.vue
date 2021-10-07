@@ -4,19 +4,16 @@
 
     <ul class="header__navbar-user-menu">
       <li class="header__navbar-user-item">
-        <a href="#">Nguyễn Cao Thìn</a>
+        <div @click="gotoAccount">Tài khoản của tôi</div>
       </li>
       <li class="header__navbar-user-item">
-        <a href="/user/profile">Tài khoản của tôi</a>
+        <div @click="gotoAddress">Địa chỉ của tôi</div>
       </li>
       <li class="header__navbar-user-item">
-        <a href="#">Địa chỉ của tôi</a>
-      </li>
-      <li class="header__navbar-user-item">
-        <a href="#">Đơn mua</a>
+        <div @click="gotoPurchase">Đơn mua</div>
       </li>
       <li class="header__navbar-user-item header__navbar-user-item--separate">
-        <a href="#">Đăng xuất</a>
+        <div @click="handleLogout">Đăng xuất</div>
       </li>
     </ul>
   </div>
@@ -24,7 +21,27 @@
 
 <script>
 export default {
-  name: 'LoginMobileTablet'
+  name: 'LoginMobileTablet',
+  methods: {
+    gotoAccount () {
+      if (this.$route.name !== 'userInfo') {
+        this.$router.push({ name: 'userInfo' })
+      }
+    },
+    gotoAddress () {
+      if (this.$route.name !== 'userAddress') {
+        this.$router.push({ name: 'userAddress' })
+      }
+    },
+    gotoPurchase () {
+      if (this.$route.name !== 'purchase') {
+        this.$router.push({ name: 'purchase' })
+      }
+    },
+    handleLogout () {
+      console.log('Logout')
+    }
+  }
 }
 </script>
 

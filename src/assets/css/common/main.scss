@@ -1,4 +1,12 @@
 /** @format */
+body::-webkit-scrollbar {
+    width: 5px;
+    background-color: #F5F5F5;
+} 
+
+body::-webkit-scrollbar-thumb {
+    background-color: #999;
+}
 
 a:hover {
 	text-decoration: none;
@@ -93,12 +101,13 @@ a:hover {
 	border-bottom-right-radius: 2px;
 }
 
-.header__navbar-user-item a {
+.header__navbar-user-item div {
 	text-decoration: none;
 	color: var(--text-color);
 	font-size: 1.4rem;
 	padding: 8px 16px;
 	display: block;
+	cursor: pointer;
 }
 
 .header__navbar-user-item--separate {
@@ -479,6 +488,7 @@ a:hover {
 	color: transparent;
 	display: block;
 	line-height: 0;
+	cursor: pointer;
 }
 
 .header__logo-img {
@@ -939,6 +949,20 @@ a:hover {
 	padding: 12px 0;
 }
 
+.category-sidebar {
+	height: 600px;
+	overflow-y: scroll;
+}
+
+.category-sidebar::-webkit-scrollbar {
+	width: 3px;
+    background-color: #F5F5F5;
+}
+
+.category-sidebar::-webkit-scrollbar-thumb {
+    background-color: #999;
+}
+
 .category__heading {
 	margin: 0;
 	font-size: 1.6rem;
@@ -984,6 +1008,12 @@ a:hover {
 	padding: 12px 32px;
 	left: 0;
 	transition: left linear 0.1s;
+	cursor: pointer;
+}
+
+.category-item__content.category-item__link {
+	padding: 6px 16px;
+	text-align: center;
 }
 
 .category-item__link:hover {
@@ -1004,6 +1034,16 @@ a:hover {
 	right: calc(100% - 28px);
 	top: 50%;
 	transform: translateY(calc(-50% - 1px));
+}
+
+.category-name {
+	font-size: 1.4rem;
+	height: 4.2rem;
+	overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+	text-overflow: ellipsis;
+	-webkit-line-clamp: 2;
 }
 
 /* Home shop filter */
@@ -1145,6 +1185,7 @@ a:hover {
 	will-change: transform;
 	display: block;
 	text-decoration: none;
+	cursor: pointer;
 }
 
 .home-produce-item:hover {

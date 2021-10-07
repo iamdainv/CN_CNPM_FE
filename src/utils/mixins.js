@@ -64,6 +64,9 @@ const mixin = {
       const val = (value / 1).toFixed(0).replace('.', ',')
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
     },
+    formatPriceToVND (value) {
+      return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(value)
+    },
     formatPhone (value) {
       const val = (value / 1).toFixed(0).replace('.', ',')
       return val.toString().replace(/^[2-9]\d{2}-\d{3}-\d{4}$/g, '.')

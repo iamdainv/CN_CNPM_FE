@@ -6,13 +6,13 @@
     </h3>
     <ul class=" row-lbr sm-gutter list-product">
       <li class="category-item l-1" v-for="(cat, index) in listCategory" :key="index">
-        <a href="" class="category-item__link">
+        <div class="category-item__content category-item__link" @click="gotoProductsByCategory(cat)">
           <div
             class="home-produce-item__img image-category"
-            style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnnx2KJ1IJAuVvf1jcdOvKMd36UuVOkkrtdQ&usqp=CAU');"
+            :style="'background-image: url(' + cat.image + ');'"
           ></div>
-          <div class="category-name">cat.name</div>
-        </a>
+          <div class="category-name">{{ cat.original_category_name }}</div>
+        </div>
       </li>
     </ul>
   </div>
@@ -25,6 +25,11 @@ export default {
     listCategory: {
       type: Array,
       required: true
+    }
+  },
+  methods: {
+    gotoProductsByCategory (cat) {
+      this.$router.push({ name: 'productsByCategory', params: { categoryId: cat.id } })
     }
   }
 }
