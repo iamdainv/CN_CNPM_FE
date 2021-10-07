@@ -1,5 +1,15 @@
 const request = {
-  demo: require('./demo.json')
+  demo: require('./demo.json'),
+  address: require('./address.json'),
+  billDetail: require('./billDetail.json'),
+  category: require('./category.json'),
+  imageComment: require('./imageComment.json'),
+  imageProduct: require('./imageProduct.json'),
+  product: require('./product.json'),
+  roles: require('./roles.json'),
+  statusBill: require('./statusBill.json'),
+  userComment: require('./userComment.json'),
+  users: require('./users.json')
 }
 
 export default request

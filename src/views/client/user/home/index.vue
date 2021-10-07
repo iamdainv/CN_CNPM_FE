@@ -5,14 +5,14 @@
         <div class="col-lbr l-12 m-12 c-12">
           <div class="home-produce">
             <!-- category mobile -->
-            <category-mobile></category-mobile>
+            <category-mobile :listCategory="listCategory"></category-mobile>
             <!-- home carousel -->
             <home-carousel style="margin-bottom: 18px"></home-carousel>
             <!-- category home pc -->
             <category-home :listCategory="listCategory"></category-home>
             <!-- list product -->
             <div class="row-lbr sm-gutter list-product" style="padding-bottom: 40px; margin-top: 20px">
-              <product-item v-for="(product, index) in listProduct" :key="index"></product-item>
+              <product-item v-for="(product, index) in listProduct" :key="index" :product="product"></product-item>
             </div>
           </div>
         </div>
@@ -26,6 +26,8 @@ import HomeCarousel from '@/components/user/home_carousel'
 import CategoryMobile from '@/components/user/category_mobile'
 import CategoryHome from '@/components/user/category_home_pc'
 import ProductItem from '@/views/client/user/home/product_item'
+import { getListProduct } from '@/api/user/product'
+import { getListCategory } from '@/api/user/category'
 export default {
   name: 'Home',
   components: {
@@ -36,8 +38,26 @@ export default {
   },
   data () {
     return {
-      listProduct: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      listCategory: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+      listProduct: [],
+      listCategory: []
+    }
+  },
+  created () {
+    this.getListCategory()
+    this.getListProduct()
+  },
+  methods: {
+    getListProduct () {
+      getListProduct().then(res => {
+        this.listProduct = res.data
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    getListCategory () {
+      getListCategory().then(res => {
+        this.listCategory = res.data
+      })
     }
   }
 }

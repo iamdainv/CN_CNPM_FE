@@ -1,0 +1,22 @@
+{
+    "body": {
+        "data": [
+            {
+              "id_user": "1",
+              "role_name": "SELLER"
+            },
+            {
+              "id_user": "2",
+              "role_name": "BUYER"
+            },
+            {
+              "id_user": "2",
+              "role_name": "SELLER"
+            },
+            {
+              "id_user": "1",
+              "role_name": "BUYER"
+            }
+          ]
+    }
+}

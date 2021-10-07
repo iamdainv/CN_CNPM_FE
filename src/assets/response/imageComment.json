@@ -1,0 +1,56 @@
+{
+    "body": {
+        "data": [
+            {
+              "id": "1",
+              "id_comment": "1",
+              "image": "https://cf.shopee.vn/file/db4ee938f1ccfc02a796fbd5b2c8f37c_tn"
+            },
+            {
+              "id": "2",
+              "id_comment": "1",
+              "image": "https://cf.shopee.vn/file/db4ee938f1ccfc02a796fbd5b2c8f37c_tn"
+            },
+            {
+              "id": "3",
+              "id_comment": "1",
+              "image": "https://cf.shopee.vn/file/db4ee938f1ccfc02a796fbd5b2c8f37c_tn"
+            },
+            {
+              "id": "4",
+              "id_comment": "1",
+              "image": "https://cf.shopee.vn/file/db4ee938f1ccfc02a796fbd5b2c8f37c_tn"
+            },
+            {
+              "id": "11",
+              "id_comment": "21",
+              "image": "https://localhost:44348/Uploads/1620582212-dong-phuc-ao-thun-polo-nu-92.jpg"
+            },
+            {
+              "id": "12",
+              "id_comment": "22",
+              "image": "https://localhost:44348/Uploads/1620582348-dong-phuc-ao-thun-polo-nu-92.jpg"
+            },
+            {
+              "id": "13",
+              "id_comment": "23",
+              "image": "https://localhost:44348/Uploads/1620582366-dong-phuc-ao-thun-polo-nu-92.jpg"
+            },
+            {
+              "id": "14",
+              "id_comment": "24",
+              "image": "https://localhost:44348/Uploads/1620609076-dong-phuc-ao-thun-polo-nu-92.jpg"
+            },
+            {
+              "id": "15",
+              "id_comment": "25",
+              "image": "https://localhost:44348/Uploads/1620895702-152362302_512380350162401_1250895368358632488_n.jpg"
+            },
+            {
+              "id": "16",
+              "id_comment": "25",
+              "image": "https://localhost:44348/Uploads/1620895702-featured-770x540.jpg"
+            }
+          ]
+    }
+}

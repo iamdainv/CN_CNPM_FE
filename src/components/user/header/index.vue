@@ -62,9 +62,9 @@
         </label>
 
         <div class="header__logo hide-on-tablet">
-          <a href="#" class="header__logo-link">
+          <div class="header__logo-link" @click="gotoHome">
             <img src="@/assets/img/logo.svg" class="header__logo-img" />
-          </a>
+          </div>
         </div>
 
         <input type="checkbox" hidden id="mobile-search-checkbox" class="header__search-checkbox" />
@@ -125,6 +125,13 @@ export default {
     CartHeader,
     SortMobile,
     LoginMobileTablet
+  },
+  methods: {
+    gotoHome () {
+      if (this.$route.name !== 'home') {
+        this.$router.push({ name: 'home' })
+      }
+    }
   }
 }
 </script>

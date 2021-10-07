@@ -199,7 +199,7 @@
             </div>
           </li>
         </ul>
-        <a href="/cart" class="header__cart-view-cart btn btn--primary">Xem giỏ hàng</a>
+        <div class="header__cart-view-cart btn btn--primary" @click="gotoCart">Xem giỏ hàng</div>
       </div>
     </div>
   </div>
@@ -207,7 +207,14 @@
 
 <script>
 export default {
-  name: 'CartHeader'
+  name: 'CartHeader',
+  methods: {
+    gotoCart () {
+      if (this.$route.name !== 'cart') {
+        this.$router.push({ name: 'cart' })
+      }
+    }
+  }
 }
 </script>
 
