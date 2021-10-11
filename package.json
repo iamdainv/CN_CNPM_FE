@@ -28,6 +28,7 @@
     "moment": "^2.24.0",
     "node-sass": "^6.0.1",
     "nprogress": "^0.2.0",
+    "randomstring": "^1.2.1",
     "sass": "^1.42.1",
     "sass-loader": "10.0.0",
     "store": "^2.0.12",

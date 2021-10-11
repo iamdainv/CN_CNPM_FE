@@ -14,22 +14,20 @@
       >
         <a-form-item class="form-item">
           <a-input
-            placeholder="Email"
+            placeholder="Số điện thoại"
             class="form-input"
             size="large"
             v-decorator="[
-              'email',
+              'number_phone',
               {
                 rules: [
                   {
                     required: true,
-                    required: true,
-                    message: 'Please input your email!'
+                    message: 'Số điện thoại không được để trống!'
                   },
                   {
-                    type: 'email',
-                    required: true,
-                    message: 'Please enter the correct email format!'
+                    pattern: new RegExp(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g),
+                    message: 'Vui lòng nhập đúng số điện thoại!'
                   }
                 ]
               }
@@ -55,7 +53,7 @@
               }
             ]"
             type="password"
-            placeholder="Password"
+            placeholder="Mật khẩu"
           >
             <a-icon
               slot="prefix"
@@ -81,6 +79,7 @@
         <a class="login-sms" href="#">Đăng nhập với SMS</a>
       </div>
       <social-login/>
+      <div id="recaptcha-container"></div>
     </div>
     <div class="form-footer">
       <div class="form-footer__content mt-4">
@@ -98,6 +97,7 @@
 <script>
 
 import socialLogin from '@/components/auth/social-login.vue'
+import { authService } from '@/service/auth.service'
 
 export default {
   components: { socialLogin },
@@ -110,16 +110,17 @@ export default {
   beforeCreate () {
     this.form = this.$form.createForm(this, { name: 'normal_login' })
   },
+
   methods: {
     handleSubmit (e) {
       e.preventDefault()
-      this.form.validateFields((err, values) => {
+      this.form.validateFields(async (err, values) => {
         if (!err) {
           this.loading = true
-          setTimeout(() => {
-            this.loading = false
-          }, 2000)
-          console.log(values)
+         authService.handleLoginByNumberPhone(values.number_phone, values.password).then(response => {
+           this.loading = false
+           this.$router.push({ path: '/' })
+         })
         } else {
           console.log(err)
         }
@@ -130,61 +131,5 @@ export default {
 </script>
 
 <style>
-.line {
-  height: 1px;
-  width: 100%;
-  background-color: #dbdbdb;
-}
-.color_gray {
-  color: #ccc;
-}
-.button-facebook {
-  background-color: rgb(24, 119, 242);
-  color: rgb(255, 255, 255);
-}
-.button-google {
-  background-color: rgb(66, 133, 244);
-  color: rgb(255, 255, 255);
-}
-.button-social__wrapper {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: 5px;
-}
 
-.button__wrapper {
-  height: 40px;
-  border-radius: 2px;
-  flex-basis: 45%;
-  justify-content: space-around;
-  margin: 4px;
-}
-.button__wrapper:hover {
-  opacity: 0.9;
-}
-.button-login-google {
-  background-color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.social-icon {
-  width: 22px;
-  height: 22px;
-}
-.social-white-background {
-  background-image: url("https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/a9e27c05087330a9581e4b9b39ad4417.png");
-}
-
-.social-white-fb-png {
-  background-size: 372% 232%;
-  background-position: 76.4706% 15.1515%;
-}
-.social-white-gg-png {
-  background-size: 516.667% 322.222%;
-  background-position: 100% 100%;
-}
 </style>
