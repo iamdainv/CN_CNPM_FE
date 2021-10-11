@@ -8,5 +8,8 @@ export const api = {
     deleteProduct: '/product',
 
     // Category
-    getListCategory: '/category'
+    getListCategory: '/category',
+
+    // auth
+    login: '/register'
 }
