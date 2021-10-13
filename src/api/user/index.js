@@ -8,5 +8,15 @@ export const api = {
     deleteProduct: '/product',
 
     // Category
-    getListCategory: '/category'
+    getListCategory: '/category',
+
+    // Cart
+    getListProductInCart: '/cart',
+    addProductToCart: '/cart',
+    changeQuantityProductInCart: '/cart',
+    removeProductInCart: 'cart',
+    buyProductInCart: '/cart',
+
+    // auth
+    login: '/register'
 }

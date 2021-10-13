@@ -15,9 +15,9 @@
     </div>
     <!-- cart item -->
     <cart-item
-      v-for="(bill, index) in bills"
-      :key="index"
-      :index="index"
+      v-for="(bill, i) in bills"
+      :key="i"
+      :i="i"
       :bill="bill"
       @changeQuantityProduct="handleChangeQuantityProduct"
       @productChecked="handleProductChecked"
@@ -62,7 +62,7 @@ export default {
     },
     bills: {
       type: Array,
-      requried: true
+      required: true
     }
   },
   components: {

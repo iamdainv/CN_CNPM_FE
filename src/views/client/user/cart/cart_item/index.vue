@@ -42,7 +42,7 @@
 export default {
     name: 'CartItem',
     props: {
-        index: {
+        i: {
             type: Number,
             required: true
         },
@@ -70,12 +70,12 @@ export default {
         },
         handleSubQuantityProduct () {
             if (this.bill.quantity > 1) {
-                this.$emit('changeQuantityProduct', { indexBill: this.index, n: this.bill.quantity - 1 })
+                this.$emit('changeQuantityProduct', { indexBill: this.i, n: this.bill.quantity - 1 })
             }
         },
         handleAddQuantityProduct () {
             if (this.bill.quantity < 99) {
-                this.$emit('changeQuantityProduct', { indexBill: this.index, n: this.bill.quantity + 1 })
+                this.$emit('changeQuantityProduct', { indexBill: this.i, n: this.bill.quantity + 1 })
             }
         },
         handleChangeQuantityProduct (e) {
@@ -84,10 +84,10 @@ export default {
             if (value <= 0 || !value) {
                 value = 1
             }
-            this.$emit('changeQuantityProduct', { indexBill: this.index, n: value })
+            this.$emit('changeQuantityProduct', { indexBill: this.i, n: value })
         },
         handleChecked () {
-            this.$emit('productChecked', { indexBill: this.index })
+            this.$emit('productChecked', { indexBill: this.i })
         }
     }
 }

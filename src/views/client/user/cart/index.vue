@@ -58,6 +58,7 @@
 
 <script>
 import CartList from '@/views/client/user/cart/cart_list/'
+import { mapActions } from 'vuex'
 export default {
   name: 'Cart',
   components: {
@@ -74,56 +75,11 @@ export default {
     }
   },
   mounted () {
-    this.listBillBySeller = [
-      {
-        idSeller: 1,
-        seller: 'Nguyen Thin',
-        bills: [
-          {
-            product: {
-              img: 'https://www.mega-ks.com/wp-content/uploads/2017/09/CANON-EOS-80D-BODY-WITH-EF-S-18-55MM-IS-STM-1.jpg',
-              name: 'Máy ảnh Canon EOS 80D 18-55MM 3.5-5.6 IS STM',
-              price: 20000000,
-              discount: 5
-            },
-            quantity: 2
-          },
-          {
-            product: {
-              img: 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-mini-white-select-2020?wid=1200&hei=630&fmt=jpeg&qlt=95&op_usm=0.5,0.5&.v=1601830932000',
-              name: 'Apple iPhone 12 mini 64GB',
-              price: 30000000,
-              discount: 5
-            },
-            quantity: 1
-          }
-        ]
-      },
-      {
-        idSeller: 2,
-        seller: 'Dai Nguyen',
-        bills: [
-          {
-            product: {
-              img: 'https://i-techbd.com/wp-content/uploads/2019/12/Samsung-Galaxy-S15-.jpg',
-              name: 'Samsung Galasy s15',
-              price: 15000000,
-              discount: 5
-            },
-            quantity: 3
-          },
-          {
-            product: {
-              img: 'https://i.pinimg.com/originals/ba/cb/f9/bacbf92de815da10e178445e15e5b770.jpg',
-              name: 'Nhà Sách Online',
-              price: 100000,
-              discount: 5
-            },
-            quantity: 4
-          }
-        ]
-      }
-    ]
+    this.$store.dispatch('GetListProductInCart').then(rs => {
+      this.listBillBySeller = rs
+    }).catch(err => {
+      console.log('Error: ', err)
+    })
     const newList = [...this.listBillBySeller]
     newList.forEach(item => {
       item.bills.forEach(bill => {
@@ -137,6 +93,7 @@ export default {
     this.calcTotalPrice()
   },
   methods: {
+    ...mapActions(['GetListProductInCart']),
     handleChangeQuantityProduct ({ idSeller, indexBill, n }) {
       const newList = [...this.listBillBySeller]
       newList.forEach(item => {
