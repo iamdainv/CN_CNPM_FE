@@ -6,19 +6,19 @@
       <div class="line"></div>
     </div>
     <div class="flex justify-between">
-      <button class="flex button__wrapper button-facebook justify-center items-center" @click="loginWithFacebook">
+      <button class="flex button__wrapper button-facebook justify-center items-center" :class="isLoadingLoginFacebook && 'currently-logged'" @click="loginWithFacebook">
         <div class="button-social__wrapper button-login-facebook">
           <div class="social-white-background social-white-fb-png social-icon"></div>
         </div>
         <div>Facebook</div>
       </button>
-      <button class="flex button-google button__wrapper justify-center items-center" @click="loginWithGoogle">
+      <button class="flex button-google button__wrapper justify-center items-center" :class="isLoadingLoginGoogle && 'currently-logged'" @click="loginWithGoogle">
         <div class="button-social__wrapper button-login-google">
           <div class="social-white-background social-white-gg-png social-icon"></div>
         </div>
         <div>Google</div>
       </button>
-      <button class="flex button-github button__wrapper justify-center items-center" @click="loginWithGithub">
+      <button class="flex button-github button__wrapper justify-center items-center" :class="isLoadingLoginGithub && 'currently-logged'" @click="loginWithGithub">
         <div class="button-social__wrapper">
           <a-icon type="github" class="social-black-github social-icon font-22" />
         </div>
@@ -31,25 +31,94 @@
 <script>
 import { authService } from '@/service/auth.service'
 import { facebookProvider, googleProvider, githubProvider } from '@/config/auth-firebase.config'
-
+import { loginType } from '@/const/app.const'
 export default {
   name: 'HeaderAuth',
+
+  data () {
+    return {
+      isLoadingLoginGoogle: false,
+      isLoadingLoginFacebook: false,
+      isLoadingLoginGithub: false
+    }
+  },
+
   methods: {
+
+    async handleLogin (loginParam, typeLogin) {
+      console.log('loginParam', loginParam)
+      const [ firstName, lastName ] = loginParam.displayName.split(' ')
+
+      const userLogin = {
+        image: loginParam.photoURL,
+        email: loginParam.email,
+        phoneNumber: loginParam.phoneNumber,
+        uid: loginParam.uid,
+        firstName,
+        lastName,
+        address: ''
+      }
+
+      switch (typeLogin) {
+        case loginType.GOOGLE:
+          userLogin.googleId = loginParam.uid
+          break
+        case loginType.FACEBOOK:
+          userLogin.facebookId = loginParam.uid
+          break
+        case loginType.GITHUB:
+          userLogin.githubId = loginParam.uid
+          break
+      }
+
+      await authService.handleUserLoginOrRegisterSocial(userLogin, typeLogin)
+    },
+
     async loginWithFacebook () {
-      const res = await authService.socialMediaAuth(facebookProvider)
-      console.log(res)
+      try {
+        // this.isLoadingLoginGoogle = true
+        const res = await authService.socialMediaAuth(facebookProvider, () => { this.isLoadingLoginGoogle = false })
+        console.log('response facebook login', res)
+        // TODO: Login with facebook
+        // await this.handleLogin(res, loginType.FACEBOOK).then(res => {
+        //   this.isLoadingLoginFacebook = false
+        // })
+
+        this.isLoadingLoginFacebook = false
+      } catch (e) {
+        console.error('message.error_login_facebook', e)
+      }
     },
     async loginWithGoogle () {
-      // authService.socialMediaAuth(googleProvider)
-      const res = await authService.socialMediaAuth(googleProvider)
-      console.log(res)
+      try {
+        this.isLoadingLoginGoogle = true
+        const res = await authService.socialMediaAuth(googleProvider, () => { this.isLoadingLoginGoogle = false })
+
+        console.log('response google login', res)
+
+         this.handleLogin(res, loginType.GOOGLE).finally(() => {
+          this.isLoadingLoginGoogle = false
+        })
+      } catch (e) {
+        console.error('message.error_login_facebook', e)
+      }
     },
 
     async loginWithGithub () {
-      // authService.socialMediaAuth(googleProvider)
-      const res = await authService.socialMediaAuth(githubProvider)
-      console.log(res)
+     try {
+       this.isLoadingLoginGithub = true
+       const res = await authService.socialMediaAuth(githubProvider, () => { this.isLoadingLoginGithub = false })
+
+       console.log('response github login', res)
+
+        this.handleLogin(res, loginType.GITHUB).finally(() => {
+         this.isLoadingLoginGithub = false
+       })
+     } catch (e) {
+       console.error('message.error_login_github', e)
+     }
     }
+
   }
 }
 </script>
@@ -115,5 +184,9 @@ export default {
 .social-white-gg-png {
   background-size: 516.667% 322.222%;
   background-position: 100% 100%;
+}
+
+.currently-logged {
+  opacity: .7;
 }
 </style>

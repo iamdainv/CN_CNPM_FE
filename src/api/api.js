@@ -15,10 +15,10 @@ instance.interceptors.request.use(
   async config => {
     // eslint-disable-next-line semi
     const accessToken = '';
-    config.headers = {
-      Accept: 'application/json',
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
+    // config.headers = {
+    //   Accept: 'application/json',
+    //   'Content-Type': 'application/x-www-form-urlencoded'
+    // }
 
     if (!config.url.includes('login')) {
       config.headers.Authorization = `Bearer ${accessToken}`
@@ -51,11 +51,12 @@ instance.interceptors.response.use(
 
 class ApiService {
   makeRequest (method = 'GET', url = '', body = null, headers = {}) {
+    console.log('body', body)
     return instance({
       url: url,
       method,
       headers: { ...instance.defaults.headers, ...headers },
-      body
+      data: body
     })
   }
 

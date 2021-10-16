@@ -7,100 +7,33 @@
     </div>
     <div class="form-content">
       <a-form :form="form" @submit="handleSubmit">
-        <a-form-item>
-          <a-input
-            placeholder="First Name"
-            size="large"
-            v-decorator="[
-              'firstname',
-              {
-                rules: [
-                  { required: true, message: 'Please input your first name!' },
-                ],
-              },
-            ]"
-          />
-        </a-form-item>
-        <a-form-item>
-          <a-input
-            placeholder="Last Name"
-            size="large"
-            v-decorator="[
-              'lastname',
-              {
-                rules: [
-                  { required: true, message: 'Please input your last name!' },
-                ],
-              },
-            ]"
-          />
-        </a-form-item>
         <a-form-item class="form-item">
           <a-input
-            placeholder="Email"
+            placeholder="Số điện thoại"
+            class="form-input"
             size="large"
             v-decorator="[
-              'email',
+              'number_phone',
               {
                 rules: [
                   {
                     required: true,
-                    required: true,
-                    message: 'Please input your email!',
+                    message: 'Số điện thoại không được để trống !'
                   },
                   {
-                    type: 'email',
-                    required: true,
-                    message: 'Please enter the correct email format!',
-                  },
-                ],
-              },
+                    pattern: new RegExp(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g),
+                    message: 'Số điện thoại không hợp lệ'
+                  }
+                ]
+              }
             ]"
           >
+            <a-icon
+              slot="prefix"
+              type="user"
+              style="color: rgba(0, 0, 0, 0.25)"
+            />
           </a-input>
-        </a-form-item>
-        <a-form-item has-feedback>
-          <a-input
-            placeholder="Password"
-            size="large"
-            v-decorator="[
-              'password',
-              {
-                rules: [
-                  {
-                    required: true,
-                    message: 'Please input your password!',
-                  },
-                  {
-                    validator: validateToNextPassword,
-                  },
-                ],
-              },
-            ]"
-            type="password"
-          />
-        </a-form-item>
-        <a-form-item has-feedback>
-          <a-input
-            placeholder="Confirm Password"
-            size="large"
-            v-decorator="[
-              'confirm',
-              {
-                rules: [
-                  {
-                    required: true,
-                    message: 'Please confirm your password!',
-                  },
-                  {
-                    validator: compareToFirstPassword,
-                  },
-                ],
-              },
-            ]"
-            type="password"
-            @blur="handleConfirmBlur"
-          />
         </a-form-item>
         <a-form-item>
           <a-button
@@ -109,7 +42,7 @@
             html-type="submit"
             :loading="this.loading"
           >
-            Đăng ký
+            Tiếp theo
           </a-button>
         </a-form-item>
       </a-form>
@@ -134,7 +67,7 @@
 
 <script>
 import socialLogin from '@/components/auth/social-login.vue'
-
+import firebase from 'firebase'
 export default {
   components: { socialLogin },
   name: 'Register',
@@ -147,6 +80,35 @@ export default {
   },
   beforeCreate () {
     this.form = this.$form.createForm(this, { name: 'register' })
+  },
+
+  mounted () {
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+      'size': 'normal',
+      'callback': (response) => {
+        // reCAPTCHA solved, allow signInWithPhoneNumber.
+
+        const appVerifier = window.recaptchaVerifier
+        firebase.auth().signInWithPhoneNumber('+84888539611', appVerifier)
+          .then((confirmationResult) => {
+            // SMS sent. Prompt user to type the code from the message, then sign the
+            // user in with confirmationResult.confirm(code).
+            console.log(confirmationResult)
+            window.confirmationResult = confirmationResult
+            // ...
+          }).catch(res => {
+          // Error; SMS not sent
+          // ...
+          console.error(res)
+        })
+      },
+      'expired-callback': function () {
+        console.log('expired-callback')
+      }
+    })
+    window.recaptchaVerifier.render().then(function (widgetId) {
+      window.recaptchaWidgetId = widgetId
+    })
   },
   methods: {
     handleSubmit (e) {
