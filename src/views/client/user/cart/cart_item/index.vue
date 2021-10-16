@@ -39,10 +39,11 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
     name: 'CartItem',
     props: {
-        index: {
+        i: {
             type: Number,
             required: true
         },
@@ -65,17 +66,18 @@ export default {
         this.calcTotalPrice()
     },
     methods: {
+        ...mapActions(['ChangeQuantityProductInCart']),
         calcTotalPrice () {
             this.total = this.newPrice * this.bill.quantity
         },
         handleSubQuantityProduct () {
             if (this.bill.quantity > 1) {
-                this.$emit('changeQuantityProduct', { indexBill: this.index, n: this.bill.quantity - 1 })
+                this.$store.dispatch('ChangeQuantityProductInCart', { idProduct: this.bill.product.id, quantity: this.bill.quantity - 1 })
             }
         },
         handleAddQuantityProduct () {
-            if (this.bill.quantity < 99) {
-                this.$emit('changeQuantityProduct', { indexBill: this.index, n: this.bill.quantity + 1 })
+            if (this.bill.quantity < this.bill.product.quantity) {
+                this.$store.dispatch('ChangeQuantityProductInCart', { idProduct: this.bill.product.id, quantity: this.bill.quantity + 1 })
             }
         },
         handleChangeQuantityProduct (e) {
@@ -84,10 +86,13 @@ export default {
             if (value <= 0 || !value) {
                 value = 1
             }
-            this.$emit('changeQuantityProduct', { indexBill: this.index, n: value })
+            if (value > this.bill.product.quantity) {
+                value = this.bill.product.quantity
+            }
+            this.$store.dispatch('ChangeQuantityProductInCart', { idProduct: this.bill.product.id, quantity: value })
         },
         handleChecked () {
-            this.$emit('productChecked', { indexBill: this.index })
+            this.$emit('productChecked', { indexBill: this.i })
         }
     }
 }

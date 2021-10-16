@@ -7,7 +7,6 @@
       :idSeller="item.idSeller"
       :seller="item.seller"
       :bills="item.bills"
-      @changeQuantityProduct="handleChangeQuantityProduct"
       @productChecked="handleProductChecked"
       @cartShopChecked="handleCartShopChecked"
     >
@@ -29,9 +28,6 @@ export default {
     CartShop
   },
   methods: {
-    handleChangeQuantityProduct ({ idSeller, indexBill, n }) {
-      this.$emit('changeQuantityProduct', { idSeller, indexBill, n })
-    },
     handleProductChecked ({ idSeller, indexBill }) {
       this.$emit('productChecked', { idSeller, indexBill })
     },
