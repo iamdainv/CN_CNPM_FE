@@ -1,5 +1,5 @@
 <template>
-  <div class="cart-shop">
+  <div class="cart-shop" v-if="bills.length > 0">
     <div class="cart-shop-header">
       <div class="cart-item__cell-checkbox">
         <input
@@ -19,7 +19,6 @@
       :key="i"
       :i="i"
       :bill="bill"
-      @changeQuantityProduct="handleChangeQuantityProduct"
       @productChecked="handleProductChecked"
     ></cart-item>
     <!-- cart voucher -->
@@ -80,9 +79,6 @@ export default {
     this.checkedAll = this.isCheckAll()
   },
   methods: {
-    handleChangeQuantityProduct ({ indexBill, n }) {
-      this.$emit('changeQuantityProduct', { idSeller: this.idSeller, indexBill, n })
-    },
     handleProductChecked ({ indexBill }) {
       this.$emit('productChecked', { idSeller: this.idSeller, indexBill })
       this.checkedAll = this.isCheckAll()

@@ -1,7 +1,12 @@
 <template>
   <div class="cart">
     <div class="container">
-      <div class="cart__content">
+      <div v-if="listBillBySeller.length === 0" class="cart--no-cart">
+        <img src="@/assets/img/no-cart.png" alt="No cart" class="cart--no-cart-img"/>
+        <span class="cart-list--no-cart-msg">Chưa có sản phẩm</span>
+        <button class="btn shopee-button-solid" @click="backToHome">MUA NGAY</button>
+      </div>
+      <div class="cart__content" v-else>
         <!-- cart header -->
         <div class="cart-product-header">
           <div class="cart-item__cell-checkbox">
@@ -12,7 +17,6 @@
         <!-- cart list -->
         <cart-list
           :listBillBySeller="listBillBySeller"
-          @changeQuantityProduct="handleChangeQuantityProduct"
           @productChecked="handleProductChecked"
           @cartShopChecked="handleCartShopChecked"
           :key="keyRerender"
@@ -64,22 +68,33 @@ export default {
   components: {
     CartList
   },
+  computed: {
+    listBillBySeller () {
+      return this.$store.getters.listBillBySeller
+    }
+  },
+  watch: {
+    listBillBySeller (newList, oldList) {
+      console.log('newList: ', newList)
+      this.calcTotalPrice()
+    }
+  },
   data () {
     return {
       checkedAll: false,
-      listBillBySeller: [],
       listChecked: [],
       totalPrice: 0,
       totalProductChecked: 0,
       keyRerender: false
     }
   },
-  mounted () {
-    this.$store.dispatch('GetListProductInCart').then(rs => {
-      this.listBillBySeller = rs
+  created () {
+    this.$store.dispatch('GetListBillBySeller').then(rs => {
     }).catch(err => {
-      console.log('Error: ', err)
+      console.log('Error : ', err)
     })
+  },
+  mounted () {
     const newList = [...this.listBillBySeller]
     newList.forEach(item => {
       item.bills.forEach(bill => {
@@ -89,22 +104,8 @@ export default {
     this.listBillBySeller = newList
     this.calcTotalPrice()
   },
-  updated () {
-    this.calcTotalPrice()
-  },
   methods: {
-    ...mapActions(['GetListProductInCart']),
-    handleChangeQuantityProduct ({ idSeller, indexBill, n }) {
-      const newList = [...this.listBillBySeller]
-      newList.forEach(item => {
-        if (item.idSeller === idSeller) {
-          item.bills[indexBill].quantity = n
-        }
-      })
-      this.listBillBySeller = newList
-      this.calcTotalPrice()
-      this.keyRerender = !this.keyRerender
-    },
+    ...mapActions(['GetListBillBySeller', 'SetListBillBySeller', 'BuyProductsInCart']),
     handleProductChecked ({ idSeller, indexBill }) {
       const newList = [...this.listBillBySeller]
       newList.forEach(item => {
@@ -113,6 +114,7 @@ export default {
         }
       })
       this.listBillBySeller = newList
+      this.$store.dispatch('SetListBillBySeller', [...newList])
       this.checkedAll = this.isCheckAll()
       this.calcTotalPrice()
     },
@@ -125,7 +127,7 @@ export default {
           })
         }
       })
-      this.listBillBySeller = newList
+      this.$store.dispatch('SetListBillBySeller', [...newList])
       this.checkedAll = this.isCheckAll()
       this.calcTotalPrice()
       this.keyRerender = !this.keyRerender
@@ -137,7 +139,7 @@ export default {
           bill.checked = !this.checkedAll
         })
       })
-      this.listBillBySeller = newList
+      this.$store.dispatch('SetListBillBySeller', newList)
       this.checkedAll = !this.checkedAll
       this.keyRerender = !this.keyRerender
     },
@@ -168,22 +170,19 @@ export default {
       this.totalProductChecked = totalProductChecked
     },
     buyProducts () {
-      let productsBuy = []
-      let newList = [...this.listBillBySeller]
-      newList = newList.filter(item => {
-        item.bills = item.bills.filter(bill => {
+      let idProductsBuy = []
+      this.listBillBySeller.forEach(item => {
+        item.bills.forEach(bill => {
           if (bill.checked) {
-            productsBuy = productsBuy.concat(bill.product)
-            return false
+            idProductsBuy = idProductsBuy.concat([bill.product.id])
           }
-          return true
         })
-        return item.bills.length > 0
       })
-      this.listBillBySeller = newList
-      console.log('Products bought: ', productsBuy)
-      console.log('Product remain in cart: ', this.listBillBySeller)
+      this.$store.dispatch('BuyProductsInCart', { idProductsBuy: idProductsBuy })
       this.keyRerender = !this.keyRerender
+    },
+    backToHome () {
+      this.$router.push({ name: 'home' })
     }
   }
 }
@@ -201,6 +200,23 @@ export default {
 label {
     padding: 0;
     margin: 0;
+}
+
+.cart--no-cart {
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.cart--no-cart-img {
+  width: 40%;
+  margin: 0 auto;
+}
+
+.cart-list--no-cart-msg {
+  display: block;
+	margin: 20px 0;
+	font-size: 1.8rem;
 }
 
 .cart-item__cell-checkbox {
