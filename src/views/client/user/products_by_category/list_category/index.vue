@@ -41,8 +41,9 @@ export default {
   methods: {
     gotoProductsByCategory (cat) {
       if (Number.parseInt(cat.id) !== this.currentIdCategory) {
-        this.$router.push({ name: 'productsByCategory', params: { categoryId: cat.id } })
         this.currentIdCategory = cat.id
+        this.$emit('getByCategoryId', cat.id)
+        this.$router.push({ name: 'productsByCategory', params: { categoryId: cat.id } })
       }
     }
   }
