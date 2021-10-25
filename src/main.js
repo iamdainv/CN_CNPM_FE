@@ -10,7 +10,7 @@ import i18n from './locales'
 import { VueAxios } from './utils/request'
 import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
 import themePluginConfig from '../config/themePluginConfig'
-import { Carousel } from 'ant-design-vue'
+import { Carousel, Pagination } from 'ant-design-vue'
 
 // import './mock'
 
@@ -24,6 +24,7 @@ Vue.config.productionTip = false
 
 Vue.use(VueAxios)
 Vue.use(Carousel)
+Vue.use(Pagination)
 // use pro-layout components
 Vue.component('pro-layout', ProLayout)
 Vue.component('page-container', PageHeaderWrapper)
