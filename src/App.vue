@@ -9,7 +9,7 @@
 <script>
 import { domTitle, setDocumentTitle } from '@/utils/domUtil'
 import { i18nRender } from '@/locales'
-
+import '@/utils/mixins'
 export default {
   data () {
     return {}

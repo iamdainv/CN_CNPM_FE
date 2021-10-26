@@ -12,7 +12,58 @@ const user = {
     welcome: null,
     avatar: null,
     roles: [],
-    info: {}
+    info: {
+
+      firstName: 'Nguyễn Cao',
+      lastName: 'Thìn',
+      photoURL: 'https://cf.shopee.vn/file/3fc286d5073fbafafdcf616a505672eb',
+      numberPhone: '08345345345',
+      email: 'shobbebus@gmail.com',
+      currentAddress: 'Số 26, ngõ 62, Vân Canh, Hoài Đức, Hà Nội',
+      shopName: 'Shop của Thìn'
+    },
+    userAddress: [
+      {
+        id: 1,
+        name: 'Nguyễn Viêt Đại',
+        phone: '(+84) 888539611',
+        address: 'Số nhà 26 ngõ 62 đường Hậu Ái, Vân Canh , Hoài Đức , Hà Nội',
+        ward: 'Xã Vân Canh',
+        district: 'Huyện Hoài Đức',
+        city: 'Hà Nội',
+        is_delivery_address: true
+      },
+      {
+        id: 4,
+        name: 'Nguyễn Viêt Đại',
+        phone: '(+84) 888539611',
+        address: 'Số nhà 26 ngõ 62 đường Hậu Ái, Vân Canh , Hoài Đức , Hà Nội',
+        ward: 'Xã Vân Canh',
+        district: 'Huyện Hoài Đức',
+        city: 'Hà Nội',
+        is_delivery_address: false
+      },
+      {
+        id: 2,
+        name: 'Nguyễn Viêt Đại',
+        phone: '(+84) 888539611',
+        address: 'Số nhà 26 ngõ 62 đường Hậu Ái, Vân Canh , Hoài Đức , Hà Nội',
+        ward: 'Xã Vân Canh',
+        district: 'Huyện Hoài Đức',
+        city: 'Hà Nội',
+        is_delivery_address: false
+      },
+      {
+        id: 123,
+        name: 'Nguyễn Viêt Đại',
+        phone: '(+84) 888539611',
+        address: 'Số nhà 26 ngõ 62 đường Hậu Ái, Vân Canh , Hoài Đức , Hà Nội',
+        ward: 'Xã Vân Canh',
+        district: 'Huyện Hoài Đức',
+        city: 'Hà Nội',
+        is_delivery_address: false
+      }
+    ]
   },
 
   mutations: {

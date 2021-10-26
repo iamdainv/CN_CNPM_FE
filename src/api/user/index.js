@@ -11,5 +11,13 @@ export const api = {
     getListCategory: '/category',
 
     // auth
-    login: '/register'
+    login: '/register',
+
+    // user
+    getUserInfo: '/user/info',
+
+    // bill
+    getBillByUser: '/bill/info',
+    updateBillStatus: '/bill'
+
 }

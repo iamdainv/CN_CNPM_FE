@@ -1,0 +1,92 @@
+{
+  "data": [
+    {
+      "seller": {
+        "id": 1,
+        "firstname": "Nguyen",
+        "lastname": "Thin"
+      },
+      "product": {
+        "id": 1,
+        "name": "May tinh Lenovo",
+        "discount": 5,
+        "price": 15000000,
+        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzMIpyOtk71s3veC01pXEh1Wv9lOOCS9UMkg&usqp=CAU"
+      },
+      "category": {
+        "name": "may tinh"
+      },
+      "billDetail": {
+        "quantity": 3,
+        "idStatus": 3,
+        "id": 1
+      }
+    },
+    {
+      "seller": {
+        "id": 1,
+        "firstname": "Nguyen",
+        "lastname": "Thin"
+      },
+      "product": {
+        "id": 1,
+        "name": "May tinh Lenovo",
+        "discount": 5,
+        "price": 15000000,
+        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzMIpyOtk71s3veC01pXEh1Wv9lOOCS9UMkg&usqp=CAU"
+      },
+      "category": {
+        "name": "may tinh"
+      },
+      "billDetail": {
+        "quantity": 3,
+        "idStatus": 3,
+        "id": 1
+      }
+    },
+    {
+      "seller": {
+        "id": 1,
+        "firstname": "Nguyen",
+        "lastname": "Thin"
+      },
+      "product": {
+        "id": 1,
+        "name": "May tinh Lenovo",
+        "discount": 5,
+        "price": 15000000,
+        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzMIpyOtk71s3veC01pXEh1Wv9lOOCS9UMkg&usqp=CAU"
+      },
+      "category": {
+        "name": "may tinh"
+      },
+      "billDetail": {
+        "quantity": 3,
+        "idStatus": 3,
+        "id": 1
+      }
+    },
+    {
+      "seller": {
+        "id": 1,
+        "firstname": "Nguyen",
+        "lastname": "Thin"
+      },
+      "product": {
+        "id": 1,
+        "name": "May tinh Lenovo",
+        "discount": 5,
+        "price": 15000000,
+        "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzMIpyOtk71s3veC01pXEh1Wv9lOOCS9UMkg&usqp=CAU"
+      },
+      "category": {
+        "name": "may tinh"
+      },
+      "billDetail": {
+        "quantity": 3,
+        "idStatus": 3,
+        "id": 1
+      }
+    }
+  ]
+}
