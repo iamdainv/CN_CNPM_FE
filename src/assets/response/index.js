@@ -9,7 +9,8 @@ const request = {
   roles: require('./roles.json'),
   statusBill: require('./statusBill.json'),
   userComment: require('./userComment.json'),
-  users: require('./users.json')
+  users: require('./users.json'),
+  '/bill/info': require('./purchaseUser.json')
 }
 
 export default request

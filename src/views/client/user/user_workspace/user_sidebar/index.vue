@@ -6,7 +6,7 @@
       </div>
       <div class="d-flex ml-3 flex-column pt-2">
         <div class="product-comment-user__name fw-600">Nguyễn Viết Đại</div>
-        <div class="text-muted"><i class="fas fa-pen"></i> <span>Chỉnh sửa</span></div>
+        <div class="text-muted"><i class="fas fa-pen"></i>   <router-link :to="{name: 'userInfo'}"> <span>Chỉnh sửa</span></router-link> </div>
       </div>
 
     </div>

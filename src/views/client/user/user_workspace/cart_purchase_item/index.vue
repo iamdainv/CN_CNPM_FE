@@ -84,7 +84,13 @@
             <button type="button" class="h-button__red p-3 h-color__white cursor-pointer purchase-button-primary" data-purchase-id="" data-bill-id="">Chi tiết đơn hàng</button>
           </div>
           <div class="purchase-card-buttons__show-button-wrapper">
-            <button type="button" class="h-button__red p-3 h-color__white cursor-pointer purchase-button-primary purchase-button-cancel" id="btn-cancle" data-purchase-id="" data-bill-id="product.billDetail.id">Hủy đơn hàng</button>
+            <button
+              @click="cancelPurchase"
+              type="button"
+              class="h-button__red p-3 h-color__white cursor-pointer purchase-button-primary purchase-button-cancel"
+              id="btn-cancle"
+              data-purchase-id=""
+              data-bill-id="product.billDetail.id">Hủy đơn hàng</button>
           </div>
         </div>
       </div>
@@ -93,16 +99,18 @@
 </template>
 
 <script>
-const Purchase = {
-    All: 0,
-    Order: 1,
-    WaitConfirm: 2,
-    WaitPickup: 3,
-    Delivering: 4,
-    Delivered: 5,
-    Canceled: 6
-}
+import { mixin } from '@/utils/mixins'
+// const Purchase = {
+//     All: 0,
+//     Order: 1,
+//     WaitConfirm: 2,
+//     WaitPickup: 3,
+//     Delivering: 4,
+//     Delivered: 5,
+//     Canceled: 6
+// }
 export default {
+  mixins: [mixin],
     name: 'CartPurchaseItem',
     props: {
         product: {
@@ -120,35 +128,16 @@ export default {
     methods: {
         formatPrice (price) {
             return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(price)
-        }
+        },
+      cancelPurchase () {
+          this.$emit('cancelPurchase', this.product.billDetail.id)
+      }
     },
     mounted () {
         console.log(this.product)
         this.newPrice = this.product.product.price - Math.floor((this.product.product.discount / 100) * this.product.product.price)
         this.totalPrice = this.newPrice * this.product.billDetail.quantity
-        switch (this.product.billDetail.idStatus) {
-            case Number.parseInt(Purchase.Order):
-                this.typePurchase = ''
-                break
-            case Number.parseInt(Purchase.Canceled):
-                this.typePurchase = 'Đã hủy'
-                break
-            case Number.parseInt(Purchase.Delivered):
-                this.typePurchase = 'Đã giao hàng'
-                break
-            case Number.parseInt(Purchase.Delivering):
-                this.typePurchase = 'Đang giao hàng'
-                break
-            case Number.parseInt(Purchase.WaitConfirm):
-                this.typePurchase = 'Đợi xác nhận'
-                break
-            case Number.parseInt(Purchase.WaitPickup):
-                this.typePurchase = 'Chờ lấy hàng'
-                break
-            default:
-                this.typePurchase = ''
-                break
-        }
+        this.typePurchase = this.labelPurchase(this.product.billDetail.idStatus)
     }
 }
 </script>

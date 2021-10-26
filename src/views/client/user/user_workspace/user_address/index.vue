@@ -11,17 +11,20 @@
     <div class="list-address">
 
     </div>
-    <div class="d-flex p-3">
+    <div class="d-flex p-3 justify-between" v-for="(address) in $store.getters.userAddress" :key="address.id">
+
       <div class="d-flex flex-column flex-70">
         <div class="d-flex mb-4">
           <div class="address-display__field-label">
             <div >Họ và tên</div>
           </div>
           <div class="address-display__field-value d-flex flex-1">
-            <div class="fw-bold mr-4">Nguyễn Viết Đại</div>
-            <div class="address-tag">Mặc định</div>
-            <div class="address-pickup">Địa chỉ lấy hàng</div>
-            <div class="address-pickup">Địa chỉ trả hàng</div>
+            <div class="fw-bold mr-4 font-16">{{ address.name }}</div>
+            <template v-if="address.is_delivery_address">
+              <div class="address-tag">Mặc định</div>
+              <div class="address-pickup">Địa chỉ lấy hàng</div>
+              <div class="address-pickup">Địa chỉ trả hàng</div>
+            </template>
           </div>
         </div>
         <div class="d-flex mb-4">
@@ -29,7 +32,7 @@
             Số điện thoại
           </div>
           <div class="address-display__field-value flex-1">
-            (+84) 888539611
+            {{ address.phone }}
           </div>
         </div>
         <div class="d-flex mb-4">
@@ -37,19 +40,19 @@
             Địa chỉ
           </div>
           <div class="address-display__field-value flex-1">
-            <div class="pb-1">Số nhà 26 ngõ 62 đường Hậu Ái, Vân Canh , Hoài Đức , Hà Nội</div>
-            <div class="pb-1">Xã Vân Canh</div>
-            <div class="pb-1">Huyện Hoài Đức</div>
-            <div class="pb-1">Hà Nội</div>
+            <div class="pb-1"> {{ address.address }} </div>
+            <div class="pb-1"> {{ address.ward }} </div>
+            <div class="pb-1">{{ address.district }}</div>
+            <div class="pb-1">{{ address.city }}</div>
           </div>
         </div>
       </div>
       <div class="d-flex flex-column justify-content-center">
         <div class="d-flex justify-content-end ">
-          <p class="text-decoration-underline mr-3">Sửa</p>
-          <p class="text-decoration-underline">Xóa</p>
+          <p class="text-decoration-underline mr-3" >Sửa</p>
+          <p class="text-decoration-underline" v-if="!address.is_delivery_address">Xóa</p>
         </div>
-        <div class=" p-2 btn-light cursor-pointer">
+        <div class=" p-2 btn-light cursor-pointer" @click="setDeliveryAddress(address)">
 
           <span class="mx-2"> Thiết lập mặc định </span>
         </div>
@@ -97,7 +100,15 @@
 
 <script>
 export default {
-    name: 'UserAddress'
+  name: 'UserAddress',
+  mounted () {
+    console.log(this.$store.getters.userAddress)
+  },
+  methods: {
+    setDeliveryAddress (address) {
+      console.log(address)
+    }
+  }
 }
 </script>
 
