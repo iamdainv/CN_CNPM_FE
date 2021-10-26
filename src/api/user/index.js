@@ -10,14 +10,16 @@ export const api = {
     // Category
     getListCategory: '/category',
 
+    // Cart
+    getListProductInCart: '/cart',
+    addProductToCart: '/cart',
+    changeQuantityProductInCart: '/cart',
+    removeProductInCart: 'cart',
+    buyProductInCart: '/cart',
+
     // auth
     login: '/register',
 
-    // user
-    getUserInfo: '/user/info',
-
-    // bill
-    getBillByUser: '/bill/info',
-    updateBillStatus: '/bill'
-
+    // ProductByCategory
+    getProductByCategory: '/product'
 }
