@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     gotoDetail () {
-      this.$router.push({ name: 'product-detail', params: { productId: this.product.id } })
+      this.$router.push({ path: `/product/${this.convertToSlugToProductDetail(this.product.name, this.product.id)}` })
     }
   }
 }

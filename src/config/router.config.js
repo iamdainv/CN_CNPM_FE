@@ -90,8 +90,9 @@ export const constRouteMapClient = [
         component: () => import('@/views/client/user/products_by_category/index')
       },
       {
-        path: 'product-detail/:productId',
+        path: '/product/:slugWithId',
         name: 'product-detail',
+        exact: true,
         component: () => import('@/views/client/user/product_detail/index')
       },
       {
@@ -168,6 +169,7 @@ export const constantAdminRouterMap = [
   },
   {
     path: '/404',
+    exact: true,
     component: () => import(/* webpackChunkName: "fail" */ '@/views/admin/general/exception/404')
   }
 ]

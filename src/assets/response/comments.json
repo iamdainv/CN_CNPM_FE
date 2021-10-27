@@ -1,0 +1,67 @@
+{
+  "data": [{
+    "comment": {
+      "id": 1,
+      "id_user": 1,
+      "comment": "Mua được lúc đang sale nên đc tặng máy rửa mặt \nSản phẩm ổn……\nDkkxkak kalxlslxlxlsl kd lelcllaxlla ll l lap lalclflvlwp lelclwlcllaxlalclslclwl llalcalclclvlwl lla lalclslclwl kdmj stjatnzgjsvzgbs v\nGhd hxndnzvndBzgnZxtgbxghenxsfbzgmsthdbFha chưcx davC ragd sgne zgnevd tage v\nSthwvc sthd sfbs vzbe c",
+      "createdAt": "2021-03-31 17:06:23.597",
+      "updatedAt": "2021-03-31 17:06:23.597",
+      "star": "5",
+      "images": [ "https://i-techbd.com/wp-content/uploads/2019/12/Samsung-Galaxy-S15-.jpg","https://i-techbd.com/wp-content/uploads/2019/12/Samsung-Galaxy-S15-.jpg","https://i-techbd.com/wp-content/uploads/2019/12/Samsung-Galaxy-S15-.jpg","https://i-techbd.com/wp-content/uploads/2019/12/Samsung-Galaxy-S15-.jpg"
+      ]
+    },
+    "user_comment": {
+      "id_user": 1,
+      "image": "https://i.pinimg.com/originals/50/05/f5/5005f514424141acf70727360add163d.png",
+      "username": "Nguyen Viet Dai"
+    }
+  },{
+    "comment": {
+      "id": 1,
+      "id_user": 1,
+      "comment": "dưỡng ẩm, dưỡng sáng và làm mịn da, cho làn da vẻ rạng rỡ 3D chuẩn Hàn:\nGluta-Boost-C * làm sáng da: Hiệu quả gấp 60 lần so với Vitamin C trong khả năng làm sáng da và mờ vết thâm*\nNiacinamide - Vitamin B3+ thu nhỏ lỗ chân lông: Cải thiện tình trạng lỗ chân lông to và làm mịn da\nAxit Hyaluronic**",
+      "createdAt": "2021-03-31 17:06:23.597",
+      "updatedAt": "2021-03-31 17:06:23.597",
+      "star": "5",
+      "images": [ "https://i-techbd.com/wp-content/uploads/2019/12/Samsung-Galaxy-S15-.jpg","https://i-techbd.com/wp-content/uploads/2019/12/Samsung-Galaxy-S15-.jpg","https://i-techbd.com/wp-content/uploads/2019/12/Samsung-Galaxy-S15-.jpg","https://i-techbd.com/wp-content/uploads/2019/12/Samsung-Galaxy-S15-.jpg"
+      ]
+    },
+    "user_comment": {
+      "id_user": 1,
+      "image": "https://i.pinimg.com/originals/50/05/f5/5005f514424141acf70727360add163d.png",
+      "username": "Nguyen Viet Dai"
+    }
+  },{
+    "comment": {
+      "id": 1,
+      "id_user": 1,
+      "comment": "T đặt hàng sale thấy có máy rửa mặt. Nhưng khi nhận chỉ có combo simple. Đọc đánh giá thấy nhiều bạn cũng nhận máy sau nên để đợi thử xem. Hàng có nhãn phụ đầy đủ.\nHàng giao nhanh.",
+      "createdAt": "2021-03-31 17:06:23.597",
+      "updatedAt": "2021-03-31 17:06:23.597",
+      "star": "5",
+      "images": [ "https://i-techbd.com/wp-content/uploads/2019/12/Samsung-Galaxy-S15-.jpg","https://i-techbd.com/wp-content/uploads/2019/12/Samsung-Galaxy-S15-.jpg","https://i-techbd.com/wp-content/uploads/2019/12/Samsung-Galaxy-S15-.jpg","https://i-techbd.com/wp-content/uploads/2019/12/Samsung-Galaxy-S15-.jpg"
+      ]
+    },
+    "user_comment": {
+      "id_user": 1,
+      "image": "https://i.pinimg.com/originals/50/05/f5/5005f514424141acf70727360add163d.png",
+      "username": "Nguyen Viet Dai"
+    }
+  },{
+    "comment": {
+      "id": 1,
+      "id_user": 1,
+      "comment": "\"\"\"VÌ SAO BẠN SẼ YÊU THÍCH COMBO 3 BƯỚC DƯỠNG TẨY TRANG + SỮA RỬA MẶT + NƯỚC HOA HỒNG TONER CỦA SIMPLE?\nSimple là nhãn hiệu chăm sóc da số 1 Anh Quốc\nLành tính - KHÔNG CHỨA 2,000 hóa chất có hại cho da\nPhù hợp cho mọi loại da kể cả làn da nhạy cảm\n3 bước cơ bản cho hiệu quả tối ưu giúp da trông",
+      "createdAt": "2021-03-31 17:06:23.597",
+      "updatedAt": "2021-03-31 17:06:23.597",
+      "star": "2",
+      "images": [ "https://i-techbd.com/wp-content/uploads/2019/12/Samsung-Galaxy-S15-.jpg","https://i-techbd.com/wp-content/uploads/2019/12/Samsung-Galaxy-S15-.jpg","https://i-techbd.com/wp-content/uploads/2019/12/Samsung-Galaxy-S15-.jpg","https://i-techbd.com/wp-content/uploads/2019/12/Samsung-Galaxy-S15-.jpg"
+      ]
+    },
+    "user_comment": {
+      "id_user": 1,
+      "image": "https://i.pinimg.com/originals/50/05/f5/5005f514424141acf70727360add163d.png",
+      "username": "Nguyen Viet Dai"
+    }
+  }]
+}

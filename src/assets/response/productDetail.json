@@ -1,0 +1,41 @@
+{
+  "data": {
+    "product" :             {
+      "id": "8",
+      "name": "Samsung Galasy s15",
+      "id_category": "2",
+      "id_user": "3",
+      "quantity": "10",
+      "discount": "50",
+      "price": "1235123",
+      "description": "Bộ chăn ga cotton Tici cao cấp phong cách Hàn Quốc đủ size đủ màu (không kèm ruột)\n\nQUÝ KHÁCH LƯU Ý: Ghi chú hoặc nhắn size đệm cho shop ( Rộng x Dài x Cao) để shop bo chun miễn phí nha\n\nBộ chăn ga cotton Tici cao cấp phong cách Hàn Quốc\nChất liệu 100% từ Cotton Tici mang lại sự mềm mại thấm hút mồ hôi cực tốt, giúp bạn có 1 giấc ngủ thoải mái nhất sau 1 ngày làm việc căng thẳng\nSẵn tất cả các màu hot cho khách lựa chọn. Vải dày dặn, không phai màu, không bai xù. Bền đẹp cả khi giặt máy.\nSet gồm:\n- 2 vỏ gối nằm thiết kế nhét đè 50x70 (cm)\n- 1 vỏ chăn cotton Tici 2mx2m2 , có khóa kéo, dây buộc 4 góc để cố định ruột chăn khi lồng\n- 1 vỏ ga (Shop mặc định bo chun theo size khách đặt trên đơn với chân ga 10cm, nếu cần làm chân đệm cao hơn hay có nhu cầu làm ga phủ hoặc kích thước đặc biệt mọi người note ghi chú trên đơn hoặc nhắn ib shop nhé )\n\n❗❗❗ LƯU Ý: \n-Hình ảnh vỏ chăn đã được lồng ruột, quý khách có thể mua thêm ruột chăn ở combo mua kèm deal sốc để được mức giá tốt nhất.\n- Mọi người ghi chú size nệm (RỘNG x DÀI x DÀY) ở phần ghi chú hoặc nhắn tin giúp shop nha.\n- MUA THÊM VỎ ÔM CÙNG MÀU GIÁ 30K Ở MỤC MUA KÈM DEAL SỐC\n\nNote : Do ánh sáng lúc chụp nên màu sắc thật có thể sáng hơn hoặc tối hơn ảnh 1 tông màu. Hãy chắc chắn rằng điều này không đáng lo ngại đối với bạn trước khi quyết định mua hàng.\n\n#cottontici #cotton #changa #gatraigiuong #bedding #bochanga #gagoi #changagoi #drap #setchanga #setchangagoi \n#cottontici #cotton #changa #gatraigiuong #bedding #bochanga #gagoi #changagoi #drap #giárẻ #maudep #chăn_ga_gối #COTTONTC #cotton #bộchăngagối #bộ_chăn_ga_gối #chăn #gamộtmàu #nệm #mềm #mền #chăncao cấp #phòngngủ ",
+      "title": "Điện thoại Samsung",
+      "numberOfStar": "3",
+      "address": "Quận Thanh Xuân, Hà Nội",
+      "image": "https://i-techbd.com/wp-content/uploads/2019/12/Samsung-Galaxy-S15-.jpg",
+      "createdAt": "1/4/2021 00:06:23.597",
+      "updatedAt": "1/4/2021 00:06:23.597",
+      "selled": "7",
+      "isSell": "1",
+      "categories": [{
+        "id": 1,
+        "original_category_name": "Thời trang nam",
+        "image": "https://cf.shopee.vn/file/687f3967b7c2fe6a134a2c11894eea4b_tn"
+      },{
+        "id": 2,
+        "original_category_name": "Hoodie & Áo nỉ",
+        "image": "https://cf.shopee.vn/file/687f3967b7c2fe6a134a2c11894eea4b_tn",
+        "parent_category_id": 1
+      },{
+        "id": 3,
+        "original_category_name": "Áo Hoodie",
+        "image": "https://cf.shopee.vn/file/687f3967b7c2fe6a134a2c11894eea4b_tn",
+        "parent_category_id": 2
+      }]
+    },
+    "depicted": {
+      "images": [ "https://i-techbd.com/wp-content/uploads/2019/12/Samsung-Galaxy-S15-.jpg","https://i-techbd.com/wp-content/uploads/2019/12/Samsung-Galaxy-S15-.jpg","https://i-techbd.com/wp-content/uploads/2019/12/Samsung-Galaxy-S15-.jpg","https://i-techbd.com/wp-content/uploads/2019/12/Samsung-Galaxy-S15-.jpg"
+      ]
+    }
+  }
+}

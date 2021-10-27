@@ -10,6 +10,7 @@ import i18n from './locales'
 import { VueAxios } from './utils/request'
 import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
 import themePluginConfig from '../config/themePluginConfig'
+import 'ant-design-vue/dist/antd.css'
 import { Carousel, Pagination } from 'ant-design-vue'
 
 // import './mock'

@@ -19,8 +19,8 @@ export default {
       type: String
     },
     limit: {
-      type: Number,
-      default: 200
+      type: String,
+      default: '200'
     }
   }),
   data () {
@@ -40,12 +40,12 @@ export default {
     handleChange (e) {
       const value = e.target.value
       const len = getStrFullLength(value)
-      if (len <= this.limit) {
+      if (len <= +this.limit) {
         this.currentLimit = len
         this.$emit('change', value)
         return
       } else {
-        const str = cutStrByFullLength(value, this.limit)
+        const str = cutStrByFullLength(value, +this.limit)
         this.currentLimit = getStrFullLength(str)
         this.$emit('change', str)
       }
@@ -60,7 +60,7 @@ export default {
     const { prefixCls, ...props } = this.$props
     return (
       <div class={this.prefixCls}>
-        <TextArea {...{ props }} value={this.value} onChange={this.handleChange}>
+        <TextArea {...{ props }} value={this.value} onChange={this.handleChange} class="textarea-container">
         </TextArea>
         <span class="limit">{this.currentLimit}/{this.limit}</span>
       </div>

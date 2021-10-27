@@ -10,7 +10,9 @@ const request = {
   statusBill: require('./statusBill.json'),
   userComment: require('./userComment.json'),
   users: require('./users.json'),
-  '/bill/info': require('./purchaseUser.json')
+  '/bill/info': require('./purchaseUser.json'),
+  '/product': require('./productDetail.json'),
+  '/comment': require('./comments.json')
 }
 
 export default request
