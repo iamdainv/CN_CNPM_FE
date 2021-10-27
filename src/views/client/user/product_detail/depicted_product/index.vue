@@ -2,35 +2,17 @@
   <div class="depicted-product">
     <div class="row">
       <div class="col col-12 slider-for">
-        <img src="@/assets/img/product3.png" alt="product" class="depicted-product__img-item depicted-product__img" style="width: 100%">
+        <img :src="this.mainImageProduct" alt="product" class="depicted-product__img-item depicted-product__img" style="width: 100%">
       </div>
     </div>
 
     <div class="row">
+
       <div class="col col-12 depicted-product__img-list slider-nav">
         <img
-          src="@/assets/img/product3.png"
-          alt="product"
-          class="depicted-product__img-item"
-          width="115"
-          height="115"
-          style="object-fit:cover">
-        <img
-          src="@/assets/img/product3.png"
-          alt="product"
-          class="depicted-product__img-item"
-          width="115"
-          height="115"
-          style="object-fit:cover">
-        <img
-          src="@/assets/img/product3.png"
-          alt="product"
-          class="depicted-product__img-item"
-          width="115"
-          height="115"
-          style="object-fit:cover">
-        <img
-          src="@/assets/img/product3.png"
+          v-for="(image, index) in images"
+          :key="index"
+          :src="image"
           alt="product"
           class="depicted-product__img-item"
           width="115"
@@ -69,7 +51,20 @@
 
 <script>
 export default {
-  name: 'DepictedProduct'
+  name: 'DepictedProduct',
+  props: {
+    images: {
+      type: Array,
+      require: true
+    },
+    mainImageProduct: {
+      type: String,
+      require: true
+    }
+  },
+  mounted () {
+    console.log('this.images', this.images)
+  }
 }
 </script>
 
@@ -85,7 +80,10 @@ export default {
 }
 
 .depicted-product__img-item {
-    width: 24%;
+
+  max-width: 100%;
+  min-width: 24%;
+  padding: 5px;
 }
 
 .depicted-product__social {

@@ -21,5 +21,8 @@ export const api = {
     login: '/register',
 
     // ProductByCategory
-    getProductByCategory: '/product'
+    getProductByCategory: '/product',
+
+  // comment
+  getCommentByProductId: '/comment'
 }

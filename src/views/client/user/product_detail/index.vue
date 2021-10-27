@@ -3,7 +3,7 @@
     <div class="row product">
       <div class="col col-lg-5 col-md-5 col-sm-12">
         <!-- depicted product -->
-        <depicted-product></depicted-product>
+        <depicted-product :images="product.depicted" :mainImageProduct="product.productDetail.image"></depicted-product>
       </div>
 
       <div class="col col-lg-7 col-md-7 col-sm-12">
@@ -22,13 +22,13 @@
         </a>
       </div>
     </div>
-    <div class="row product mt-5 p-5">
+    <div class=" product mt-5 p-5">
       <!-- detail product -->
-      <detail-product></detail-product>
+      <detail-product :productDetail="product.productDetail"></detail-product>
     </div>
-    <div class="row product mt-5 p-5">
+    <div class=" product mt-5 p-5">
       <!-- comment -->
-      <comment></comment>
+      <comment :isBought="isBought" :comments="comments"></comment>
     </div>
   </div>
 </template>
@@ -38,6 +38,8 @@ import DepictedProduct from '@/views/client/user/product_detail/depicted_product
 import SaleProduct from '@/views/client/user/product_detail/sale_product'
 import DetailProduct from '@/views/client/user/product_detail/detail_product'
 import Comment from '@/views/client/user/product_detail/comment'
+import { getProductById } from '@/api/user/product'
+import { getListCommentOfProduct } from '@/api/user/comment'
 export default {
   name: 'ProductDetail',
   components: {
@@ -45,6 +47,37 @@ export default {
     SaleProduct,
     DetailProduct,
     Comment
+  },
+  data () {
+    return {
+        comment: [],
+        product: {
+          depicted: [],
+          productDetail: {}
+        },
+      isBought: false,
+      comments: []
+    }
+  },
+  mounted () {
+    const { slugWithId } = this.$route.params
+    const params = {
+      productId: this.getIdProductFromSlug(slugWithId)
+    }
+      getProductById(params).then(response => {
+        const { data } = response
+        this.product.depicted = data.depicted.images
+        this.product.productDetail = data.product
+        getListCommentOfProduct(data.product.id, 0, 20).then(response => {
+          this.comments = response.data
+        })
+      })
+  },
+  methods: {
+    getIdProductFromSlug (slugWithId) {
+      const arrayTruncate = slugWithId.split('.')
+        return arrayTruncate[arrayTruncate.length - 1]
+    }
   }
 }
 </script>

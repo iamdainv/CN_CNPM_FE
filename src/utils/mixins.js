@@ -84,19 +84,6 @@ export const mixin = {
       }
       return value
     },
-    convertToDisplayDate (dateString) {
-      if (dateString !== null && dateString !== '') {
-        const d = moment(dateString, this.dateSubmitFormat)
-        if (d.isValid()) {
-          return d.format(this.datePlaceholderFormat)
-        } else {
-          return moment(dateString).format(this.datePlaceholderFormat)
-        }
-      } else if (moment.isMoment(dateString)) {
-        return dateString.format(this.datePlaceholderFormat)
-      }
-      return dateString
-    },
     convertToSubmitDate (dateString) {
       if (dateString !== null && dateString !== '') {
         const d = moment(dateString, this.datePlaceholderFormat)
@@ -178,6 +165,9 @@ export const mixin = {
       }
 
       return purchaseLabel
+    },
+    convertToSlugToProductDetail (productName, productId) {
+      return productName.split(' ').join('-') + `.${productId}`
     }
   }
 }

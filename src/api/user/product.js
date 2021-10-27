@@ -6,7 +6,8 @@ export function getListProduct () {
 }
 
 export function getProductById (param) {
-    return apiService.get(api.getProductById, param)
+  // TODO: transfer to `${api.getProductById}/id`
+    return apiService.getMockResponse(`${api.getProductById}`, 500)
 }
 
 export function getProductByCategory (param) {
