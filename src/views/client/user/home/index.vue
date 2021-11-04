@@ -33,9 +33,9 @@ import HomeCarousel from '@/components/user/home_carousel'
 import CategoryMobile from '@/components/user/category_mobile'
 import CategoryHome from '@/components/user/category_home_pc'
 import ProductItem from '@/views/client/user/home/product_item'
-import Pagination from './pagination/'
+import Pagination from '@/components/user/pagination'
 import { getListProduct } from '@/api/user/product'
-import { getListCategory } from '@/api/user/category'
+import { getListCategoryParent } from '@/api/user/category'
 export default {
   name: 'Home',
   components: {
@@ -82,7 +82,7 @@ export default {
       })
     },
     getListCategory () {
-      getListCategory().then(res => {
+      getListCategoryParent().then(res => {
         this.listCategory = res.data.data ? res.data.data : []
       }).catch(err => {
         this.$error({

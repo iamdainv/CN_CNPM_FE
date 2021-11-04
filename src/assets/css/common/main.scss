@@ -991,20 +991,20 @@ a:hover {
 	max-height: 500px;
 }
 
-.category-list-home {
-	max-height: 360px;
-	overflow-x: hidden;
-	overflow-y: scroll;
-}
+// .category-list-home {
+// 	max-height: 360px;
+// 	overflow-x: hidden;
+// 	overflow-y: scroll;
+// }
 
-.category-list-home::-webkit-scrollbar {
-    width: 3px;
-    background-color: #F5F5F5;
-} 
+// .category-list-home::-webkit-scrollbar {
+//     width: 3px;
+//     background-color: #F5F5F5;
+// } 
 
-.category-list-home::-webkit-scrollbar-thumb {
-    background-color: #999;
-}
+// .category-list-home::-webkit-scrollbar-thumb {
+//     background-color: #999;
+// }
 
 .category-item {
 	position: relative;

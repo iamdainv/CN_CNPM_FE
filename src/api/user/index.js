@@ -8,6 +8,7 @@ export const api = {
   deleteProduct: '/product',
 
   // Category
+  getListCategoryParent: '/category/parent',
   getListCategory: '/category/list',
 
   // Cart
