@@ -4,7 +4,7 @@
       <i class="category__heading-icon fas fa-list-ul"></i>
       Danh mục
     </h3>
-    <ul class=" row-lbr sm-gutter list-product">
+    <ul class=" row-lbr sm-gutter list-product category-list-home">
       <li class="category-item l-1" v-for="(cat, index) in listCategory" :key="index">
         <div class="category-item__content category-item__link" @click="gotoProductsByCategory(cat)">
           <div

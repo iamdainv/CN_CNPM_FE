@@ -1,6 +1,6 @@
 export const envConfig = {
-  //  baseUrl: process.env.VUE_APP_BASE_URL,
-  baseUrl: 'https://615aa0344a360f0017a8114b.mockapi.io/shobbe/api/',
+  baseUrl: process.env.VUE_APP_BASE_URL,
+  // baseUrl: 'https://615aa0344a360f0017a8114b.mockapi.io/shobbe/api/',
 
   // -------------------------------------
   // firebase

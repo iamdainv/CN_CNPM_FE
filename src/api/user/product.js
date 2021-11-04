@@ -1,17 +1,17 @@
 import { api } from './index'
 import { apiService } from '@/api/api'
 
-export function getListProduct () {
-    return apiService.get(api.getListProduct)
+export function getListProduct (params) {
+    return apiService.get(api.getListProduct, params)
 }
 
 export function getProductById (param) {
-  // TODO: transfer to `${api.getProductById}/id`
+    // TODO: transfer to `${api.getProductById}/id`
     return apiService.getMockResponse(`${api.getProductById}`, 500)
 }
 
 export function getProductByCategory (param) {
-    return api.get(api.getProductsByCategory, param)
+    return apiService.get(api.getProductsByCategory, param)
 }
 
 export function createProduct (param) {
