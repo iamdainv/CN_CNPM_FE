@@ -14,6 +14,12 @@
             <div class="row-lbr sm-gutter list-product" style="padding-bottom: 40px; margin-top: 20px">
               <product-item v-for="(product, index) in listProduct" :key="index" :product="product"></product-item>
             </div>
+            <button class="btn btn--primary btn-watch-more" v-if="visiblePagination === false" @click="handleWatchMore">Xem thêm</button>
+            <pagination
+              v-else
+              :total="pagination.total"
+              @getByPagination="getByPagination"
+            ></pagination>
           </div>
         </div>
       </div>
@@ -26,6 +32,7 @@ import HomeCarousel from '@/components/user/home_carousel'
 import CategoryMobile from '@/components/user/category_mobile'
 import CategoryHome from '@/components/user/category_home_pc'
 import ProductItem from '@/views/client/user/home/product_item'
+import Pagination from './pagination/'
 import { getListProduct } from '@/api/user/product'
 import { getListCategory } from '@/api/user/category'
 export default {
@@ -34,12 +41,21 @@ export default {
     HomeCarousel,
     CategoryMobile,
     CategoryHome,
-    ProductItem
+    ProductItem,
+    Pagination
   },
   data () {
     return {
       listProduct: [],
-      listCategory: []
+      listCategory: [],
+      visiblePagination: false,
+      pagination: {
+        current: 1,
+        total: 0,
+        pageSize: 5,
+        showSizeChange: true,
+        pageSizeOptions: ['25', '50', '100']
+      }
     }
   },
   created () {
@@ -48,21 +64,40 @@ export default {
   },
   methods: {
     getListProduct () {
-      getListProduct().then(res => {
-        this.listProduct = res.data
+      const params = {
+        pageNum: this.pagination.current,
+        pageSize: this.pagination.pageSize
+      }
+      getListProduct(params).then(res => {
+        this.listProduct = res.data.list ? res.data.list : []
+        this.pagination.total = res.data.total ? res.data.total : 0
       }).catch(err => {
         console.log(err)
       })
     },
     getListCategory () {
       getListCategory().then(res => {
-        this.listCategory = res.data
+        this.listCategory = res.data.list ? res.data.list : []
       })
+    },
+    getByPagination ({ page, limit }) {
+      this.pagination.current = page
+      this.pagination.pageSize = limit !== undefined ? limit : this.pagination.pageSize
+      this.getListProduct()
+    },
+    handleWatchMore () {
+      this.visiblePagination = true
     }
   }
 }
 </script>
 
 <style>
-
+.home-produce {
+  margin-bottom: 20px;
+}
+.btn-watch-more {
+  display: block;
+  margin: 0 auto;
+}
 </style>
