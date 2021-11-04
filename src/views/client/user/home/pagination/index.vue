@@ -1,9 +1,10 @@
 <template>
   <a-pagination
     v-model="currentPage"
-    show-size-changer
     :page-size.sync="pageSize"
     :total="total"
+    show-size-changer
+    :page-size-options="pageSizeOptions"
     @showSizeChange="onShowSizeChange"
     class="pagination produce-pagination"/>
 </template>
@@ -20,7 +21,9 @@ export default {
   data () {
     return {
       currentPage: 1,
-      pageSize: 20
+      pageSize: 20,
+      showSizeChange: true,
+      pageSizeOptions: ['20', '40', '60']
     }
   },
   created () {
