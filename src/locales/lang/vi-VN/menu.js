@@ -37,7 +37,7 @@ export default {
 
   // MENU
   'menu.dashboard': 'TRANG CHỦ',
-  'menu.sales-channel': 'TỔ CHỨC KÊNH BÁN',
-    'menu.sales-channel.organization': 'Quản lý tổ chức',
-    'menu.sales-channel.staff': 'Quản lý nhân viên'
+  'menu.product': 'SẢN PHẨM',
+    'menu.product.item': 'Quản lý sản phẩm',
+    'menu.product.category': 'Quản lý danh mục'
 }

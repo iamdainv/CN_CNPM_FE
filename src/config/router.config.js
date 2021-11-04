@@ -44,24 +44,24 @@ export const asyncRouterMap = [
         ]
       },
       {
-        path: '/sales-channel',
-        name: 'sales-channel',
-        redirect: 'sales-channel',
+        path: '/product',
+        name: 'product',
+        redirect: 'product',
         component: RouteView,
         hideChildrenInMenu: false,
-        meta: { title: 'menu.sales-channel', keepAlive: true, icon: 'apartment', permission: ['dashboard'] },
+        meta: { title: 'menu.product', keepAlive: true, icon: 'apartment', permission: ['dashboard'] },
         children: [
           {
             path: '/sales-channel/organization',
             name: 'sales-channel.organization',
             component: () => import('@/views/admin/crm/organization'),
-            meta: { title: 'menu.sales-channel.organization', keepAlive: false, permission: ['dashboard'] }
+            meta: { title: 'menu.product.item', keepAlive: false, permission: ['dashboard'] }
           },
           {
             path: '/sales-channel/staff',
             name: 'sales-channel.staff',
             component: () => import('@/views/admin/crm/dashboard/Analysis'),
-            meta: { title: 'menu.sales-channel.staff', keepAlive: false, permission: ['dashboard'] }
+            meta: { title: 'menu.product.category', keepAlive: false, permission: ['dashboard'] }
           }
         ]
       }
