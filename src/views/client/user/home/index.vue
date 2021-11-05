@@ -11,10 +11,11 @@
             <!-- category home pc -->
             <category-home :listCategory="listCategory"></category-home>
             <!-- list product -->
-            <div class="row-lbr sm-gutter list-product" style="padding-bottom: 40px; margin-top: 20px">
+            <div class="row-lbr sm-gutter list-product" style="padding-bottom: 40px; margin-top: 20px; min-height: 50px">
+              <a-spin size="large" :spinning="loadingListProduct" style="width: 100%"></a-spin>
               <product-item v-for="(product, index) in listProduct" :key="index" :product="product"></product-item>
             </div>
-            <button class="btn btn--primary btn-watch-more" v-if="visiblePagination === false" @click="handleWatchMore">Xem thêm</button>
+            <button class="btn btn--primary btn-watch-more-product" v-if="visiblePagination === false" @click="handleWatchMore">Xem thêm</button>
             <pagination
               v-else
               :total="pagination.total"
@@ -32,9 +33,9 @@ import HomeCarousel from '@/components/user/home_carousel'
 import CategoryMobile from '@/components/user/category_mobile'
 import CategoryHome from '@/components/user/category_home_pc'
 import ProductItem from '@/views/client/user/home/product_item'
-import Pagination from './pagination/'
+import Pagination from '@/components/user/pagination'
 import { getListProduct } from '@/api/user/product'
-import { getListCategory } from '@/api/user/category'
+import { getListCategoryParent } from '@/api/user/category'
 export default {
   name: 'Home',
   components: {
@@ -49,12 +50,11 @@ export default {
       listProduct: [],
       listCategory: [],
       visiblePagination: false,
+      loadingListProduct: false,
       pagination: {
         current: 1,
         total: 0,
-        pageSize: 5,
-        showSizeChange: true,
-        pageSizeOptions: ['25', '50', '100']
+        pageSize: 20
       }
     }
   },
@@ -68,16 +68,26 @@ export default {
         pageNum: this.pagination.current,
         pageSize: this.pagination.pageSize
       }
+      this.loadingListProduct = true
+      this.listProduct = []
       getListProduct(params).then(res => {
-        this.listProduct = res.data.list ? res.data.list : []
-        this.pagination.total = res.data.total ? res.data.total : 0
+        this.listProduct = res.data.data.list ? res.data.data.list : []
+        this.pagination.total = res.data.data.total ? res.data.data.total : 0
       }).catch(err => {
-        console.log(err)
+        this.$error({
+          content: err
+        })
+      }).finally(() => {
+        this.loadingListProduct = false
       })
     },
     getListCategory () {
-      getListCategory().then(res => {
-        this.listCategory = res.data.list ? res.data.list : []
+      getListCategoryParent().then(res => {
+        this.listCategory = res.data.data ? res.data.data : []
+      }).catch(err => {
+        this.$error({
+          content: err
+        })
       })
     },
     getByPagination ({ page, limit }) {
@@ -96,8 +106,8 @@ export default {
 .home-produce {
   margin-bottom: 20px;
 }
-.btn-watch-more {
+.btn-watch-more-product {
   display: block;
-  margin: 0 auto;
+  margin: 0 auto !important;
 }
 </style>

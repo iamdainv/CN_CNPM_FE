@@ -39,7 +39,7 @@ import ListCategory from '@/views/client/user/products_by_category/list_category
 import FilterProducts from '@/views/client/user/products_by_category/filter_products'
 import CategoryMobile from '@/components/user/category_mobile'
 import ListProduct from '@/views/client/user/products_by_category/list_product'
-import Pagination from '@/views/client/user/products_by_category/pagination'
+import Pagination from '@/components/user/pagination'
 import { getListCategory } from '@/api/user/category'
 import { getListProductByCategory } from '@/api/user/productsByCategory'
 const sortPrice = {
