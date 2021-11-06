@@ -1,6 +1,5 @@
 export default {
   'menu.welcome': 'Welcome',
-  'menu.home': 'Home',
   'menu.dashboard.analysis': 'Analysis',
   'menu.dashboard.monitor': 'Monitor',
   'menu.dashboard.workplace': 'Workplace',
@@ -36,7 +35,7 @@ export default {
   'menu.account.logout': 'Thoát Ứng Dụng',
 
   // MENU
-  'menu.dashboard': 'TRANG CHỦ',
+  'menu.home': 'TRANG CHỦ',
   'menu.product': 'SẢN PHẨM',
     'menu.product.item': 'Quản lý sản phẩm',
     'menu.product.category': 'Quản lý danh mục'

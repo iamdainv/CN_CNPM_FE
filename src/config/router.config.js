@@ -11,57 +11,42 @@ export const asyncRouterMap = [
     path: '/',
     name: 'index',
     component: BasicLayout,
-    meta: { title: 'menu.home' },
-    redirect: '/dashboard/analysis/:pageNo([1-9]\\d*)?',
+    meta: { title: 'menu.home', breadcrumbText: 'menu.home' },
+    redirect: 'dashboard',
     children: [
       // DASHBOARD
       {
         path: '/dashboard',
         name: 'dashboard',
-        redirect: '/dashboard/analysis/:pageNo([1-9]\\d*)?',
-        component: RouteView,
+        component: () => import('@/views/admin/dashboard/Analysis'),
         hideChildrenInMenu: true,
         meta: {
-          title: 'menu.dashboard',
+          title: 'menu.home',
           keepAlive: true,
           icon: 'home',
           permission: ['dashboard'],
           requiredLogin: true
-        },
-        children: [
-          {
-            path: '/dashboard/analysis/:pageNo([1-9]\\d*)?',
-            name: 'Analysis',
-            component: () => import('@/views/admin/crm/dashboard/Analysis'),
-            meta: { title: 'menu.dashboard.analysis', keepAlive: false, permission: ['dashboard'], requiredLogin: true }
-          },
-          {
-            path: '/dashboard/workplace',
-            name: 'Workplace',
-            component: () => import('@/views/admin/crm/dashboard/Analysis'),
-            meta: { title: 'menu.dashboard.workplace', keepAlive: true, permission: ['dashboard'] }
-          }
-        ]
+        }
       },
       {
         path: '/product',
         name: 'product',
-        redirect: 'product',
+        redirect: 'grocery.product',
         component: RouteView,
         hideChildrenInMenu: false,
-        meta: { title: 'menu.product', keepAlive: true, icon: 'apartment', permission: ['dashboard'] },
+        meta: { title: 'menu.product', breadcrumbText: 'menu.product', keepAlive: true, icon: 'file-done', permission: ['dashboard'] },
         children: [
           {
-            path: '/sales-channel/organization',
-            name: 'sales-channel.organization',
-            component: () => import('@/views/admin/crm/organization'),
-            meta: { title: 'menu.product.item', keepAlive: false, permission: ['dashboard'] }
+            path: '/grocery/product',
+            name: 'grocery.product',
+            component: () => import('@/views/admin/grocery/product/Index'),
+            meta: { title: 'menu.product.item', pageName: 'menu.product.item', breadcrumbText: 'menu.product.item', keepAlive: false, permission: ['dashboard'] }
           },
           {
-            path: '/sales-channel/staff',
-            name: 'sales-channel.staff',
-            component: () => import('@/views/admin/crm/dashboard/Analysis'),
-            meta: { title: 'menu.product.category', keepAlive: false, permission: ['dashboard'] }
+            path: '/grocery/category',
+            name: 'grocery.category',
+            component: () => import('@/views/admin/grocery/category/Index'),
+            meta: { title: 'menu.product.category', pageName: 'menu.product.category', breadcrumbText: 'menu.product.category', keepAlive: false, permission: ['dashboard'] }
           }
         ]
       }
