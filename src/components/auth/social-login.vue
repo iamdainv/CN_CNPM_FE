@@ -32,6 +32,7 @@
 import { authService } from '@/service/auth.service'
 import { facebookProvider, googleProvider, githubProvider } from '@/config/auth-firebase.config'
 import { loginType } from '@/const/app.const'
+import store from '@/store'
 export default {
   name: 'HeaderAuth',
 
@@ -46,17 +47,19 @@ export default {
   methods: {
 
     async handleLogin (loginParam, typeLogin) {
-      console.log('loginParam', loginParam)
-      const [ firstName, lastName ] = loginParam.displayName.split(' ')
-
       const userLogin = {
         image: loginParam.photoURL,
         email: loginParam.email,
-        phoneNumber: loginParam.phoneNumber,
+        phoneNumber: loginParam.phoneNumber ?? '',
         uid: loginParam.uid,
-        firstName,
-        lastName,
-        address: ''
+        firstName: loginParam.displayName,
+        lastName: null,
+        address: '',
+        googleId: '',
+        facebookId: '',
+        githubId: '',
+        shobbeName: '',
+        password: loginParam.uid
       }
 
       switch (typeLogin) {
@@ -71,7 +74,14 @@ export default {
           break
       }
 
-      await authService.handleUserLoginOrRegisterSocial(userLogin, typeLogin)
+      await authService.handleUserLoginOrRegisterSocial(userLogin, typeLogin).then(response => {
+        const { data, message } = response.data
+        if (message === 'Success') {
+          store.dispatch('initUser', data)
+          this.$emit('getToken', data.token)
+          this.$router.push({ path: '/' })
+        }
+      })
     },
 
     async loginWithFacebook () {

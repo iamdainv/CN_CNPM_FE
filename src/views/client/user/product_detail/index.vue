@@ -55,7 +55,7 @@ export default {
           depicted: [],
           productDetail: {}
         },
-      isBought: false,
+      isBought: true,
       comments: []
     }
   },

@@ -78,7 +78,7 @@
         <a class="forgot-password" href="#">Quên mật khẩu</a>
         <a class="login-sms" href="#">Đăng nhập với SMS</a>
       </div>
-      <social-login/>
+      <social-login @getToken="getTokenWhenLogin"/>
       <div id="recaptcha-container"></div>
     </div>
     <div class="form-footer">
@@ -125,6 +125,9 @@ export default {
           console.log(err)
         }
       })
+    },
+    getTokenWhenLogin (token) {
+      this.$cookies.set('token', token)
     }
   }
 }

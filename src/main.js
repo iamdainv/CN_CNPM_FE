@@ -22,8 +22,10 @@ import './utils/filter' // global filter
 import './global.less' // global style
 import Breadcrumb from './components/breadcrumb/Breadcrumb.vue'
 
+import VueCookies from 'vue-cookies'
 Vue.config.productionTip = false
 
+Vue.use(VueCookies)
 Vue.use(VueAxios)
 Vue.use(Carousel)
 Vue.use(Pagination)

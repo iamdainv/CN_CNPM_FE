@@ -45,13 +45,16 @@
             </a>
           </li>
           <!-- login on pc -->
-          <li class="header__navbar-item header__navbar-item--strong header__navbar-item--separate">
-            <router-link :to="{ name: 'register' }" class="header__navbar-item-link">Đăng ký</router-link>
-          </li>
-          <li class="header__navbar-item header__navbar-item--strong">
-            <router-link :to="{ name: 'login' }" class="header__navbar-item-link">Đăng nhập</router-link>
-          </li>
-          <LoginPC></LoginPC>
+          <template v-if="!$store.getters.userInfo.isLogin">
+            <li class="header__navbar-item header__navbar-item--strong header__navbar-item--separate">
+              <router-link :to="{ name: 'register' }" class="header__navbar-item-link">Đăng ký</router-link>
+            </li>
+            <li class="header__navbar-item header__navbar-item--strong">
+              <router-link :to="{ name: 'login' }" class="header__navbar-item-link">Đăng nhập</router-link>
+            </li>
+          </template>
+
+          <LoginPC v-if="$store.getters.userInfo.isLogin"></LoginPC>
         </ul>
       </nav>
 
@@ -126,6 +129,7 @@ export default {
     SortMobile,
     LoginMobileTablet
   },
+
   methods: {
     gotoHome () {
       if (this.$route.name !== 'home') {

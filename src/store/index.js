@@ -26,5 +26,4 @@ const vuex = new Vuex.Store({
   actions: {},
   getters
 })
-vuex.dispatch('initUser', null)
 export default vuex

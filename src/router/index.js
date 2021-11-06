@@ -6,7 +6,6 @@ import {
   constRouteMapClient,
   asyncRouterAuthClient
 } from '@/config/router.config'
-// import store from '@/store'
 
 Vue.use(Router)
 
@@ -22,8 +21,11 @@ router.beforeEach((routeTo, routeFrom, next) => {
   // } else {
   //   next()
   // }
+
   next()
 })
-// router.beforeResolve(async (routeTo, routeFrom, next) => {})
+// router.beforeResolve(async (routeTo, routeFrom, next) => {
+//   console.log('routeTo', routeTo)
+// })
 // router.afterEach((routeTo, routeFrom) => {})
 export default router
