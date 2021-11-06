@@ -1,6 +1,5 @@
 export default {
   'menu.welcome': 'Welcome',
-  'menu.home': 'Home',
   'menu.dashboard.analysis': 'Analysis',
   'menu.dashboard.monitor': 'Monitor',
   'menu.dashboard.workplace': 'Workplace',
@@ -36,8 +35,8 @@ export default {
   'menu.account.logout': 'Thoát Ứng Dụng',
 
   // MENU
-  'menu.dashboard': 'TRANG CHỦ',
-  'menu.sales-channel': 'TỔ CHỨC KÊNH BÁN',
-    'menu.sales-channel.organization': 'Quản lý tổ chức',
-    'menu.sales-channel.staff': 'Quản lý nhân viên'
+  'menu.home': 'TRANG CHỦ',
+  'menu.product': 'SẢN PHẨM',
+    'menu.product.item': 'Quản lý sản phẩm',
+    'menu.product.category': 'Quản lý danh mục'
 }

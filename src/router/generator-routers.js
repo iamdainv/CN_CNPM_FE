@@ -12,7 +12,7 @@ const constantRouterComponents = {
   '404': () => import(/* webpackChunkName: "error" */ '@/views/admin/general/exception/404'),
   '500': () => import(/* webpackChunkName: "error" */ '@/views/admin/general/exception/500'),
 
-  'Analysis': () => import('@/views/admin/crm/dashboard/Analysis'),
+  'Analysis': () => import('@/views/admin/dashboard/Analysis'),
 
   'Exception403': () => import(/* webpackChunkName: "fail" */ '@/views/admin/general/exception/403'),
   'Exception404': () => import(/* webpackChunkName: "fail" */ '@/views/admin/general/exception/404'),

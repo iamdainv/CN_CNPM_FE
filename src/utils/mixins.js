@@ -2,7 +2,7 @@ import Vue from 'vue'
 import { PurchaseType } from '@/const/app.const'
 import moment from 'moment'
 import * as EmailValidator from 'email-validator'
-import { removeUtf8 } from '@/utils/common'
+import { removeUtf8, trimSpace } from '@/utils/common'
 const API_ERROR_STATUSES = [404, 400, 500, 401, 403]
 export const mixin = {
   data: function () {
@@ -20,6 +20,9 @@ export const mixin = {
       return (
         text.toLowerCase().indexOf(txt) >= 0
       )
+    },
+    DeepTrimValue (obj) {
+      trimSpace(obj)
     },
     getNameByGlobalist (arr, value) {
       if (value) {

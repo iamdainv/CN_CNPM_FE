@@ -4,7 +4,7 @@
       <nav class="header__navbar hide-on-mobile-tablet">
         <ul class="header__navbar-list">
           <li class="header__navbar-item">
-            <a class="header__navbar-title--no-pointer btn-linkto-producer" href="#">Vào trang người bán</a>
+            <a class="header__navbar-title--no-pointer btn-linkto-producer" @click="goToAdmin">Vào trang người bán</a>
           </li>
           <li class="header__navbar-item header__navbar-item--has-qr header__navbar-item--separate">
             Vào cửa hàng ứng dụng
@@ -135,6 +135,9 @@ export default {
       if (this.$route.name !== 'home') {
         this.$router.push({ name: 'home' })
       }
+    },
+    goToAdmin () {
+      this.$router.push({ name: 'dashboard' })
     }
   }
 }
