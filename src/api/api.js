@@ -2,7 +2,7 @@ import axios from 'axios'
 import { envConfig } from '@/config'
 import { objectToQueryString } from '@/helpers'
 import request from '@/assets/response'
-
+import Vue from 'vue'
 const instance = axios.create({
   baseURL: envConfig.baseUrl,
   headers: {
@@ -14,14 +14,14 @@ const instance = axios.create({
 instance.interceptors.request.use(
   async config => {
     // eslint-disable-next-line semi
-    const accessToken = '';
+
     // config.headers = {
     //   Accept: 'application/json',
     //   'Content-Type': 'application/x-www-form-urlencoded'
     // }
-
-    if (!config.url.includes('login')) {
-      config.headers.Authorization = `Bearer ${accessToken}`
+    console.log(Vue.$cookies.get('token'))
+    if (Vue.$cookies.get('token')) {
+      config.headers.Authorization = `Bearer ${Vue.$cookies.get('token')}`
     }
 
     return config
@@ -38,12 +38,16 @@ instance.interceptors.response.use(
   },
   async function (error) {
     const originalRequest = error.config
+
     if (error?.response?.status === 403 && !originalRequest._retry) {
       originalRequest._retry = true
       // TODO refreshAccessToken when token exprie
       // const access_token = await refreshAccessToken();
       // axios.defaults.headers.common['Authorization'] = 'Bearer ' + access_token;
       // return axiosApiInstance(originalRequest);
+    }
+    if (error?.response?.status === 401) {
+      Vue.$router.push({ path: '/' })
     }
     return Promise.reject(error)
   }
