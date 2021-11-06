@@ -1,7 +1,7 @@
 <template>
   <li class="header__navbar-item header__navbar-user">
     <img src="@/assets/img/user.png" alt="User" class="header__navbar-user-img">
-    <span class="header__navbar-item-name">nguyen cao thin</span>
+    <span class="header__navbar-item-name">{{ username }}</span>
 
     <ul class="header__navbar-user-menu">
       <li class="header__navbar-user-item">
@@ -22,7 +22,19 @@
 
 <script>
 export default {
-  name: 'LoginPc'
+  name: 'LoginPc',
+  data () {
+    return {
+      username: ''
+    }
+  },
+  mounted () {
+    const { isLogin } = this.$store.getters.userInfo
+    if (isLogin) {
+      const { firstName } = this.$store.getters.userInfo.info
+      this.username = firstName
+    }
+  }
 }
 </script>
 

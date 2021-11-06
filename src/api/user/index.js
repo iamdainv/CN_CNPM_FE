@@ -19,7 +19,8 @@ export const api = {
   buyProductInCart: '/cart',
 
   // auth
-  login: '/register',
+  login: '/users',
+  loginByToken: '/users/token',
 
   // ProductByCategory
   getProductByCategory: '/product',

@@ -10,6 +10,8 @@
 import { domTitle, setDocumentTitle } from '@/utils/domUtil'
 import { i18nRender } from '@/locales'
 import '@/utils/mixins'
+import store from '@/store'
+import { loginByToken } from '@/api/user/auth'
 
 export default {
   data () {
@@ -24,7 +26,15 @@ export default {
     }
   },
   mounted () {
-    console.log(this.$router)
+    const token = this.$cookies.get('token')
+    if (token) {
+      loginByToken(token).then(response => {
+        const { data } = response.data
+        store.commit('SET_INFO', data)
+      }).catch(_ => {
+        this.$cookies.remove('token')
+      })
+    }
   }
 }
 </script>

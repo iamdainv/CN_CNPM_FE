@@ -1,7 +1,7 @@
 <template>
   <li class="header__navbar-item header__navbar-user">
-    <img src="@/assets/img/user.png" alt="User" class="header__navbar-user-img" />
-    <span class="header__navbar-item-name">nguyen cao thin</span>
+    <img :src="image" alt="User" class="header__navbar-user-img" />
+    <span class="header__navbar-item-name"> {{ username }} </span>
 
     <ul class="header__navbar-user-menu">
       <li class="header__navbar-user-item">
@@ -23,6 +23,12 @@
 <script>
 export default {
   name: 'LoginPc',
+  data () {
+    return {
+      username: '',
+      image: ''
+    }
+  },
   methods: {
     gotoAccount () {
       if (this.$route.name !== 'userInfo') {
@@ -40,7 +46,16 @@ export default {
       }
     },
     handleLogout () {
-      console.log('Logout')
+      this.$store.dispatch('logout')
+    }
+  },
+  mounted () {
+    console.log('this.$store.getters.userInfo', this.$store.getters.userInfo)
+    const { isLogin } = this.$store.getters.userInfo
+    if (isLogin) {
+      const { firstName, image } = this.$store.getters.userInfo.info
+      this.username = firstName
+      this.image = image
     }
   }
 }
