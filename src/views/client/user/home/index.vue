@@ -34,8 +34,9 @@ import CategoryMobile from '@/components/user/category_mobile'
 import CategoryHome from '@/components/user/category_home_pc'
 import ProductItem from '@/views/client/user/home/product_item'
 import Pagination from '@/components/user/pagination'
-import { getListProduct } from '@/api/user/product'
+import { getListProduct, searchProducts } from '@/api/user/product'
 import { getListCategoryParent } from '@/api/user/category'
+import { bus } from '@/main.js'
 export default {
   name: 'Home',
   components: {
@@ -51,6 +52,7 @@ export default {
       listCategory: [],
       visiblePagination: false,
       loadingListProduct: false,
+      keyword: '',
       pagination: {
         current: 1,
         total: 0,
@@ -61,8 +63,21 @@ export default {
   created () {
     this.getListCategory()
     this.getListProduct()
+    bus.$on('searchProductsByKeyword', this.searchProductsByKeyword)
+  },
+  destroyed () {
+    bus.$off('searchProductsByKeyword', this.searchProductsByKeyword)
   },
   methods: {
+    getListCategory () {
+      getListCategoryParent().then(res => {
+        this.listCategory = res.data.data ? res.data.data : []
+      }).catch(err => {
+        this.$error({
+          content: err
+        })
+      })
+    },
     getListProduct () {
       const params = {
         pageNum: this.pagination.current,
@@ -81,19 +96,30 @@ export default {
         this.loadingListProduct = false
       })
     },
-    getListCategory () {
-      getListCategoryParent().then(res => {
-        this.listCategory = res.data.data ? res.data.data : []
+    searchProductsByKeyword (keyword = this.keyword) {
+      this.keyword = keyword
+      const params = {
+        pageNum: 1,
+        pageSize: this.pagination.pageSize,
+        keyword: this.keyword
+      }
+      this.loadingListProduct = true
+      this.listProduct = []
+      searchProducts(params).then(res => {
+        this.listProduct = res.data.data.list ? res.data.data.list : []
+        this.pagination.total = res.data.data.total ? res.data.data.total : 0
       }).catch(err => {
         this.$error({
           content: err
         })
+      }).finally(() => {
+        this.loadingListProduct = false
       })
     },
     getByPagination ({ page, limit }) {
       this.pagination.current = page
       this.pagination.pageSize = limit !== undefined ? limit : this.pagination.pageSize
-      this.getListProduct()
+      this.searchProductsByKeyword()
     },
     handleWatchMore () {
       this.visiblePagination = true

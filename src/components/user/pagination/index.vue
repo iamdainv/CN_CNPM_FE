@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     onShowSizeChange (current, pageSize) {
-      this.$emit('getByPagination', { page: current, limit: pageSize })
+      this.$emit('getByPagination', { page: 1, limit: pageSize })
     }
   }
 }

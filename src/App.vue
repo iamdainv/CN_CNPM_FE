@@ -1,12 +1,13 @@
 <template>
   <a-config-provider :locale="locale">
     <div id="app">
-      <div style="    background-color: #f5f5f5;"><router-view /></div>
+      <div style="background-color: #f5f5f5;"><router-view /></div>
     </div>
   </a-config-provider>
 </template>
 
 <script>
+import '@/assets/css/index.scss'
 import { domTitle, setDocumentTitle } from '@/utils/domUtil'
 import { i18nRender } from '@/locales'
 import '@/utils/mixins'

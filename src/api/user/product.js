@@ -25,3 +25,7 @@ export function updateProduct (param) {
 export function deleteProduct (param) {
     return apiService.delete(api.deleteProduct, param)
 }
+
+export function searchProducts (params) {
+    return apiService.get(api.searchProducts, params)
+}

@@ -34,6 +34,8 @@ Vue.component('page-header-wrapper', PageHeaderWrapper)
 require('./utils/mixins')
 window.umi_plugin_ant_themeVar = themePluginConfig.theme
 
+export const bus = new Vue()
+
 new Vue({
   router,
   store,
