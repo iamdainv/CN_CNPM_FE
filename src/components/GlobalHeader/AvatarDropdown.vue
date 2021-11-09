@@ -59,10 +59,8 @@ export default {
     }
   },
   methods: {
-    handleToCenter (val) {
-      console.log(val)
-      this.selectedKeys = [val]
-      this.$emit('menu', val)
+    handleToCenter () {
+      this.$router.push({ path: '/' })
     },
     handleToSettings () {
       this.$router.push({ path: '/account/settings' })

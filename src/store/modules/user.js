@@ -57,7 +57,9 @@ const user = {
       }
     ]
   },
-
+  getters: {
+    isLogin: state => state.isLogin
+  },
   mutations: {
     SET_TOKEN: (state, token) => {
       state.token = token

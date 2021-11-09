@@ -22,46 +22,16 @@
             <a-row :gutter="16" type="flex">
               <a-col :xs="24" :md="6" :lg="6" class="filter-item-container">
                 <a-form-model-item
-                  prop="bDomainId"
+                  prop="productCode"
                   label="Loại sản phẩm"
                 >
-                  <a-select
+                  <a-tree-select
                     :allowClear="true"
-                    :filter-option="filterSelectOption"
-                    show-search
                     style="width: 100%"
-                    v-model="filters.bDomainId"
-                    @change="handleSelectBDomain"
-                  >
-                    <a-select-option :value="''" :key="'all'"> -- Tất cả --</a-select-option>
-                    <a-select-option
-                      v-for="item in listBusinessDomain"
-                      :key="'p-g-' + item.code"
-                      :value="item.value">{{ item.name }}
-                    </a-select-option>
-                  </a-select>
-                </a-form-model-item>
-              </a-col>
-              <a-col :xs="24" :md="6" :lg="6" class="filter-item-container">
-                <a-form-model-item
-                  prop="productCode"
-                  label="Mã sản phẩm"
-                  :rules="
-                    [
-                      {
-                        max: 50,
-                        message: 'Nhập tối đa 50 ký tự',
-                        trigger: 'change'
-                      },{
-                        validator: inputNumberSpecialCharacters,
-                        message: 'Chỉ cho phép nhập số, chữ không dấu và dấu _',
-                        trigger: 'change'
-                      }
-                    ]">
-                  <a-input
                     v-model="filters.productCode"
-                    @blur="DeepTrimValue(filters)"
-                    :maxLength="50"
+                    :dropdown-style="{ maxHeight: '400px', overflow: 'auto' }"
+                    :tree-data="treeData"
+                    @change="onChangeTreeSelect"
                   />
                 </a-form-model-item>
               </a-col>
@@ -199,6 +169,8 @@
 <script>
 import columns from '@/views/admin/grocery/product/columns'
 import DrawForm from './Form'
+import { getListCategory } from '@/api/user/category'
+import { getListProductByAdmin } from '@/api/user/product'
 
 export default {
   name: 'Index',
@@ -210,6 +182,8 @@ export default {
       columns,
       activeSearchKey: 1,
       data: [],
+      treeData: [],
+      dataFilter: [],
       listStatus: [],
       listBusinessDomain: [],
       listProductGroup: [],
@@ -244,11 +218,38 @@ export default {
     }
   },
   created () {
-    this.getListStatus()
-    this.getListBusinessDomain()
+    // this.getListStatus()
+    // this.getListBusinessDomain()
+    this.getCategory()
     this.getData()
   },
   methods: {
+    list_to_tree (list) {
+      var map = {}; var node; var roots = []; var i
+      for (i = 0; i < list.length; i += 1) {
+        map[list[i].id] = i // initialize the map
+        list[i].children = [] // initialize the children
+        list[i].title = list[i].original_category_name
+        list[i].key = list[i].id
+        list[i].value = list[i].id
+      }
+      for (i = 0; i < list.length; i += 1) {
+        node = list[i]
+        if (node.parent_category_id !== 0) {
+            list[map[node.parent_category_id]].children.push(node)
+        } else {
+          roots.push(node)
+        }
+      }
+      return roots
+    },
+    getCategory () {
+      getListCategory().then(res => {
+        this.dataFilter = res.data.data
+        this.treeData = this.list_to_tree(res.data.data)
+        console.log('treeData', this.treeData)
+      })
+    },
     switchStatus (record) {
       const that = this
       if (record) {
@@ -267,7 +268,11 @@ export default {
       }
     },
     getData () {
-
+      getListProductByAdmin().then(res => {
+        const { total, list } = res.data.data
+        this.data = list
+        this.pagination.total = total
+      })
     },
     handleTableChange (pagination, filters, sorter) {
       this.pagination = pagination

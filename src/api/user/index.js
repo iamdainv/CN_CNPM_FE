@@ -3,6 +3,7 @@ export const api = {
   getListProduct: '/product/list',
   getProductById: '/product',
   getProductsByCategory: '/product/list',
+  getListProductByAdmin: '/product/list/user',
   createProduct: '/product',
   updateProduct: '/product',
   deleteProduct: '/product',

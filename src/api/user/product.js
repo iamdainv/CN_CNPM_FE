@@ -10,6 +10,10 @@ export function getProductById (param) {
     return apiService.getMockResponse(`${api.getProductById}`, 500)
 }
 
+export function getListProductByAdmin () {
+  return apiService.get(api.getListProductByAdmin)
+}
+
 export function getProductByCategory (param) {
     return apiService.get(api.getProductsByCategory, param)
 }

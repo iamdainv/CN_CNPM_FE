@@ -23,14 +23,6 @@ export default [
     width: 120
   },
   {
-    title: 'Mã sản phẩm',
-    dataIndex: 'productCode',
-    scopedSlots: { customRender: 'productCode' },
-    align: 'left',
-    ellipsis: true,
-    width: 220
-  },
-  {
     title: 'Tên sản phẩm',
     dataIndex: 'productName',
     scopedSlots: { customRender: 'productName' },
