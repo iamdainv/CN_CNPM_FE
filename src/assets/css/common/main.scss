@@ -23,6 +23,7 @@ a:hover {
 .header__navbar {
 	display: flex;
 	justify-content: space-between;
+	height: 36px;
 }
 
 .header__navbar-list {
@@ -1409,7 +1410,7 @@ span.home-produce-item__origin-name {
 
 /* Nagination */
 .produce-pagination {
-	margin: 36px 0 36px;
+	margin: 0px 0 36px;
 	padding: 0;
 }
 

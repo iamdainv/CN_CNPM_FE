@@ -6,19 +6,31 @@
       <div class="line"></div>
     </div>
     <div class="flex justify-between">
-      <button class="flex button__wrapper button-facebook justify-center items-center" :class="isLoadingLoginFacebook && 'currently-logged'" @click="loginWithFacebook">
+      <button
+        class="flex button__wrapper button-facebook justify-center items-center"
+        :class="isLoadingLoginFacebook && 'currently-logged'"
+        @click="loginWithFacebook"
+      >
         <div class="button-social__wrapper button-login-facebook">
           <div class="social-white-background social-white-fb-png social-icon"></div>
         </div>
         <div>Facebook</div>
       </button>
-      <button class="flex button-google button__wrapper justify-center items-center" :class="isLoadingLoginGoogle && 'currently-logged'" @click="loginWithGoogle">
+      <button
+        class="flex button-google button__wrapper justify-center items-center"
+        :class="isLoadingLoginGoogle && 'currently-logged'"
+        @click="loginWithGoogle"
+      >
         <div class="button-social__wrapper button-login-google">
           <div class="social-white-background social-white-gg-png social-icon"></div>
         </div>
         <div>Google</div>
       </button>
-      <button class="flex button-github button__wrapper justify-center items-center" :class="isLoadingLoginGithub && 'currently-logged'" @click="loginWithGithub">
+      <button
+        class="flex button-github button__wrapper justify-center items-center"
+        :class="isLoadingLoginGithub && 'currently-logged'"
+        @click="loginWithGithub"
+      >
         <div class="button-social__wrapper">
           <a-icon type="github" class="social-black-github social-icon font-22" />
         </div>
@@ -45,21 +57,20 @@ export default {
   },
 
   methods: {
-
     async handleLogin (loginParam, typeLogin) {
       const userLogin = {
-        image: loginParam.photoURL,
-        email: loginParam.email,
-        phoneNumber: loginParam.phoneNumber ?? '',
-        uid: loginParam.uid,
-        firstName: loginParam.displayName,
+        image: loginParam?.photoURL,
+        email: loginParam?.email,
+        phoneNumber: loginParam?.phoneNumber ?? '',
+        uid: loginParam?.uid,
+        firstName: loginParam?.displayName,
         lastName: null,
         address: '',
         googleId: '',
         facebookId: '',
         githubId: '',
         shobbeName: '',
-        password: loginParam.uid
+        password: loginParam?.uid
       }
 
       switch (typeLogin) {
@@ -87,7 +98,9 @@ export default {
     async loginWithFacebook () {
       try {
         // this.isLoadingLoginGoogle = true
-        const res = await authService.socialMediaAuth(facebookProvider, () => { this.isLoadingLoginGoogle = false })
+        const res = await authService.socialMediaAuth(facebookProvider, () => {
+          this.isLoadingLoginGoogle = false
+        })
         console.log('response facebook login', res)
         // TODO: Login with facebook
         // await this.handleLogin(res, loginType.FACEBOOK).then(res => {
@@ -102,11 +115,13 @@ export default {
     async loginWithGoogle () {
       try {
         this.isLoadingLoginGoogle = true
-        const res = await authService.socialMediaAuth(googleProvider, () => { this.isLoadingLoginGoogle = false })
+        const res = await authService.socialMediaAuth(googleProvider, () => {
+          this.isLoadingLoginGoogle = false
+        })
 
         console.log('response google login', res)
 
-         this.handleLogin(res, loginType.GOOGLE).finally(() => {
+        this.handleLogin(res, loginType.GOOGLE).finally(() => {
           this.isLoadingLoginGoogle = false
         })
       } catch (e) {
@@ -115,20 +130,21 @@ export default {
     },
 
     async loginWithGithub () {
-     try {
-       this.isLoadingLoginGithub = true
-       const res = await authService.socialMediaAuth(githubProvider, () => { this.isLoadingLoginGithub = false })
+      try {
+        this.isLoadingLoginGithub = true
+        const res = await authService.socialMediaAuth(githubProvider, () => {
+          this.isLoadingLoginGithub = false
+        })
 
-       console.log('response github login', res)
+        console.log('response github login', res)
 
         this.handleLogin(res, loginType.GITHUB).finally(() => {
-         this.isLoadingLoginGithub = false
-       })
-     } catch (e) {
-       console.error('message.error_login_github', e)
-     }
+          this.isLoadingLoginGithub = false
+        })
+      } catch (e) {
+        console.error('message.error_login_github', e)
+      }
     }
-
   }
 }
 </script>
@@ -197,6 +213,6 @@ export default {
 }
 
 .currently-logged {
-  opacity: .7;
+  opacity: 0.7;
 }
 </style>
