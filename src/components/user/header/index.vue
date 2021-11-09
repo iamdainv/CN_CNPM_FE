@@ -142,7 +142,9 @@ export default {
       }
     },
     handleSearchProduct () {
-      bus.$emit('searchProductsByKeyword', this.keyword)
+      if (this.$route.name === 'home') {
+        bus.$emit('searchProductsByKeyword', this.keyword)
+      }
     }
   }
 }
