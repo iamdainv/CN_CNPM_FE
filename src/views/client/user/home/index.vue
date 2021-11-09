@@ -98,7 +98,6 @@ export default {
     },
     searchProductsByKeyword (keyword = this.keyword) {
       this.keyword = keyword
-      this.pagination.current = 1
       const params = {
         pageNum: this.pagination.current,
         pageSize: this.pagination.pageSize,
