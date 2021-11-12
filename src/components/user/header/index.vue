@@ -142,12 +142,6 @@ export default {
       }
     },
     goToAdmin () {
-      this.$router.push({ name: 'dashboard' })
-    },
-    handleSearchProduct () {
-      if (this.$route.name === 'home') {
-        bus.$emit('searchProductsByKeyword', this.keyword)
-      }
       if (this.$store.getters.isLogin) {
         this.$router.push({ name: 'dashboard' })
       } else {
@@ -156,6 +150,11 @@ export default {
           duration: 5
         })
         this.$router.push({ name: 'login' })
+      }
+    },
+    handleSearchProduct () {
+      if (this.$route.name === 'home') {
+        bus.$emit('searchProductsByKeyword', this.keyword)
       }
     }
   }
