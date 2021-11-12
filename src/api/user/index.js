@@ -7,6 +7,7 @@ export const api = {
   createProduct: '/product',
   updateProduct: '/product',
   deleteProduct: '/product',
+  searchProducts: '/product/search_list',
 
   // Category
   getListCategoryParent: '/category/parent',

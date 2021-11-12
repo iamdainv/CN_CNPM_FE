@@ -74,7 +74,7 @@
 
         <div class="header__search">
           <div class="header__search-input-wrap">
-            <input type="text" class="header__search-input" placeholder="Nhập để tìm kiếm sản phẩm" />
+            <input v-model="keyword" type="text" class="header__search-input" placeholder="Nhập để tìm kiếm sản phẩm" />
             <div class="header__search-history">
               <h3 class="header__search-history-heading">Lịch sử tìm kiếm</h3>
               <ul class="header__search-history-list"></ul>
@@ -96,7 +96,7 @@
               </li>
             </ul>
           </div>
-          <button class="header__search-btn">
+          <button class="header__search-btn" @click="handleSearchProduct">
             <i class="header__search-btn-icon fas fa-search"></i>
           </button>
         </div>
@@ -120,6 +120,7 @@ import LoginPC from '@/components/user/header/login_pc'
 import CartHeader from '@/components/user/header/cart_header'
 import SortMobile from '@/components/user/header/sort_mobile'
 import LoginMobileTablet from '@/components/user/header/login_mobile_tablet'
+import { bus } from '@/main.js'
 export default {
   name: 'HeaderUser',
   components: {
@@ -129,7 +130,11 @@ export default {
     SortMobile,
     LoginMobileTablet
   },
-
+  data () {
+    return {
+      keyword: ''
+    }
+  },
   methods: {
     gotoHome () {
       if (this.$route.name !== 'home') {
@@ -137,6 +142,12 @@ export default {
       }
     },
     goToAdmin () {
+      this.$router.push({ name: 'dashboard' })
+    },
+    handleSearchProduct () {
+      if (this.$route.name === 'home') {
+        bus.$emit('searchProductsByKeyword', this.keyword)
+      }
       if (this.$store.getters.isLogin) {
         this.$router.push({ name: 'dashboard' })
       } else {

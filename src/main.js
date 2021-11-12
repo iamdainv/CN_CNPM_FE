@@ -38,6 +38,8 @@ Vue.component('breadcrumb', Breadcrumb)
 require('./utils/mixins')
 window.umi_plugin_ant_themeVar = themePluginConfig.theme
 
+export const bus = new Vue()
+
 new Vue({
   router,
   store,
