@@ -1,5 +1,5 @@
 <template>
-  <div class="app__container">
+  <div class="app__container" style="padding-bottom: 20px;">
     <div class="grid wide">
       <div class="row-lbr sm-gutter app__content">
         <div class="col-lbr l-2 m-0 c-0-lbr">
@@ -10,24 +10,25 @@
         <div class="col-lbr l-10 m-12 c-12-lbr">
           <!-- filter products -->
           <filter-products
-            @getBySortType="getBySortType"
-            @getByPrice="getByPrice"
+            @sortProducts="sortProducts"
             @getByPagination="getByPagination"
             :totalPage="totalPage"
-            :page="param.page"
+            :currentPage="params.pageNum"
             :sortType="sortType"
-            :currentSortType="this.param.sortType"
-            :sortPrice="sortPrice"
-            :currentSortPrice="this.param.sortPrice"></filter-products>
+            :currentSortType="params.sortType"
+            :orderType="orderType"
+            :currentOrderType="params.orderType"></filter-products>
           <div class="home-produce">
             <!-- category mobile -->
             <category-mobile :listCategory="listCategory" @getByCategoryId="getByCategoryId"></category-mobile>
             <!-- list product -->
+            <a-spin v-if="loadingListProduct" :spinning="loadingListProduct" size="large" style="width: 100%; height: 100px; padding: 30px 50px; margin: 20px 0;">
+            </a-spin>
             <list-product :listProduct="listProduct"></list-product>
           </div>
 
           <!-- pagination -->
-          <pagination @getByPagination="getByPagination" :total="total"></pagination>
+          <pagination @getByPagination="getByPagination" :total="total" :currentPage="params.pageNum" style="margin: 30px 0px;"></pagination>
         </div>
       </div>
     </div>
@@ -40,17 +41,10 @@ import FilterProducts from '@/views/client/user/products_by_category/filter_prod
 import CategoryMobile from '@/components/user/category_mobile'
 import ListProduct from '@/views/client/user/products_by_category/list_product'
 import Pagination from '@/components/user/pagination'
-import { getListCategory } from '@/api/user/category'
+import { getListCategoryParent } from '@/api/user/category'
 import { getListProductByCategory } from '@/api/user/productsByCategory'
-const sortPrice = {
-  asc: 0,
-  desc: 1
-}
-const sortType = {
-  latest: 0,
-  popular: 1,
-  hotSelling: 2
-}
+import { SortType, OrderType } from '@/const/app.const.js'
+import { bus } from '@/main.js'
 export default {
   name: 'ProductsByCategory',
   components: {
@@ -66,73 +60,80 @@ export default {
       listProduct: [],
       total: 0,
       totalPage: 0,
-      sortType,
-      sortPrice,
-      param: {
-        categoryId: undefined,
-        page: 1,
-        limit: 10,
-        sortPrice: sortPrice.asc,
-        sortType: sortType.latest
+      sortType: { ...SortType },
+      orderType: { ...OrderType },
+      loadingListProduct: false,
+      params: {
+        idCategory: 1,
+        keyword: '',
+        pageNum: 1,
+        pageSize: 20,
+        sortType: SortType.NEWEST,
+        orderType: OrderType.DESC
       }
     }
   },
   created () {
-    this.param.categoryId = this.$route.params.categoryId
+    this.params.idCategory = this.$route.params.categoryId
     this.getListCategory()
     this.getListProductByCategory()
+    bus.$on('searchProductsCategoryByKeyword', this.searchProductsCategoryByKeyword)
+  },
+  destroyed () {
+    bus.$off('searchProductsCategoryByKeyword', this.searchProductsCategoryByKeyword)
   },
   updated () {
-    this.param.categoryId = this.$route.params.categoryId
+    this.params.idCategory = this.$route.params.categoryId
   },
   methods: {
     getListCategory () {
-      getListCategory().then(res => {
-        this.listCategory = res.data
+      getListCategoryParent().then(res => {
+        this.listCategory = res.data.data ? res.data.data : []
+      }).catch(err => {
+        this.$error({ content: err })
       })
     },
     getListProductByCategory () {
-      // const param = {
-      //   idCagegory: this.param.idCategory,
-      //   currentPage: this.param.currentPage,
-      //   price: this.param.price,
-      //   sortType: this.param.sortType
-      // }
-      // getListProductByCategory(param).then(rs => {
-      //   this.listProduct = rs.data.listProduct
-      //   this.total = Number.parseInt(rs.data.total)
-      //   this.totalPage = Number.parseInt(rs.data.totalPage)
-      // }).catch(err => {
-      //   console.log(err)
-      // })
       const param = {
-        id_category: this.param.categoryId,
-        page: this.param.page,
-        limit: this.param.limit
+        idCategory: this.params.idCategory,
+        keyword: this.params.keyword,
+        pageNum: this.params.pageNum,
+        pageSize: this.params.pageSize,
+        sortBy: this.params.sortType,
+        order: this.params.orderType
       }
+      this.listProduct = []
+      this.total = 0
+      this.loadingListProduct = true
       getListProductByCategory(param).then(rs => {
-        this.listProduct = rs.data
-        this.total = rs.data.length
-        this.totalPage = Math.ceil(this.listProduct.length / this.param.limit)
+        this.listProduct = rs.data.data.list ? rs.data.data.list : []
+        this.total = rs.data.data.total ? Number.parseInt(rs.data.data.total) : 0
+        this.totalPage = rs.data.data.pages ? Number.parseInt(rs.data.data.pages) : 1
       }).catch(err => {
         console.log(err)
+      }).finally(() => {
+        this.loadingListProduct = false
       })
     },
     getByCategoryId (idCategory) {
-      this.param.categoryId = idCategory
+      this.params.idCategory = idCategory
+      this.params.pageNum = 1
       this.getListProductByCategory()
     },
-    getBySortType (sortType) {
-      this.param.sortType = sortType
+    searchProductsCategoryByKeyword (keyword) {
+      this.params.keyword = keyword
+      this.params.pageNum = 1
+      console.log('keyword: ', this.params.keyword)
       this.getListProductByCategory()
     },
-    getByPrice (sortPrice) {
-      this.param.sortPrice = sortPrice
+    sortProducts ({ sortType, orderType = OrderType.DESC }) {
+      this.params.sortType = sortType
+      this.params.orderType = orderType
       this.getListProductByCategory()
     },
     getByPagination ({ page, limit }) {
-      this.param.page = page
-      this.param.limit = limit !== undefined ? limit : this.param.limit
+      this.params.pageNum = !page === false ? page : 1
+      this.params.pageSize = limit !== undefined ? limit : this.params.pageSize
       this.getListProductByCategory()
     }
   }

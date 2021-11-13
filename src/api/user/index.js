@@ -2,7 +2,7 @@ export const api = {
   // Product
   getListProduct: '/product/list',
   getProductById: '/product',
-  getProductsByCategory: '/product/list',
+  getProductsByCategory: '/product/search_list',
   createProduct: '/product',
   updateProduct: '/product',
   deleteProduct: '/product',
