@@ -22,16 +22,17 @@
             <a-row :gutter="16" type="flex">
               <a-col :xs="24" :md="6" :lg="6" class="filter-item-container">
                 <a-form-model-item
-                  prop="productCode"
+                  prop="id_category"
                   label="Loại sản phẩm"
                 >
                   <a-tree-select
                     :allowClear="true"
                     style="width: 100%"
-                    v-model="filters.productCode"
+                    show-search
+                    filterTreeNode
+                    v-model="filters.id_category"
                     :dropdown-style="{ maxHeight: '400px', overflow: 'auto' }"
                     :tree-data="treeData"
-                    @change="onChangeTreeSelect"
                   />
                 </a-form-model-item>
               </a-col>
@@ -103,27 +104,31 @@
             <template slot="rowIndex" slot-scope="text, record, index">
               <span>{{ getTableRowIndex(pagination.pageSize, pagination.current, index) }} </span>
             </template>
-            <template slot="staTime" slot-scope="text, record">
-              <span>{{ record && record.staTime ? moment(record.staTime,'DD/MM/YYYY').format('DD/MM/YYYY') : '' }}</span>
+            <template slot="updatedAt" slot-scope="text, record">
+              <span>{{ record && record.updatedAt ? moment(record.updatedAt).format('DD/MM/YYYY') : '' }}</span>
             </template>
-            <template slot="endTime" slot-scope="text, record">
-              <span>{{ record && record.endTime ? moment(record.endTime,'DD/MM/YYYY').format('DD/MM/YYYY') : '' }}</span>
+            <template slot="createdAt" slot-scope="text, record">
+              <span>{{ record && record.createdAt ? moment(record.createdAt).format('DD/MM/YYYY') : '' }}</span>
             </template>
-            <template slot="createTime" slot-scope="text, record">
-              <span>{{ record && record.createTime ? moment(record.createTime,'DD/MM/YYYY').format('DD/MM/YYYY') : '' }}</span>
-            </template>
-            <template slot="status" slot-scope="text, record">
+            <template slot="isSell" slot-scope="text, record">
               <a-switch
-                v-action="'change_status'"
-                :checked="!!record.status"
+                :checked="!!record.isSell"
                 @change="switchStatus(record)"
+              />
+            </template>
+            <template slot="image" slot-scope="text, record">
+              <img
+                class="image"
+                :src="record.image"
+                width="50"
+                height="50"
               />
             </template>
             <template slot="operation" slot-scope="text, record">
               <div>
                 <a-tooltip placement="top">
                   <template slot="title">
-                    <span>{{ `Xem chi tiết ${record.productName}` }}</span>
+                    <span>{{ `Xem chi tiết ${record.name}` }}</span>
                   </template>
                   <span v-action="'detail'" style="padding-right:12px;cursor: pointer">
                     <a-icon
@@ -135,7 +140,7 @@
                 </a-tooltip>
                 <a-tooltip placement="top">
                   <template slot="title">
-                    <span>{{ `Cập nhật ${record.productName}` }}</span>
+                    <span>{{ `Cập nhật ${record.name}` }}</span>
                   </template>
                   <span v-action="'update'" @click="onEditRow(record)" class="vnpost-link">
                     <a-icon
@@ -159,7 +164,7 @@
       :is-create="drawIsCreate"
       @closeDraw="handleCancelDraw"
       :objectEdit="objectEdit"
-      :listBusinessDomain="listBusinessDomain"
+      :list-product-type="treeData"
       :listStatus="listStatus"
     >
     </DrawForm>
@@ -171,6 +176,7 @@ import columns from '@/views/admin/grocery/product/columns'
 import DrawForm from './Form'
 import { getListCategory } from '@/api/user/category'
 import { getListProductByAdmin } from '@/api/user/product'
+import moment from 'moment'
 
 export default {
   name: 'Index',
@@ -196,23 +202,19 @@ export default {
       pagination: {
         current: 1,
         total: 0,
-        pageSize: 15,
+        pageSize: 10,
         pageSizes: 500,
         showSizeChanger: true,
         showQuickJumper: true,
-        pageSizeOptions: ['15', '25', '100'],
+        pageSizeOptions: ['10', '20', '30'],
         showTotal: (total) => {
           return 'Tổng số dòng ' + total
         }
       },
       loading: false,
       filters: {
-        productCode: '',
+        id_category: '',
         productName: '',
-        bDomainId: '',
-        pGroupCode: '',
-        staTime: '',
-        endTime: '',
         status: ''
       }
     }
@@ -224,6 +226,7 @@ export default {
     this.getData()
   },
   methods: {
+    moment,
     list_to_tree (list) {
       var map = {}; var node; var roots = []; var i
       for (i = 0; i < list.length; i += 1) {
@@ -247,14 +250,13 @@ export default {
       getListCategory().then(res => {
         this.dataFilter = res.data.data
         this.treeData = this.list_to_tree(res.data.data)
-        console.log('treeData', this.treeData)
       })
     },
     switchStatus (record) {
       const that = this
       if (record) {
         this.$confirm({
-          title: `Bạn muốn thay đổi trạng thái của ${record.productName}?`,
+          title: `Bạn muốn thay đổi trạng thái của ${record.name}?`,
           okType: 'primary',
           onOk () {
             that.changeStatusProduct(record)
@@ -267,7 +269,11 @@ export default {
         })
       }
     },
+    changeStatusProduct () {
+
+    },
     getData () {
+      console.log(this.filters.id_category)
       getListProductByAdmin().then(res => {
         const { total, list } = res.data.data
         this.data = list
@@ -353,5 +359,7 @@ export default {
 </script>
 
 <style scoped>
-
+.image{
+  object-fit: cover;
+}
 </style>

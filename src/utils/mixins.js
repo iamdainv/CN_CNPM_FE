@@ -14,6 +14,11 @@ export const mixin = {
     }
   },
   methods: {
+    filterTreeSelectOption (inputValue, treeNode) {
+      const txt = removeUtf8(inputValue.toLowerCase())
+      const text = removeUtf8(treeNode.componentOptions.propsData.title.toLowerCase())
+      return text.indexOf(txt) >= 0
+    },
     filterSelectOption (input, option) {
       const txt = removeUtf8(input.toLowerCase())
       const text = removeUtf8(option.componentOptions.children[0].text)

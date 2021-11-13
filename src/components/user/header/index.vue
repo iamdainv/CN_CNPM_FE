@@ -155,6 +155,11 @@ export default {
     handleSearchProduct () {
       if (this.$route.name === 'home') {
         bus.$emit('searchProductsByKeyword', this.keyword)
+      } else if (this.$route.name === 'productsByCategory') {
+        bus.$emit('searchProductsCategoryByKeyword', this.keyword)
+      } else {
+        this.$router.push({ name: 'productsByCategory', params: { categoryId: 1 } })
+        setTimeout(() => { bus.$emit('searchProductsCategoryByKeyword', this.keyword) }, 0)
       }
     }
   }

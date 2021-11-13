@@ -51,8 +51,13 @@ export default {
       newPrice: 0
     }
   },
+  watch: {
+    product () {
+      this.newPrice = Math.floor(this.product.price - (this.product.discount / 100) * this.product.price)
+    }
+  },
   created () {
-    this.newPrice = this.product.price - Math.floor((this.product.discount / 100) * this.product.price)
+    this.newPrice = Math.floor(this.product.price - (this.product.discount / 100) * this.product.price)
   },
   methods: {
     gotoDetail () {

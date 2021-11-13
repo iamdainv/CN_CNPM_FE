@@ -16,50 +16,82 @@ export default [
   },
   {
     title: 'Loại sản phẩm',
-    dataIndex: 'productType',
-    scopedSlots: { customRender: 'productType' },
+    dataIndex: 'title',
+    scopedSlots: { customRender: 'title' },
     align: 'left',
     ellipsis: true,
     width: 120
   },
   {
     title: 'Tên sản phẩm',
-    dataIndex: 'productName',
-    scopedSlots: { customRender: 'productName' },
+    dataIndex: 'name',
+    scopedSlots: { customRender: 'name' },
     align: 'left',
     ellipsis: true,
     width: 220
   },
   {
-    title: 'Giá sản phẩm',
-    dataIndex: 'productPrice',
-    scopedSlots: { customRender: 'productName' },
+    title: 'Hình ảnh',
+    dataIndex: 'image',
+    scopedSlots: { customRender: 'image' },
     align: 'left',
+    ellipsis: true,
+    width: 80
+  },
+  {
+    title: 'Giá sản phẩm',
+    dataIndex: 'price',
+    scopedSlots: { customRender: 'price' },
+    align: 'right',
     ellipsis: true,
     width: 70
   },
   {
     title: 'Số lượng sản phẩm',
-    dataIndex: 'productNumber',
-    scopedSlots: { customRender: 'productNumber' },
-    align: 'left',
+    dataIndex: 'quantity',
+    scopedSlots: { customRender: 'quantity' },
     ellipsis: true,
-    width: 70
+    align: 'right',
+    width: 100
+  },
+  {
+    title: 'Đã bán',
+    dataIndex: 'selled',
+    scopedSlots: { customRender: 'selled' },
+    ellipsis: true,
+    align: 'right',
+    width: 100
   },
   {
     title: 'Trạng thái',
-    dataIndex: 'status',
-    scopedSlots: { customRender: 'status' },
+    dataIndex: 'isSell',
+    scopedSlots: { customRender: 'isSell' },
     align: 'center',
     ellipsis: true,
     width: 80
   },
   {
-    title: 'Mô tả sản phẩm',
-    dataIndex: 'productDescript',
-    scopedSlots: { customRender: 'productDescript' },
-    align: 'left',
+    title: 'Ngày tạo',
+    dataIndex: 'createdAt',
+    scopedSlots: { customRender: 'createdAt' },
+    align: 'center',
     ellipsis: true,
-    width: 300
+    width: 100
+  },
+  {
+    title: 'Ngày cập nhật',
+    dataIndex: 'updatedAt',
+    scopedSlots: { customRender: 'updatedAt' },
+    align: 'center',
+    ellipsis: true,
+    width: 100
   }
+  // {
+  //   title: 'Mô tả sản phẩm',
+  //   dataIndex: 'description',
+  //   scopedSlots: { customRender: 'description' },
+  //   align: 'left',
+  //   ellipsis: true,
+  //   width: 300
+  // }
 ]

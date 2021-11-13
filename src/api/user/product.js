@@ -14,12 +14,16 @@ export function getListProductByAdmin () {
   return apiService.get(api.getListProductByAdmin)
 }
 
+export function createProductAdmin () {
+  return apiService.get(api.getListProductByAdmin)
+}
+
 export function getProductByCategory (param) {
     return apiService.get(api.getProductsByCategory, param)
 }
 
 export function createProduct (param) {
-    return apiService.post(api.createProduct, param)
+    return apiService.post(api.createProduct, param, { 'Content-Type': 'multipart/form-data' })
 }
 
 export function updateProduct (param) {

@@ -58,7 +58,8 @@ const user = {
     ]
   },
   getters: {
-    isLogin: state => state.isLogin
+    isLogin: state => state.isLogin,
+    userId: state => state.info.id
   },
   mutations: {
     SET_TOKEN: (state, token) => {

@@ -13,3 +13,15 @@ export const PurchaseType = Object.freeze({
   DELIVERED: 4,
   CANCELED: 5
 })
+
+export const SortType = {
+  NEWEST: 'createdAt',
+  POPULAR: 'star',
+  BEST_SALE: 'selled',
+  PRICE: 'price'
+}
+
+export const OrderType = {
+  DESC: 'desc',
+  ASC: 'asc'
+}
