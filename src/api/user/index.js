@@ -13,10 +13,14 @@ export const api = {
   getListCategory: '/category/list',
 
   // Cart
-  getListProductInCart: '/cart',
-  addProductToCart: '/cart',
-  changeQuantityProductInCart: '/cart',
-  removeProductInCart: 'cart',
+  getListBillBySeller: '/api/bill/cart',
+  addProductToCart: '/api/bill/addToCart',
+  changeQuantityProductInCart: (idBill) => {
+    return `/api/bill/${idBill}/quantity`
+  },
+  removeProductInCart: (idBill) => {
+    return `/api/bill/${idBill}`
+  },
   buyProductInCart: '/cart',
 
   // auth

@@ -41,7 +41,7 @@
               <input type="checkbox" class="stardust-checkbox__input input-check-all" :checked="checkedAll" :value="checkedAll" @change="handleCheckAll">
             </div>
             <label for="input-check-all" class="cart-page-footer__product-count">Chọn tất cả ({{ totalProductChecked }})</label>
-            <button class="cart-item__action btn-delete-mul-product">Xóa</button>
+            <button class="cart-item__action btn-delete-mul-product" @click="handleRemoveProducts">Xóa</button>
             <div class="cart-page-footer-space"></div>
             <div class="cart-page-footer__summary">
               <div class="cart-page-footer__first-summary">
@@ -69,19 +69,23 @@ export default {
     CartList
   },
   computed: {
-    listBillBySeller () {
+    listBillBySellerInCart () {
       return this.$store.getters.listBillBySeller
     }
   },
   watch: {
-    listBillBySeller (newList, oldList) {
-      console.log('newList: ', newList)
+    listBillBySellerInCart (newList, oldList) {
+      this.listBillBySeller = [...newList]
+      if (this.isCheckAll() === false) {
+        this.checkedAll = false
+      }
       this.calcTotalPrice()
     }
   },
   data () {
     return {
       checkedAll: false,
+      listBillBySeller: [],
       listChecked: [],
       totalPrice: 0,
       totalProductChecked: 0,
@@ -105,7 +109,7 @@ export default {
     this.calcTotalPrice()
   },
   methods: {
-    ...mapActions(['GetListBillBySeller', 'SetListBillBySeller', 'BuyProductsInCart']),
+    ...mapActions(['GetListBillBySeller', 'SetListBillBySeller', 'RemoveProductInCart', 'BuyProductsInCart']),
     handleProductChecked ({ idSeller, indexBill }) {
       const newList = [...this.listBillBySeller]
       newList.forEach(item => {
@@ -147,7 +151,7 @@ export default {
       let isCheckedAll = true
       this.listBillBySeller.forEach(item => {
         item.bills.forEach(bill => {
-          if (bill.checked === false) {
+          if (!bill.checked === true) {
             isCheckedAll = false
             return 0
           }
@@ -168,6 +172,16 @@ export default {
       })
       this.totalPrice = totalPrice
       this.totalProductChecked = totalProductChecked
+    },
+    handleRemoveProducts () {
+      // let arrPromise = []
+      this.listBillBySeller.forEach(item => {
+        item.bills.forEach(bill => {
+          if (bill.checked) {
+            this.$store.dispatch('RemoveProductInCart', { idBill: bill.id })
+          }
+        })
+      })
     },
     buyProducts () {
       let idProductsBuy = []
