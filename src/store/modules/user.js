@@ -59,7 +59,8 @@ const user = {
   },
   getters: {
     isLogin: state => state.isLogin,
-    userId: state => state.info.id
+    userId: state => state.info.id,
+    shopName: state => state.info.shopName ?? `${state.info.firstName}`
   },
   mutations: {
     SET_TOKEN: (state, token) => {

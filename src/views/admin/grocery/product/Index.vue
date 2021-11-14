@@ -1,91 +1,22 @@
 <template>
   <div>
     <breadcrumb/>
-    <a-form-model
-      ref="ruleForm"
-      :model="filters"
-      @submit="search"
-      layout="vertical">
-      <a-collapse
-        v-model="activeSearchKey"
-        expandIconPosition="left"
-        class="collapse-left">
-        <a-collapse-panel header="Danh sách sản phẩm" key="1">
-          <a-button
-            slot="extra"
-            class="ant-btn ant-btn-primary"
-            @click="addNew"
-          >
-            Thêm mới
-          </a-button>
-          <a-card style="width: 100%;border: none" class="search-container">
-            <a-row :gutter="16" type="flex">
-              <a-col :xs="24" :md="6" :lg="6" class="filter-item-container">
-                <a-form-model-item
-                  prop="id_category"
-                  label="Loại sản phẩm"
-                >
-                  <a-tree-select
-                    :allowClear="true"
-                    style="width: 100%"
-                    show-search
-                    filterTreeNode
-                    v-model="filters.id_category"
-                    :dropdown-style="{ maxHeight: '400px', overflow: 'auto' }"
-                    :tree-data="treeData"
-                  />
-                </a-form-model-item>
-              </a-col>
-              <a-col :xs="24" :md="6" :lg="6" class="filter-item-container">
-                <a-form-model-item
-                  prop="productName"
-                  label="Tên sản phẩm"
-                  :rules="[
-                    {
-                      max: 200,
-                      message: 'Nhập tối đa 200 ký tự',
-                      trigger: 'change'
-                    }
-                  ]">
-                  <a-input
-                    v-model="filters.productName"
-                    @blur="DeepTrimValue(filters)"
-                    :maxLength="200"
-                  />
-                </a-form-model-item>
-              </a-col>
-              <a-col :xs="24" :md="6" :lg="6" class="filter-item-container">
-                <a-form-model-item
-                  prop="status"
-                  label="Trạng thái"
-                >
-                  <a-select
-                    :allowClear="true"
-                    :filter-option="filterSelectOption"
-                    show-search
-                    style="width: 100%"
-                    v-model="filters.status"
-                  >
-                    <a-select-option :value="''" :key="'all'"> -- Tất cả --</a-select-option>
-                    <a-select-option v-for="item in listStatus" :value="item.key" :key="'l-'+item.key+'-s'">{{ item.value }}</a-select-option>
-                  </a-select>
-                </a-form-model-item>
-              </a-col>
-              <a-col
-                :xs="24"
-                :md="24"
-                :lg="24"
-                style="display: flex;justify-content: center"
-              >
-                <a-button class="btn-success uppercase" @click="resetForm" style="margin-right: 1rem">Nhập lại</a-button>
-                <a-button v-action="'search'" type="primary" class="btn-success uppercase" @click="search" >Tìm kiếm</a-button>
-              </a-col>
-            </a-row>
-          </a-card>
-        </a-collapse-panel>
-      </a-collapse>
-    </a-form-model>
-    <a-card style="margin-top: 8px">
+    <a-card title="Danh sách sản phẩm" style="margin-top: 8px">
+      <div slot="extra">
+        <a-button
+          class="ant-btn ant-btn-primary"
+          @click="getData"
+          style="margin-right:1rem"
+        >
+          Làm mới
+        </a-button>
+        <a-button
+          class="ant-btn ant-btn-primary"
+          @click="addNew"
+        >
+          Thêm mới
+        </a-button>
+      </div>
       <a-row :gutter="16" type="flex">
         <a-col :span="24">
           <a-table
@@ -106,6 +37,12 @@
             </template>
             <template slot="updatedAt" slot-scope="text, record">
               <span>{{ record && record.updatedAt ? moment(record.updatedAt).format('DD/MM/YYYY') : '' }}</span>
+            </template>
+            <template slot="productTypeName" slot-scope="text, record">
+              <span>{{ getNameCatById(record.id_category) }}</span>
+            </template>
+            <template slot="price" slot-scope="text, record">
+              <span>{{ formatPrice(record.price) }}</span>
             </template>
             <template slot="createdAt" slot-scope="text, record">
               <span>{{ record && record.createdAt ? moment(record.createdAt).format('DD/MM/YYYY') : '' }}</span>
@@ -130,7 +67,7 @@
                   <template slot="title">
                     <span>{{ `Xem chi tiết ${record.name}` }}</span>
                   </template>
-                  <span v-action="'detail'" style="padding-right:12px;cursor: pointer">
+                  <span style="padding-right:12px;cursor: pointer">
                     <a-icon
                       @click="onViewRow(record)"
                       theme="twoTone"
@@ -142,7 +79,7 @@
                   <template slot="title">
                     <span>{{ `Cập nhật ${record.name}` }}</span>
                   </template>
-                  <span v-action="'update'" @click="onEditRow(record)" class="vnpost-link">
+                  <span @click="onEditRow(record)" class="vnpost-link">
                     <a-icon
                       theme="twoTone"
                       type="edit"
@@ -175,7 +112,7 @@
 import columns from '@/views/admin/grocery/product/columns'
 import DrawForm from './Form'
 import { getListCategory } from '@/api/user/category'
-import { getListProductByAdmin } from '@/api/user/product'
+import { changeProductStatus, getDetailProductAdmin, getListProductByAdmin } from '@/api/user/product'
 import moment from 'moment'
 
 export default {
@@ -226,6 +163,10 @@ export default {
     this.getData()
   },
   methods: {
+    getNameCatById (id) {
+      const nameCat = this.dataFilter.find(item => item.id === id)
+      return nameCat.original_category_name
+    },
     moment,
     list_to_tree (list) {
       var map = {}; var node; var roots = []; var i
@@ -269,15 +210,33 @@ export default {
         })
       }
     },
-    changeStatusProduct () {
+    changeStatusProduct (record) {
+      changeProductStatus(record.id).then(res => {
+        this.$notification.success({
+          message: 'Thay đổi trạng thái sản phẩm',
+          description: 'Thay đổi trạng thái sản phẩm thành công',
+          duration: 5
+        })
+        this.getData()
+      }).catch(err => {
+        console.log(err)
+      }).finally(() => {
 
+      })
     },
     getData () {
-      console.log(this.filters.id_category)
-      getListProductByAdmin().then(res => {
+      const params = {
+        pageNum: this.pagination.current,
+        pageSize: this.pagination.pageSize
+      }
+      this.loading = true
+      getListProductByAdmin(params).then(res => {
         const { total, list } = res.data.data
         this.data = list
         this.pagination.total = total
+        this.loading = false
+      }).catch(err => {
+        console.log(err)
       })
     },
     handleTableChange (pagination, filters, sorter) {
@@ -293,52 +252,34 @@ export default {
       this.drawSync = true
     },
     onEditRow (record) {
-      this.objectEdit = record
-      this.drawTitle = 'Cập nhật sản phẩm'
-      this.drawIsCreate = false
-      this.drawIsEdit = true
-      this.drawIsView = false
-      this.drawSync = true
-    },
-    onViewRow (record) {
-      this.objectEdit = record
-      this.drawTitle = 'Chi tiết sản phẩm'
-      this.drawIsCreate = false
-      this.drawIsEdit = false
-      this.drawIsView = true
-      this.drawSync = true
-    },
-    resetForm (e) {
-      this.$refs.ruleForm.resetFields()
-      this.search(e)
-    },
-    search () {
-      this.$refs.ruleForm.validate(valid => {
-        if (valid) {
-          this.pagination.current = 1
-          this.getData()
-        }
+      getDetailProductAdmin(record.id).then(res => {
+        this.objectEdit = res.data.data
+      }).catch(err => {
+        console.log(err)
+      }).finally(() => {
+        this.drawTitle = 'Cập nhật sản phẩm'
+        this.drawIsCreate = false
+        this.drawIsEdit = true
+        this.drawIsView = false
+        this.drawSync = true
       })
     },
-    onChangeStartDate (date) {
-      this.filters.staTime = date
+    onViewRow (record) {
+      getDetailProductAdmin(record.id).then(res => {
+        this.objectEdit = res.data.data
+      }).catch(err => {
+        console.log(err)
+      }).finally(() => {
+        this.drawTitle = 'Chi tiết sản phẩm'
+        this.drawIsCreate = false
+        this.drawIsEdit = false
+        this.drawIsView = true
+        this.drawSync = true
+      })
     },
-    onChangeEndDate (date) {
-      this.filters.endTime = date
-    },
-    disabledStartDate (startDate) {
-      const endDate = this.filters.endTime
-      if (!startDate || !endDate) {
-        return false
-      }
-      return startDate.valueOf() > endDate.valueOf()
-    },
-    disabledEndDate (endDate) {
-      const startDate = this.filters.staTime
-      if (!startDate || !endDate) {
-        return false
-      }
-      return startDate.valueOf() >= endDate.valueOf() - 1
+    search () {
+      this.pagination.current = 1
+      this.getData()
     },
     handleCancelDraw (reload = false) {
       this.drawSync = false
@@ -346,14 +287,6 @@ export default {
         this.getData()
       }
     }
-    // handlePaginationData (res) {
-    //   if (res.body !== undefined) {
-    //     return {
-    //       total: res.body.totalRecord
-    //     }
-    //   }
-    //   return {}
-    // }
   }
 }
 </script>

@@ -70,8 +70,12 @@ export const mixin = {
       return (currentPage - 1) * pageSize + rowIndex + 1
     },
     formatPrice (value) {
-      const val = (value / 1).toFixed(0).replace('.', ',')
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+      if (value || value === 0) {
+        const val = (value / 1).toFixed(0).replace('.', ',')
+        return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+      } else {
+        return ''
+      }
     },
     formatPriceToVND (value) {
       return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(value)

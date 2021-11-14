@@ -10,8 +10,8 @@ export function getProductById (param) {
     return apiService.getMockResponse(`${api.getProductById}`, 500)
 }
 
-export function getListProductByAdmin () {
-  return apiService.get(api.getListProductByAdmin)
+export function getListProductByAdmin (params) {
+  return apiService.get(api.getListProductByAdmin, params)
 }
 
 export function createProductAdmin () {
@@ -26,8 +26,16 @@ export function createProduct (param) {
     return apiService.post(api.createProduct, param, { 'Content-Type': 'multipart/form-data' })
 }
 
-export function updateProduct (param) {
-    return apiService.put(api.updateProduct, param)
+export function updateProduct (id, param) {
+  return apiService.put(api.updateProduct(id), param, { 'Content-Type': 'multipart/form-data' })
+}
+
+export function getDetailProductAdmin (id) {
+  return apiService.get(api.getDetailProductAdmin(id))
+}
+
+export function changeProductStatus (id) {
+  return apiService.put(api.changeStatus(id))
 }
 
 export function deleteProduct (param) {

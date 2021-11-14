@@ -16,8 +16,8 @@ export default [
   },
   {
     title: 'Loại sản phẩm',
-    dataIndex: 'title',
-    scopedSlots: { customRender: 'title' },
+    dataIndex: 'productTypeName',
+    scopedSlots: { customRender: 'productTypeName' },
     align: 'left',
     ellipsis: true,
     width: 120
