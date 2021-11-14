@@ -1,22 +1,22 @@
 import { api } from './index'
 import { apiService } from '@/api/api'
 
-export function getListProductInCart () {
-    return apiService.get(api.getListProductInCart)
+export function getListBillBySeller () {
+    return apiService.get(api.getListBillBySeller)
 }
 
-export function addProductToCart (param) {
-    return apiService.post(api.addProductToCart, param)
+export function addProductToCart (params) {
+    return apiService.post(api.addProductToCart, params)
 }
 
-export function changeQuantityProductInCart (param) {
-    return apiService.post(api.changeQuantityProductInCart, param)
+export function changeQuantityProductInCart (params) {
+    return apiService.put(api.changeQuantityProductInCart(params.idBill), { quantity: params.quantity })
 }
 
-export function removeProductInCart (param) {
-    return apiService.delete(api.removeProductInCart, param)
+export function removeProductInCart (params) {
+    return apiService.delete(api.removeProductInCart(params.idBill))
 }
 
-export function buyProductInCart (param) {
-    return apiService.post(api.buyProductInCart, param)
+export function buyProductInCart (params) {
+    return apiService.post(api.buyProductInCart, params)
 }
