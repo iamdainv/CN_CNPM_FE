@@ -11,15 +11,15 @@
         <div class="cart-item-wrap row">
           <div class="cart-item__cell-overview col col-lg-4 col-md-4 col-sm-12">
             <a href="#" class="cart-item-overview__thumbnail">
-              <div class="cart-item-overview__thumbnail" :style="{ backgroundImage: 'url(' + bill.product.img + ')' }"></div>
+              <div class="cart-item-overview__thumbnail" :style="{ backgroundImage: 'url(' + bill.product.image + ')' }"></div>
             </a>
             <div class="cart-item-overview__name">
               {{ bill.product.name }}
             </div>
           </div>
           <div class="cart-item__cell-unit-price col col-lg-3 col-md-3 col-sm-12">
-            <span class="cart-item__unit-price cart-item__unit-price--after" :data-price="newPrice">{{ new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(newPrice) }}</span>&nbsp;&nbsp;&nbsp;
-            <span class="cart-item__unit-price cart-item__unit-price--before">{{ new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(bill.product.price) }}</span>
+            <span class="cart-item__unit-price cart-item__unit-price--after" :data-price="newPrice">{{ formatPriceToVND(newPrice) }}</span>&nbsp;&nbsp;&nbsp;
+            <span class="cart-item__unit-price cart-item__unit-price--before">{{ formatPriceToVND(bill.product.price) }}</span>
           </div>
           <div class="quantity-product cart-item__cell-quantity col col-lg-2 col-md-2 col-sm-12">
             <button class="btn-sub-quantity" @click="handleSubQuantityProduct">-</button>
@@ -27,10 +27,10 @@
             <button class="btn-add-quantity" @click="handleAddQuantityProduct">+</button>
           </div>
           <div class="cart-item__cell-total-price col col-lg-2 col-md-2 col-sm-12">
-            <span>{{ new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(total) }}</span>
+            <span>{{ formatPriceToVND(total) }}</span>
           </div>
           <div class="cart-item__cell-actions col col-lg-1 col-md-1 col-sm-12">
-            <button class="cart-item__action btn-delete-a-product">Xóa</button>
+            <button class="cart-item__action btn-delete-a-product" @click="handleDeleteProduct">Xóa</button>
           </div>
         </div>
       </div>
@@ -59,25 +59,29 @@ export default {
         }
     },
     mounted () {
-        this.newPrice = this.bill.product.price - Math.floor((this.bill.product.discount / 100) * this.bill.product.price)
+        this.newPrice = Math.floor(this.bill.product.price - (this.bill.product.discount / 100) * this.bill.product.price)
         this.calcTotalPrice()
     },
     updated () {
         this.calcTotalPrice()
     },
     methods: {
-        ...mapActions(['ChangeQuantityProductInCart']),
+        ...mapActions(['ChangeQuantityProductInCart', 'RemoveProductInCart']),
         calcTotalPrice () {
             this.total = this.newPrice * this.bill.quantity
         },
         handleSubQuantityProduct () {
             if (this.bill.quantity > 1) {
-                this.$store.dispatch('ChangeQuantityProductInCart', { idProduct: this.bill.product.id, quantity: this.bill.quantity - 1 })
+                this.$store.dispatch('ChangeQuantityProductInCart', { idBill: this.bill.id, quantity: this.bill.quantity - 1 }).catch(err => {
+                    this.$error(err)
+                })
             }
         },
         handleAddQuantityProduct () {
             if (this.bill.quantity < this.bill.product.quantity) {
-                this.$store.dispatch('ChangeQuantityProductInCart', { idProduct: this.bill.product.id, quantity: this.bill.quantity + 1 })
+                this.$store.dispatch('ChangeQuantityProductInCart', { idBill: this.bill.id, quantity: this.bill.quantity + 1 }).catch(err => {
+                    this.$error(err)
+                })
             }
         },
         handleChangeQuantityProduct (e) {
@@ -89,7 +93,14 @@ export default {
             if (value > this.bill.product.quantity) {
                 value = this.bill.product.quantity
             }
-            this.$store.dispatch('ChangeQuantityProductInCart', { idProduct: this.bill.product.id, quantity: value })
+            this.$store.dispatch('ChangeQuantityProductInCart', { idBill: this.bill.id, quantity: value }).catch(err => {
+                this.$error(err.message)
+            })
+        },
+        handleDeleteProduct () {
+            this.$store.dispatch('RemoveProductInCart', { idBill: this.bill.id }).catch(err => {
+                this.$error(err)
+            })
         },
         handleChecked () {
             this.$emit('productChecked', { indexBill: this.i })

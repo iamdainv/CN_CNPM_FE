@@ -9,17 +9,17 @@
         <span class="header__cart-list--no-cart-msg">Chưa có sản phẩm</span>
         <h4 class="header__cart-heading">Sản phẩm đã thêm</h4>
         <ul class="header__cart-list-item">
-          <li class="header__cart-item" v-for="(productInfo, index) in listProductInCart" :key="index">
-            <img :src="productInfo.product.img" alt="img" class="header__cart-img" />
+          <li class="header__cart-item" v-for="(bill, index) in listProductInCart" :key="index">
+            <img :src="bill.product.image" alt="img" class="header__cart-img" />
             <div class="header__cart-item-info">
               <div class="header__cart-item-head">
                 <h5 class="header__cart-item-name">
-                  {{ productInfo.product.name }}
+                  {{ bill.product.name }}
                 </h5>
                 <div class="header__cart-item-price-wrap">
-                  <span class="header__cart-item-price"> {{ formatPriceToVND(calcNewPrice(productInfo.product.price, productInfo.product.discount)) }}</span>
+                  <span class="header__cart-item-price"> {{ formatPriceToVND(calcNewPrice(bill.product.price, bill.product.discount)) }}</span>
                   <span class="header__cart-item-multiply">x</span>
-                  <span class="header__cart-item-qnt">{{ productInfo.quantity }}</span>
+                  <span class="header__cart-item-qnt">{{ bill.quantity }}</span>
                 </div>
               </div>
 
@@ -27,7 +27,7 @@
                 <span class="header__cart-item-description">
                   Phân loại: Bạc
                 </span>
-                <span class="header__cart-item-remove" @click="handleDeleteProductInCart(productInfo.product.id)">Xóa</span>
+                <span class="header__cart-item-remove" @click="handleDeleteProductInCart(bill.id)">Xóa</span>
               </div>
             </div>
           </li>
@@ -42,6 +42,11 @@
 import { mapActions } from 'vuex'
 export default {
   name: 'CartHeader',
+  async created () {
+    if (this.$store.state.user.token) {
+      this.$store.dispatch('GetListBillBySeller')
+    }
+  },
   computed: {
     listProductInCart () {
       return this.$store.getters.listProductInCart
@@ -51,21 +56,18 @@ export default {
     listProductInCart (newList, oldList) {
     }
   },
-  created () {
-    this.$store.dispatch('GetListProductInCart')
-  },
   methods: {
-    ...mapActions(['GetListProductInCart', 'RemoveProductInCart']),
+    ...mapActions(['GetListBillBySeller', 'GetListProductInCart', 'RemoveProductInCart']),
     gotoCart () {
       if (this.$route.name !== 'cart') {
         this.$router.push({ name: 'cart' })
       }
     },
     calcNewPrice (price, discount) {
-      return price - Math.floor((discount / 100) * price)
+      return Math.floor(price - (discount / 100) * price)
     },
     handleDeleteProductInCart (id) {
-      this.$store.dispatch('RemoveProductInCart', { id: id })
+      this.$store.dispatch('RemoveProductInCart', { idBill: id })
     }
   }
 }
