@@ -7,28 +7,33 @@
       </div>
       <div class="f-14 p-3">
         <div v-if="isBought">
-          <div class="comment" style=" width: 100%; margin-bottom: 5px;">
-            <div id="editor">
-              <Textarea limit="1500" :value="commentText" @change="handleChange"></Textarea>
-            </div>
-
+          <div @click="visibleInputComment = !visibleInputComment" class="show-input-comment">
+            <i class="fas fa-arrow-right"></i>   <p class="text-show-input-comment">Bình luận</p>
           </div>
-          <div style=" width: 100%;" class="comment">
-            <div class="form-group f-14" style="max-width: 70%">
-              <label class="control-label" htmlFor="filebutton">Đăng ảnh</label>
-              <UploadFile @change="handleChangeImage" :images="images"/>
-            </div>
-            <div ><label class="control-label" htmlFor="filebutton">Đánh giá</label>
-              <AwesomeVueStarRating
-                class="star2"
-                :maxstars="5"
-                :star="this.star"
-                :hasresults="false"
-                @change="handleChangeRatingStar"
-              /></div>
+          <div v-if="visibleInputComment" style="margin-top: 10px">
+            <div class="comment" style=" width: 100%; margin-bottom: 5px;">
+              <div id="editor">
+                <Textarea limit="1500" :value="commentText" @change="handleChange"></Textarea>
+              </div>
 
+            </div>
+            <div style=" width: 100%;" class="comment">
+              <div class="form-group f-14" style="max-width: 70%">
+                <label class="control-label" htmlFor="filebutton">Đăng ảnh</label>
+                <UploadFile @change="handleChangeImage" :images="images"/>
+              </div>
+              <div ><label class="control-label" htmlFor="filebutton">Đánh giá</label>
+                <AwesomeVueStarRating
+                  class="star2"
+                  :maxstars="5"
+                  :star="this.star"
+                  :hasresults="false"
+                  @change="handleChangeRatingStar"
+                /></div>
+
+            </div>
+            <button type="button" class="h-button__red p-3 h-color__white cursor-pointer f-14 mt-5" id="btn-add-comment" @click="addCommentToProduct">Bình luận</button>
           </div>
-          <button type="button" class="h-button__red p-3 h-color__white cursor-pointer f-14 mt-5" id="btn-add-comment" @click="addCommentToProduct">Bình luận</button>
         </div>
 
         <div v-if="comments.length === 0" class="comment-empty__container purchase-empty-order__container purchase-list-page__empty-page-wrapper" >
@@ -37,58 +42,52 @@
         </div>
         <div class="list-comment_product" v-else>
           <div class="comment-item-container" v-for="(comment,index) in comments" :key="index">
-            <div class="comment-item-wrapper"><div class="user-photo">
-                                                <img class="user-photo-comment" src="https://i.pinimg.com/originals/50/05/f5/5005f514424141acf70727360add163d.png">
-                                              </div>
-              <div class="comment-content-container">
-                <p class="comment-username"> {{ comment.user_comment.username }} </p>
-                <AwesomeVueStarRating
-                  class="star2"
-                  :maxstars="5"
-                  :star="+comment.comment.star"
-                  :hasresults="false"
-                  :hasdescription="false"
-                  disabled
-                />
-                <p class="comment-content"> {{ comment.comment.comment }} </p>
-                <div class="list-image-container"><div v-for="(image, index) in comment.comment.images" :key="index" class="square image-item">
-                  <img :src="image" class="square" style="object-fit:cover">
-                </div>
-                </div>
-
-                <p class="comment-createdAt"> {{ moment(comment.comment.createdAt).format("yyyy-mm-dd hh:mm") }} </p></div></div>
-            <hr/>
+            <comment-item :comment="comment"></comment-item>
           </div>
-
         </div>
       </div>
     </div>
-  </div>
-</template>
+  </div></template>
 
 <script>
 import AwesomeVueStarRating from '@/components/Rating/Rating'
 import UploadFile from '@/components/UploadFile/UploadFile'
 import Textarea from '@/components/TextArea/index'
 import moment from 'moment'
+import VueEasyLightbox from 'vue-easy-lightbox'
+import CommentItem from './comment-item'
 function initValueState () {
   return {
     commentText: '',
     images: [],
-    star: 4
+    star: 4,
+    visibleInputComment: false
   }
 }
 
 export default {
   name: 'Comment',
-  components: { Textarea, UploadFile, AwesomeVueStarRating },
+  components: { Textarea, UploadFile, AwesomeVueStarRating, VueEasyLightbox, CommentItem },
   props: {
     isBought: Boolean,
-    comments: Array
+    comments: Array,
+    loadingComment: Boolean,
+    totalComment: Number
   },
   data () {
-    return initValueState()
+    return {
+      commentText: '',
+      images: [],
+      star: 0,
+      visibleInputComment: false
+    }
   },
+  // computed: {
+  //   formatComments: function () {
+  //     // `this` points to the vm instance
+  //     return this.comments.map(comment => )
+  //   }
+  // },
   methods: {
     moment: function () {
       return moment()
@@ -103,8 +102,10 @@ export default {
         this.star = value
     },
     addCommentToProduct () {
-      this.resetWindow()
-      console.log(this.$data, initValueState())
+      if (this.commentText || this.images || this.star) {
+        this.$emit('onSubmitCreateComment', this.commentText, this.images, this.star)
+        this.resetWindow()
+      }
     },
     resetWindow: function () {
       Object.assign(this.$data, initValueState())
@@ -117,6 +118,47 @@ export default {
 .weeklyPreview {
     display: flex;
     flex-wrap: wrap;
+}
+
+.rating-media-list__zoomed-video-item{
+  width: 50rem;
+  height: 50rem;
+}
+
+.video-container{
+  position: relative;
+}
+
+.video-item{
+  width: 100%;
+  height: 100%;
+}
+
+.shopee-svg-icon{
+  position: absolute;
+  width: 6.25rem;
+  height: 6.25rem;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate3d(-3.125rem,-3.125rem ,0);
+  transform: translate3d(-3.125rem,-3.125rem,0);
+  pointer-events: none;
+}
+
+.show-input-comment{
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  background-color: #e7e7e7;
+  padding: 5px;
+  border-radius: 4px;
+  margin-left: -1rem;
+  margin-right: -1rem;
+}
+
+.text-show-input-comment{
+  margin-left: 10px;
 }
 #editor{
   width: 100%;

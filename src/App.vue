@@ -32,9 +32,19 @@ export default {
       loginByToken(token).then(response => {
         const { data } = response.data
         store.commit('SET_INFO', data)
-      }).catch(_ => {
+      }).catch(error => {
+        console.log(error)
         this.$cookies.remove('token')
+        this.handleTokenIllegal()
       })
+    } else {
+      this.handleTokenIllegal()
+    }
+  },
+  methods: {
+    handleTokenIllegal () {
+      // TODO: reset state cart
+      this.$store.dispatch('resetUserState')
     }
   }
 }

@@ -11,3 +11,10 @@ export function updatePurchaseStatusOfUser (purchaseId, purchaseType) {
   }
   return apiService.put(api.updateBillStatus, updatePurchaseParams)
 }
+
+export function addToCart (productId, quantity) {
+  const addToCartParams = {
+    id_product: productId, quantity
+  }
+  return apiService.post(api.addToCart, addToCartParams)
+}

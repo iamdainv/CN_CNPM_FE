@@ -59,7 +59,7 @@ export default {
   data () {
     return {
       breadcrumb: {
-        items: [],
+        items: [{ text: 'Shobbe' }],
         title: this.$route.meta.title,
         pageName: this.$route.meta.pageName
       },
@@ -68,7 +68,8 @@ export default {
     }
   },
   mounted () {
-    this.init(this.$route)
+    console.log(this.breadcrumb.items)
+    // this.init(this.$route)
   },
   methods: {
     init (route) {

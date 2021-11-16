@@ -3,7 +3,7 @@
     v-model="pageNum"
     :page-size.sync="pageSize"
     :total="total"
-    show-size-changer
+    :show-size-changer="showSizeChange"
     :page-size-options="pageSizeOptions"
     @showSizeChange="onShowSizeChange"
     class="pagination produce-pagination"/>
@@ -16,6 +16,16 @@ export default {
     total: {
       required: true,
       type: Number
+    },
+    showSize: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    pageSizeProp: {
+      type: Number,
+      required: false,
+      default: 20
     },
     currentPage: {
       required: true,
@@ -30,6 +40,12 @@ export default {
       pageSizeOptions: ['20', '40', '60']
     }
   },
+
+  mounted () {
+    this.showSizeChange = this.$props.showSize
+    this.pageSize = this.pageSizeProp
+  },
+
   watch: {
     pageNum (current) {
       if (current !== this.currentPage) {

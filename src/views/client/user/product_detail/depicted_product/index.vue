@@ -2,7 +2,7 @@
   <div class="depicted-product">
     <div class="row">
       <div class="col col-12 slider-for">
-        <img :src="this.mainImageProduct" alt="product" class="depicted-product__img-item depicted-product__img" style="width: 100%">
+        <img :src="this.mainImageProduct" alt="product" class="depicted-product__img-item depicted-product__img" style="width: 100%" @click="showLightBox(0)">
       </div>
     </div>
 
@@ -11,14 +11,24 @@
       <div class="col col-12 depicted-product__img-list slider-nav">
         <img
           v-for="(image, index) in images"
-          :key="index"
-          :src="image"
+          :key="image.id"
+          :src="image.path"
           alt="product"
           class="depicted-product__img-item"
           width="115"
           height="115"
-          style="object-fit:cover">
+          style="object-fit:cover"
+          @click="showLightBox(index)">
       </div>
+
+      <vue-easy-lightbox
+        escDisabled
+        moveDisabled
+        :visible="visible"
+        :imgs="imgs"
+        :index="index"
+        @hide="handleHide"
+      ></vue-easy-lightbox>
     </div>
     <div class="row">
       <div class="col col-12 depicted-product__social">
@@ -50,8 +60,11 @@
 </template>
 
 <script>
+import VueEasyLightbox from 'vue-easy-lightbox'
+
 export default {
   name: 'DepictedProduct',
+  components: { VueEasyLightbox },
   props: {
     images: {
       type: Array,
@@ -60,10 +73,37 @@ export default {
     mainImageProduct: {
       type: String,
       require: true
+    },
+    productName: {
+      type: String,
+      require: true
+    }
+  },
+  data () {
+    return {
+      imgs: [], // Img Url , string or Array of string
+      visible: false,
+      index: 0 // default: 0
     }
   },
   mounted () {
-    console.log('this.images', this.images)
+
+  },
+  methods: {
+    showLightBox (index) {
+      this.imgs = this.images.map(image => ({
+        src: image.path,
+        title: this.productName
+      }))
+      this.index = index
+      this.show()
+    },
+    show () {
+      this.visible = true
+    },
+    handleHide () {
+      this.visible = false
+    }
   }
 }
 </script>
@@ -77,6 +117,7 @@ export default {
     margin-top: 8px;
     display: flex;
     justify-content: space-between;
+  overflow-x: auto;
 }
 
 .depicted-product__img-item {
