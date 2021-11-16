@@ -7,9 +7,10 @@ export const loginType = Object.freeze({
 
 export const PurchaseType = Object.freeze({
   ALL: 0,
-  WAIT_CONFIRM: 1,
-  WAIT_TAKE: 2,
-  DELIVERING: 3,
-  DELIVERED: 4,
-  CANCELED: 5
+  ORDER: 1,
+  WAIT_CONFIRM: 2,
+  WAIT_TAKE: 3,
+  DELIVERING: 4,
+  DELIVERED: 5,
+  CANCELED: 6
 })

@@ -21,10 +21,14 @@ import './core/lazy_use' // use lazy load components
 import './utils/filter' // global filter
 import './global.less' // global style
 import Breadcrumb from './components/breadcrumb/Breadcrumb.vue'
-
+import VueEasyLightbox from 'vue-easy-lightbox'
 import VueCookies from 'vue-cookies'
+import 'vue-toast-notification/dist/theme-sugar.css'
+import VueToast from 'vue-toast-notification'
 Vue.config.productionTip = false
 
+Vue.use(VueToast)
+Vue.use(VueEasyLightbox) // global variable
 Vue.use(VueCookies)
 Vue.use(VueAxios)
 Vue.use(Carousel)

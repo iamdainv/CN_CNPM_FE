@@ -1,9 +1,9 @@
 <template>
-  <li class="header__navbar-item header__navbar-user">
+  <li class="header__navbar-item header__navbar-user" @mousemove="visible = true" @mouseleave="visible = false">
     <img :src="image" alt="User" class="header__navbar-user-img" />
     <span class="header__navbar-item-name"> {{ username }} </span>
 
-    <ul class="header__navbar-user-menu">
+    <ul class="header__navbar-user-menu" v-if="visible">
       <li class="header__navbar-user-item">
         <div @click="gotoAccount">Tài khoản của tôi</div>
       </li>
@@ -26,7 +26,8 @@ export default {
   data () {
     return {
       username: '',
-      image: ''
+      image: '',
+      visible: false
     }
   },
   methods: {
@@ -46,11 +47,13 @@ export default {
       }
     },
     handleLogout () {
-      this.$store.dispatch('logout')
+        this.visible = false
+        this.$cookies.remove('token')
+        this.$store.dispatch('logout')
+        location.reload()
     }
   },
   mounted () {
-    console.log('this.$store.getters.userInfo', this.$store.getters.userInfo)
     const { isLogin } = this.$store.getters.userInfo
     if (isLogin) {
       const { firstName, image } = this.$store.getters.userInfo.info

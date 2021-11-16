@@ -12,7 +12,7 @@
         <i :class="`${star <= stars ? 'fas' : 'far'} fa-star`"></i>
       </li>
       <span v-if="hasdescription && star_desc" :class="star_desc.class">{{ star_desc.text }}</span>
-      <span v-else-if="!star_desc" class="nostar_desc">No Description</span>
+      <span v-else-if="!star_desc && hasTextDescription" class="nostar_desc">No Description</span>
     </ul>
     <span v-if="hasresults">{{ stars }} of {{ maxstars }}</span>
   </div>
@@ -41,6 +41,10 @@ export default {
       default: true
     },
     hasdescription: {
+      type: Boolean,
+      default: true
+    },
+    hasTextDescription: {
       type: Boolean,
       default: true
     },

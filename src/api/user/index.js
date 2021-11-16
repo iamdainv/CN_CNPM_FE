@@ -27,5 +27,9 @@ export const api = {
   getProductByCategory: '/product',
 
   // comment
-  getCommentByProductId: '/comment'
+  getCommentByProductId: '/comment/product',
+  createNewComment: '/comment/create',
+
+  // purchase
+  addToCart: '/api/bill/addToCart'
 }

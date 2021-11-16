@@ -68,9 +68,12 @@ const user = {
       state.isLogin = true
     },
     LOGOUT: (state, info) => {
-      state.info = {}
-      state.token = null
-      state.isLogin = false
+
+    },
+    RESET_STATE (state) {
+      // Merge rather than replace so we don't lose observers
+      // https://github.com/vuejs/vuex/issues/1118
+      Object.assign(state, user)
     }
   },
 
@@ -84,7 +87,10 @@ const user = {
     },
     loginToken ({ commit }, userInfo) {
     commit('SET_INFO', userInfo)
-}
+    },
+    resetUserState ({ commit }) {
+      commit('RESET_STATE')
+    }
   }
 }
 

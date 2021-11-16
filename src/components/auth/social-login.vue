@@ -57,6 +57,7 @@ export default {
   },
 
   methods: {
+    hasHistory () { return window.history.length > 2 },
     async handleLogin (loginParam, typeLogin) {
       const userLogin = {
         image: loginParam?.photoURL,
@@ -90,7 +91,8 @@ export default {
         if (message === 'Success') {
           store.dispatch('initUser', data)
           this.$emit('getToken', data.token)
-          this.$router.push({ path: '/' })
+          this.hasHistory() ? this.$router.go(-1)
+            : this.$router.push({ path: '/' })
         }
       })
     },
