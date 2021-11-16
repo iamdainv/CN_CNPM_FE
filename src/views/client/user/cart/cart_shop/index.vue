@@ -79,8 +79,8 @@ export default {
     this.checkedAll = this.isCheckAll()
   },
   methods: {
-    handleProductChecked ({ indexBill }) {
-      this.$emit('productChecked', { idSeller: this.idSeller, indexBill })
+    handleProductChecked ({ idBill }) {
+      this.$emit('productChecked', { idBill })
       this.checkedAll = this.isCheckAll()
     },
     handleCheckAll () {

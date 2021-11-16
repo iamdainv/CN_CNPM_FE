@@ -6,7 +6,7 @@
       </div>
       <div class="cart-item" data-id="">
         <div class="cart-item__cell-checkbox">
-          <input type="checkbox" class="stardust-checkbox__input input-check-product" :checked="bill.checked" @change="handleChecked">
+          <input type="checkbox" class="stardust-checkbox__input input-check-product" :checked="bill.checked === true ? true : false " @change="handleChecked">
         </div>
         <div class="cart-item-wrap row">
           <div class="cart-item__cell-overview col col-lg-4 col-md-4 col-sm-12">
@@ -103,7 +103,7 @@ export default {
             })
         },
         handleChecked () {
-            this.$emit('productChecked', { indexBill: this.i })
+            this.$emit('productChecked', { idBill: this.bill.id })
         }
     }
 }
