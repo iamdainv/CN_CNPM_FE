@@ -19,6 +19,7 @@
             <pagination
               v-else
               :total="pagination.total"
+              :currentPage="pagination.current"
               @getByPagination="getByPagination"
             ></pagination>
           </div>

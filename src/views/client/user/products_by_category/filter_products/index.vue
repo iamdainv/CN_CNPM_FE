@@ -3,56 +3,58 @@
     <span class="home-filter__label">Sắp xếp theo</span>
     <button
       class="home-filter__btn btn"
-      :class="currentSortType === sortType.popular ? 'btn--primary' : ''"
-      @click="hanldeFilterBySortType(sortType.popular)">Phổ biến</button>
+      :class="currentSortType === sortType.POPULAR ? 'btn--primary' : ''"
+      @click="handleSortProducts(sortType.POPULAR, orderType.DESC)">Phổ biến</button>
     <button
       class="home-filter__btn btn"
-      :class="currentSortType === sortType.latest ? 'btn--primary' : ''"
-      @click="hanldeFilterBySortType(sortType.latest)">Mới nhất</button>
+      :class="currentSortType === sortType.NEWEST ? 'btn--primary' : ''"
+      @click="handleSortProducts(sortType.NEWEST, orderType.DESC)">Mới nhất</button>
     <button
       class="home-filter__btn btn"
-      :class="currentSortType === sortType.hotSelling ? 'btn--primary' : ''"
-      @click="hanldeFilterBySortType(sortType.hotSelling)">Bán chạy</button>
+      :class="currentSortType === sortType.BEST_SALE ? 'btn--primary' : ''"
+      @click="handleSortProducts(sortType.BEST_SALE, orderType.DESC)">Bán chạy</button>
 
-    <div class="select-input">
-      <span class="select-input__label">Giá</span>
+    <div class="select-input" :class="currentSortType === sortType.PRICE ? 'active' : ''">
+      <span class="select-input__label" style="color: var(--primary-color);" v-if="currentSortType === sortType.PRICE && currentOrderType === orderType.ASC">Giá: thấp đến cao</span>
+      <span class="select-input__label" style="color: var(--primary-color);" v-else-if="currentSortType === sortType.PRICE && currentOrderType === orderType.DESC">Giá: Cao đến thấp</span>
+      <span class="select-input__label" v-else>Giá</span>
       <i class="fas fa-angle-down select-input__icon"></i>
       <!-- list option -->
       <ul class="select-input__list">
-        <li class="select-input__item" style="cursor: pointer;" @click="handleSortPrice(sortPrice.asc)">
+        <li class="select-input__item" style="cursor: pointer;" @click="handleSortProducts(sortType.PRICE, orderType.ASC)">
           <div class="select-input__link">
-            <span :style="{ color: (currentSortPrice === sortPrice.asc ? 'var(--primary-color)' : '')}">Giá: Thấp đến cao</span>
-            <i class="fas fa-check" v-if="currentSortPrice === sortPrice.asc" style="margin-left: 20px; color: var(--primary-color)"></i></div>
+            <span :style="{ color: (currentSortType === sortType.PRICE && currentOrderType === orderType.ASC ? 'var(--primary-color)' : '')}">Giá: Thấp đến cao</span>
+            <i class="fas fa-check" v-if="currentSortType === sortType.PRICE && currentOrderType === orderType.ASC" style="margin-left: 20px; color: var(--primary-color)"></i></div>
         </li>
-        <li class="select-input__item" style="cursor: pointer;" @click="handleSortPrice(sortPrice.desc)">
+        <li class="select-input__item" style="cursor: pointer;" @click="handleSortProducts(sortType.PRICE, orderType.DESC)">
           <div class="select-input__link">
-            <span :style="{ color: (currentSortPrice === sortPrice.desc ? 'var(--primary-color)' : '')}">Giá: Cao đến thấp</span>
-            <i class="fas fa-check" v-if="currentSortPrice === sortPrice.desc" style="margin-left: 20px; color: var(--primary-color)"></i></div>
+            <span :style="{ color: (currentSortType === sortType.PRICE && currentOrderType === orderType.DESC ? 'var(--primary-color)' : '')}">Giá: Cao đến thấp</span>
+            <i class="fas fa-check" v-if="currentSortType === sortType.PRICE && currentOrderType === orderType.DESC" style="margin-left: 20px; color: var(--primary-color)"></i></div>
         </li>
       </ul>
     </div>
 
     <div class="home-filter__page">
       <span class="home-filter__page-num">
-        <span class="home-filter__page-current">{{ page }}</span>/{{ totalPage }}
+        <span class="home-filter__page-current">{{ currentPage }}</span>/{{ totalPage }}
       </span>
 
       <div class="home-filter__page-control">
         <a
           href="#"
           class="home-filter__page-btn"
-          :class="page <= 1 ? 'home-filter__page-btn--disable' : ''"
-          :disabled="page <= 1"
-          @click="handlePagination(page - 1)"
+          :class="currentPage <= 1 ? 'home-filter__page-btn--disable' : ''"
+          :disabled="currentPage <= 1"
+          @click="handlePagination(currentPage - 1)"
         >
           <i class="fas fa-angle-left home-filter__page-icon"></i>
         </a>
         <a
           href="#"
           class="home-filter__page-btn"
-          :class="page >= totalPage ? 'home-filter__page-btn--disable' : ''"
-          :disabled="page >= totalPage"
-          @click="handlePagination(page + 1)">
+          :class="currentPage >= totalPage ? 'home-filter__page-btn--disable' : ''"
+          :disabled="currentPage >= totalPage"
+          @click="handlePagination(currentPage + 1)">
           <i class="fas fa-angle-right home-filter__page-icon"></i>
         </a>
       </div>
@@ -68,7 +70,7 @@ export default {
       required: true,
       type: Number
     },
-    page: {
+    currentPage: {
       required: true,
       type: Number
     },
@@ -78,26 +80,23 @@ export default {
     },
     currentSortType: {
       required: true,
-      type: Number
+      type: String
     },
-    sortPrice: {
+    orderType: {
       required: true,
       type: Object
     },
-    currentSortPrice: {
+    currentOrderType: {
       required: true,
-      type: Number
+      type: String
     }
   },
   methods: {
-    handlePagination (page) {
-      this.$emit('getByPagination', page)
+    handlePagination (pageNum) {
+      this.$emit('getByPagination', { page: pageNum })
     },
-    hanldeFilterBySortType (sortType) {
-      this.$emit('getBySortType', sortType)
-    },
-    handleSortPrice (sortPrice) {
-      this.$emit('getByPrice', sortPrice)
+    handleSortProducts (sortType, orderType) {
+      this.$emit('sortProducts', { sortType: sortType, orderType: orderType })
     }
   }
 }

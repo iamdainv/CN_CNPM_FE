@@ -142,11 +142,24 @@ export default {
       }
     },
     goToAdmin () {
-      this.$router.push({ name: 'dashboard' })
+      if (this.$store.getters.isLogin) {
+        this.$router.push({ name: 'dashboard' })
+      } else {
+        this.$notification.warning({
+          message: 'Bạn chưa đăng nhập',
+          duration: 5
+        })
+        this.$router.push({ name: 'login' })
+      }
     },
     handleSearchProduct () {
       if (this.$route.name === 'home') {
         bus.$emit('searchProductsByKeyword', this.keyword)
+      } else if (this.$route.name === 'productsByCategory') {
+        bus.$emit('searchProductsCategoryByKeyword', this.keyword)
+      } else {
+        this.$router.push({ name: 'productsByCategory', params: { categoryId: 1 } })
+        setTimeout(() => { bus.$emit('searchProductsCategoryByKeyword', this.keyword) }, 0)
       }
     }
   }

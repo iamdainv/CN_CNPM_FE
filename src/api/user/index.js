@@ -2,9 +2,12 @@ export const api = {
   // Product
   getListProduct: '/product/list',
   getProductById: '/product',
-  getProductsByCategory: '/product/list',
-  createProduct: '/product',
-  updateProduct: '/product',
+  getProductsByCategory: '/product/search_list',
+  getListProductByAdmin: '/product/list/user',
+  createProduct: '/product/create',
+  updateProduct: function (id) { return `/product/update/${id}` },
+  getDetailProductAdmin: function (id) { return `/product/${id}` },
+  changeStatus: function (id) { return `/product/${id}/active` },
   deleteProduct: '/product',
   searchProducts: '/product/search_list',
 
@@ -13,10 +16,14 @@ export const api = {
   getListCategory: '/category/list',
 
   // Cart
-  getListProductInCart: '/cart',
-  addProductToCart: '/cart',
-  changeQuantityProductInCart: '/cart',
-  removeProductInCart: 'cart',
+  getListBillBySeller: '/api/bill/cart',
+  addProductToCart: '/api/bill/addToCart',
+  changeQuantityProductInCart: (idBill) => {
+    return `/api/bill/${idBill}/quantity`
+  },
+  removeProductInCart: (idBill) => {
+    return `/api/bill/${idBill}`
+  },
   buyProductInCart: '/cart',
 
   // auth

@@ -1,6 +1,6 @@
 <template>
   <a-pagination
-    v-model="currentPage"
+    v-model="pageNum"
     :page-size.sync="pageSize"
     :total="total"
     :show-size-changer="showSizeChange"
@@ -26,26 +26,34 @@ export default {
       type: Number,
       required: false,
       default: 20
+    },
+    currentPage: {
+      required: true,
+      type: Number
     }
   },
   data () {
     return {
-      currentPage: 1,
+      pageNum: 1,
       pageSize: 20,
       showSizeChange: true,
       pageSizeOptions: ['20', '40', '60']
     }
   },
-  created () {
-    console.log('total: ', this.total)
-  },
+
   mounted () {
-      this.showSizeChange = this.$props.showSize
-      this.pageSize = this.pageSizeProp
+    this.showSizeChange = this.$props.showSize
+    this.pageSize = this.pageSizeProp
   },
+
   watch: {
-    currentPage (current) {
-      this.$emit('getByPagination', { page: current, limit: this.pageSize })
+    pageNum (current) {
+      if (current !== this.currentPage) {
+        this.$emit('getByPagination', { page: current, limit: this.pageSize })
+      }
+    },
+    currentPage () {
+      this.pageNum = this.currentPage
     }
   },
   methods: {

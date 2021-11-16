@@ -38,5 +38,7 @@ export default {
   'menu.home': 'TRANG CHỦ',
   'menu.product': 'SẢN PHẨM',
     'menu.product.item': 'Quản lý sản phẩm',
-    'menu.product.category': 'Quản lý danh mục'
+    'menu.product.category': 'Quản lý danh mục',
+  'menu.bill': 'ĐƠN HÀNG',
+    'menu.bill.status': 'Quản lý đơn hàng'
 }

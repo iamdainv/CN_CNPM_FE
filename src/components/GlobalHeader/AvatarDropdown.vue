@@ -1,7 +1,7 @@
 <template>
   <a-dropdown v-if="currentUser && currentUser.name" placement="bottomRight" style="margin-right: 0px">
     <span class="ant-pro-account-avatar">
-      <span >{{ currentUser.name }}</span>
+      <span >{{ $store.getters.shopName }}</span>
       <a-avatar style="margin-left: 10px" size="small" src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png" class="antd-pro-global-header-index-avatar" />
     </span>
     <template v-slot:overlay>
@@ -59,10 +59,8 @@ export default {
     }
   },
   methods: {
-    handleToCenter (val) {
-      console.log(val)
-      this.selectedKeys = [val]
-      this.$emit('menu', val)
+    handleToCenter () {
+      this.$router.push({ path: '/' })
     },
     handleToSettings () {
       this.$router.push({ path: '/account/settings' })

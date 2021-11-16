@@ -41,12 +41,28 @@ export const asyncRouterMap = [
             name: 'grocery.product',
             component: () => import('@/views/admin/grocery/product/Index'),
             meta: { title: 'menu.product.item', pageName: 'menu.product.item', breadcrumbText: 'menu.product.item', keepAlive: false, permission: ['dashboard'] }
-          },
+          }
+          // {
+          //   path: '/grocery/category',
+          //   name: 'grocery.category',
+          //   component: () => import('@/views/admin/grocery/category/Index'),
+          //   meta: { title: 'menu.product.category', pageName: 'menu.product.category', breadcrumbText: 'menu.product.category', keepAlive: false, permission: ['dashboard'] }
+          // }
+        ]
+      },
+      {
+        path: '/bill',
+        name: 'bill',
+        redirect: 'bill.status',
+        component: RouteView,
+        hideChildrenInMenu: false,
+        meta: { title: 'menu.bill', breadcrumbText: 'menu.bill', keepAlive: true, icon: 'shop', permission: ['dashboard'] },
+        children: [
           {
-            path: '/grocery/category',
-            name: 'grocery.category',
-            component: () => import('@/views/admin/grocery/category/Index'),
-            meta: { title: 'menu.product.category', pageName: 'menu.product.category', breadcrumbText: 'menu.product.category', keepAlive: false, permission: ['dashboard'] }
+            path: '/bill/status',
+            name: 'bill.status',
+            component: () => import('@/views/admin/bill/status_bill/Index'),
+            meta: { title: 'menu.bill.status', pageName: 'menu.bill.status', breadcrumbText: 'menu.bill.status', keepAlive: false, permission: ['dashboard'] }
           }
         ]
       }
