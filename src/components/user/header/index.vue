@@ -142,7 +142,15 @@ export default {
       }
     },
     goToAdmin () {
-      this.$router.push({ name: 'dashboard' })
+      if (this.$store.getters.isLogin) {
+        this.$router.push({ name: 'dashboard' })
+      } else {
+        this.$notification.warning({
+          message: 'Bạn chưa đăng nhập',
+          duration: 5
+        })
+        this.$router.push({ name: 'login' })
+      }
     },
     handleSearchProduct () {
       if (this.$route.name === 'home') {
