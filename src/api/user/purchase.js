@@ -5,6 +5,10 @@ export function getPurchaseListByUser (purchaseType) {
   return apiService.getMockResponse(api.getBillByUser)
 }
 
+export function getPurchaseListByAdmin (purchaseType) {
+  return apiService.get(api.getBillDetailAdmin, purchaseType)
+}
+
 export function updatePurchaseStatusOfUser (purchaseId, purchaseType) {
   const updatePurchaseParams = {
     purchaseId, purchaseType

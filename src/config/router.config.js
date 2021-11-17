@@ -61,7 +61,7 @@ export const asyncRouterMap = [
           {
             path: '/bill/status',
             name: 'bill.status',
-            component: () => import('@/views/admin/bill/status_bill/Index'),
+            component: () => import('@/views/admin/bill/Index'),
             meta: { title: 'menu.bill.status', pageName: 'menu.bill.status', breadcrumbText: 'menu.bill.status', keepAlive: false, permission: ['dashboard'] }
           }
         ]

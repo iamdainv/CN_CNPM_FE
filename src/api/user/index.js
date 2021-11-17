@@ -38,5 +38,6 @@ export const api = {
   createNewComment: '/comment/create',
 
   // purchase
-  addToCart: '/api/bill/addToCart'
+  addToCart: '/api/bill/addToCart',
+  getBillDetailAdmin: '/api/bill/all/admin'
 }
