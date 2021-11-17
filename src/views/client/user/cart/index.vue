@@ -38,7 +38,13 @@
           </div>
           <div class="cart-page-footer__row2">
             <div class="cart-item__cell-checkbox">
-              <input type="checkbox" class="stardust-checkbox__input input-check-all" :checked="checkedAll" :value="checkedAll" @change="handleCheckAll">
+              <input
+                type="checkbox"
+                class="stardust-checkbox__input input-check-all"
+                id="input-check-all"
+                :checked="checkedAll"
+                :value="checkedAll"
+                @change="handleCheckAll">
             </div>
             <label for="input-check-all" class="cart-page-footer__product-count">Chọn tất cả ({{ totalProductChecked }})</label>
             <button class="cart-item__action btn-delete-mul-product" @click="handleRemoveProducts">Xóa</button>
@@ -63,6 +69,7 @@
 <script>
 import CartList from '@/views/client/user/cart/cart_list/'
 import { mapActions } from 'vuex'
+import _ from 'lodash'
 export default {
   name: 'Cart',
   components: {
@@ -75,7 +82,7 @@ export default {
   },
   watch: {
     listBillBySellerInCart (newList, oldList) {
-      this.listBillBySeller = [...newList]
+      this.listBillBySeller = _.cloneDeep(newList)
       if (this.isCheckAll() === false) {
         this.checkedAll = false
       }
@@ -99,7 +106,7 @@ export default {
     })
   },
   mounted () {
-    const newList = [...this.listBillBySeller]
+    const newList = _.cloneDeep(this.listBillBySellerInCart)
     newList.forEach(item => {
       item.bills.forEach(bill => {
         bill.checked = false
@@ -110,20 +117,22 @@ export default {
   },
   methods: {
     ...mapActions(['GetListBillBySeller', 'SetListBillBySeller', 'RemoveProductInCart', 'BuyProductsInCart']),
-    handleProductChecked ({ idSeller, indexBill }) {
-      const newList = [...this.listBillBySeller]
+    handleProductChecked ({ idBill }) {
+      const newList = _.cloneDeep(this.listBillBySeller)
       newList.forEach(item => {
-        if (item.idSeller === idSeller) {
-          item.bills[indexBill].checked = !item.bills[indexBill].checked
-        }
+        item.bills.forEach(bill => {
+          if (bill.id === idBill) {
+            bill.checked = !bill.checked
+          }
+        })
       })
       this.listBillBySeller = newList
-      this.$store.dispatch('SetListBillBySeller', [...newList])
+      this.$store.dispatch('SetListBillBySeller', newList)
       this.checkedAll = this.isCheckAll()
       this.calcTotalPrice()
     },
     handleCartShopChecked ({ idSeller, checkto }) {
-      const newList = [...this.listBillBySeller]
+      const newList = _.cloneDeep(this.listBillBySeller)
       newList.forEach(item => {
         if (item.idSeller === idSeller) {
           item.bills.forEach(bill => {
@@ -131,13 +140,13 @@ export default {
           })
         }
       })
-      this.$store.dispatch('SetListBillBySeller', [...newList])
+      this.$store.dispatch('SetListBillBySeller', newList)
       this.checkedAll = this.isCheckAll()
       this.calcTotalPrice()
       this.keyRerender = !this.keyRerender
     },
     handleCheckAll () {
-      const newList = [...this.listBillBySeller]
+      const newList = _.cloneDeep(this.listBillBySeller)
       newList.forEach(item => {
         item.bills.forEach(bill => {
           bill.checked = !this.checkedAll
@@ -157,6 +166,7 @@ export default {
           }
         })
       })
+      this.checkedAll = isCheckedAll
       return isCheckedAll
     },
     calcTotalPrice () {
@@ -165,7 +175,7 @@ export default {
       this.listBillBySeller.forEach(item => {
         item.bills.forEach(bill => {
           if (bill.checked) {
-            totalPrice += (bill.product.price - Math.floor((bill.product.discount / 100) * bill.product.price)) * bill.quantity
+            totalPrice += (Math.floor(bill.product.price - (bill.product.discount / 100) * bill.product.price)) * bill.quantity
             totalProductChecked += bill.quantity
           }
         })
@@ -203,6 +213,10 @@ export default {
 </script>
 
 <style>
+input[type=checkbox] {
+  cursor: pointer;
+}
+
 .cart {
     background-color: #f5f5f5;
     box-sizing: border-box;
