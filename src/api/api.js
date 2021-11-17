@@ -19,7 +19,6 @@ instance.interceptors.request.use(
     //   Accept: 'application/json',
     //   'Content-Type': 'application/x-www-form-urlencoded'
     // }
-    console.log(Vue.$cookies.get('token'))
     if (Vue.$cookies.get('token')) {
       config.headers.Authorization = `Bearer ${Vue.$cookies.get('token')}`
     }

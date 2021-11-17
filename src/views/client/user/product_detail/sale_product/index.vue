@@ -1,32 +1,37 @@
 <template>
   <div class="sale-product">
-    <div class="product__name">Set kem mắt tái sinh Ohui The First Geniture Eye Cream Edition Grand Blue</div>
+    <div class="product__name"> {{ product.name }} </div>
     <div class="product-reviews">
       <div class="product-reviews__star">
-        <span class="product-reviews__star-number">4</span>
+        <span class="product-reviews__star-number"> {{ product.numberOfStar }} </span>
         <div>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="far fa-star"></i>
+          <i
+            v-for="(star, index) in Array.from({length: product.numberOfStar}, (_, i) => i + 1)"
+            :key="`${index}/fas`"
+            class="fas fa-star">
+          </i>
+          <i
+            v-for="(star, index) in Array.from({length: 5 - product.numberOfStar}, (_, i) => i + 1)"
+            :key="`${index}/far`"
+            class="far fa-star">
+          </i>
         </div>
       </div>
       <div class="product-reviews__detail">
-        <span class="product-reviews__detail-number">3,4K</span>
+        <span class="product-reviews__detail-number"> {{ product.commentCount }} </span>
         <span class="product-reviews__detail-title">Đánh giá</span>
       </div>
       <div class="product-reviews__sold">
-        <span class="product-reviews__sold-number">69</span>
+        <span class="product-reviews__sold-number"> {{ product.selled }} </span>
         <span class="product-reviews__sold-title">Đã bán</span>
       </div>
     </div>
     <div class="product-price">
       <div class="product-price__detail">
-        <div class="product-price__detail-old"><span>₫</span> 4.600.000</div>
+        <div class="product-price__detail-old" v-if="product.discount"><span>₫</span>  {{ formatPriceToVND(product.price) }} </div>
 
-        <div class="product-price__detail-new"><span>₫</span> 4.150.000</div>
-        <div class="product-price__detail-percent">5% GIẢM</div>
+        <div class="product-price__detail-new"><span>₫</span>  {{ salePrice }} </div>
+        <div class="product-price__detail-percent" v-if="product.discount"> {{ product.discount }} % GIẢM</div>
 
       </div>
       <div class="product-price__title">
@@ -85,32 +90,34 @@
             <button type="button" class="btn product-option__select-btn-color">Hồng</button>
           </div>
         </div>
-        <div class="product-option__select">
+        <div class="product-option__select" v-if="!product.isSell">
           <div class="product-option__select-title product-option__select-quantity-product-title">
             Số lượng
           </div>
           <div class="product-option__select-desc product-option__select-quantity-product">
             <div class="quantity-product">
-              <button class="btn-sub-quantity">-</button>
+              <button class="btn-sub-quantity" @click="subQuantity">-</button>
               <input
                 type="number"
                 class="input-quantity"
-                value="1"
-                min="1"
-                max="99"
+                :value="selectQuantity"
+                :min="1"
+                :max="product.quantity"
                 oninput="">
-              <button class="btn-add-quantity">+</button>
+              <button class="btn-add-quantity" @click="addQuantity">+</button>
             </div>
-            <div>4 (Sản Phẩm) </div>
+            <div> {{ product.quantity }} (Sản Phẩm) </div>
           </div>
         </div>
         <div class="product-option__select">
-          <button type="button" class="product-option-btn btn-add-to-cart">
-            Thêm vào giỏ
-            hàng
-          </button>
-          <button type="button" class="product-option-btn btn-buy-now">Mua ngay</button>
-          <!-- <p class="product-price__detail-new" style="font-size : 20px">Sản phẩm không được bán nữa</p> -->
+          <div v-if="!product.isSell">
+            <button type="button" class="product-option-btn btn-add-to-cart" @click="addToCart">
+              Thêm vào giỏ
+              hàng
+            </button>
+            <button type="button" class="product-option-btn btn-buy-now" @click="buyRightNow">Mua ngay</button>
+          </div>
+          <p class="product-price__detail-new" style="font-size : 20px" v-if="product.isSell">Sản phẩm không được bán nữa</p>
         </div>
       </div>
     </div>
@@ -118,8 +125,68 @@
 </template>
 
 <script>
+
+import { addToCart } from '@/api/user/purchase'
+
 export default {
-  name: 'SaleProduct'
+  name: 'SaleProduct',
+  props: {
+    product: {
+      type: Object
+    }
+  },
+  data () {
+    return {
+      selectQuantity: 1
+    }
+  },
+  computed: {
+    // a computed getter
+    salePrice: function () {
+      // `this` points to the vm instance
+     const newPrice = this.product.price - Math.floor((this.product.discount / 100) * this.product.price)
+      return this.formatPriceToVND(newPrice)
+    }
+  },
+  mounted () {
+    console.log(this.product)
+  },
+  methods: {
+    subQuantity () {
+      if (this.selectQuantity - 1 > 0) {
+        this.selectQuantity = Math.min(this.selectQuantity - 1, this.product.quantity)
+      }
+    },
+    addQuantity () {
+      this.selectQuantity = Math.min(this.selectQuantity + 1, this.product.quantity)
+    },
+
+    createBill (callback) {
+      const { isLogin } = this.$store.getters.userInfo
+      if (isLogin) {
+        addToCart(this.product.id, this.selectQuantity).then((response) => {
+          const { status } = response.data
+          if (status === 200) {
+            callback()
+          }
+        })
+      } else {
+        this.$router.push({ path: '/auth/login' })
+      }
+    },
+
+    addToCart () {
+      this.createBill(() => {
+        this.$toast.open('Thêm vào giỏ hàng thành công')
+      })
+    },
+    buyRightNow () {
+      this.createBill(() => {
+        this.$toast.open('Thêm vào giỏ hàng thành công')
+        this.$router.push({ path: '/cart' })
+      })
+    }
+  }
 }
 </script>
 

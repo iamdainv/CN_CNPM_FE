@@ -2715,7 +2715,7 @@ ant-design-vue@=1.7.6:
 
 ant-design-vue@^1.6.2:
   version "1.7.8"
-  resolved "https://registry.yarnpkg.com/ant-design-vue/-/ant-design-vue-1.7.8.tgz#1abbf86b68a4f5b1000bea0487b8031dc0001661"
+  resolved "https://registry.npmjs.org/ant-design-vue/-/ant-design-vue-1.7.8.tgz"
   integrity sha512-F1hmiS9vwbyfuFvlamdW5l9bHKqRlj9wHaGDIE41NZMWXyWy8qL0UFa/+I0Wl8gQWZCqODW5pN6Yfoyn85At3A==
   dependencies:
     "@ant-design/icons" "^2.1.1"
@@ -12248,6 +12248,11 @@ vue-cropper@0.4.9:
   resolved "https://registry.npmjs.org/vue-cropper/-/vue-cropper-0.4.9.tgz"
   integrity sha512-Uf1i/sCh+ZqSM9hb2YTGRENzJFH+mvDuv8N2brGLjK7UBuF7XDP7zbis8g/dcqZiMojAcBDtObFCn4ERFbRMxQ==
 
+vue-easy-lightbox@0.16.2:
+  version "0.16.2"
+  resolved "https://registry.npmjs.org/vue-easy-lightbox/-/vue-easy-lightbox-0.16.2.tgz"
+  integrity sha512-pkfLBk9dZ9T+fk6bRgehDpIvaS81hOgDqsGpVEDgw8cGtO9FLfAT8hakaqNQOgMTCwrnkQcdfLTLqnad2rq46w==
+
 vue-eslint-parser@^5.0.0:
   version "5.0.0"
   resolved "https://registry.npmjs.org/vue-eslint-parser/-/vue-eslint-parser-5.0.0.tgz"
@@ -12357,6 +12362,11 @@ vue-template-es2015-compiler@^1.6.0, vue-template-es2015-compiler@^1.9.0:
   version "1.9.1"
   resolved "https://registry.npmjs.org/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
+
+vue-toast-notification@0.6:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/vue-toast-notification/-/vue-toast-notification-0.6.2.tgz#44bb164505c310f6a721ff96921761b006ebb5cc"
+  integrity sha512-fIsgALA3yQAtTnZjyUg5Y1tbVrYkLNBCET/ZvvDTS7tnmaWz8L1IzkESrRs1KIiqIGRVbBbiZAzUImrVBEziDA==
 
 vue@^2.5.17, vue@^2.5.3, vue@^2.6.14:
   version "2.6.14"

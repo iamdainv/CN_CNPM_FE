@@ -39,9 +39,9 @@ a:hover {
 	position: relative;
 }
 
-.header__navbar-user:hover .header__navbar-user-menu {
-	display: block;
-}
+//.header__navbar-user:hover .header__navbar-user-menu {
+//	display: block;
+//}
 
 .header__navbar-user-img {
 	width: 22px;
@@ -61,7 +61,7 @@ a:hover {
 	list-style: none;
 	border-radius: 2px;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-	display: none;
+	//display: none;
 }
 
 .header__navbar-user-menu::before {
@@ -129,12 +129,12 @@ a:hover {
 	cursor: pointer;
 }
 
-.header__navbar-item:hover,
-.header__navbar-icon-link:hover,
-.header__navbar-item-link:hover {
-	color: rgba(255, 255, 255, 0.6) !important;
-	transition: 0.5s;
-}
+////.header__navbar-item:hover,
+//.header__navbar-icon-link:hover,
+//.header__navbar-item-link:hover {
+//	color: rgba(255, 255, 255, 0.6) !important;
+//	transition: 0.5s;
+//}
 
 .header__navbar-icon {
 	margin-right: 4px;

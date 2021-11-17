@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import Breadcrumb from '@/components/breadcrumb/Breadcrumb'
+import Breadcrumb from '@/components/breadcrumb/Breadcrumb-user'
 export default {
   name: 'DetailProduct',
   components: { Breadcrumb },
@@ -51,7 +51,8 @@ export default {
       this.breadCrumbList = newVal?.categories?.map(categoryItem => ({
         id: categoryItem.id,
         text: categoryItem.original_category_name
-      }))
+      })).reverse()
+      console.log(this.breadCrumbList)
       this.breadCrumbList.unshift({
         text: 'Shobbe',
         routerName: '/'
