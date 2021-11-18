@@ -132,6 +132,7 @@
 <script>
 
 import { addToCart } from '@/api/user/purchase'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'SaleProduct',
@@ -157,6 +158,7 @@ export default {
     console.log(this.product)
   },
   methods: {
+    ...mapActions(['GetListBillBySeller']),
     subQuantity () {
       if (this.selectQuantity - 1 > 0) {
         this.selectQuantity = Math.min(this.selectQuantity - 1, this.product.quantity)
@@ -180,6 +182,7 @@ export default {
     addToCart () {
       this.createBill(() => {
         this.$toast.open('Thêm vào giỏ hàng thành công')
+        this.$store.dispatch('GetListBillBySeller')
       })
     },
     buyRightNow () {

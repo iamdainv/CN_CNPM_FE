@@ -18,5 +18,5 @@ export function removeProductInCart (params) {
 }
 
 export function buyProductInCart (params) {
-    return apiService.post(api.buyProductInCart, params)
+    return apiService.put(api.buyProductInCart, params)
 }

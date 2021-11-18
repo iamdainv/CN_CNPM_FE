@@ -194,15 +194,21 @@ export default {
       })
     },
     buyProducts () {
-      let idProductsBuy = []
+      let billIds = []
       this.listBillBySeller.forEach(item => {
         item.bills.forEach(bill => {
           if (bill.checked) {
-            idProductsBuy = idProductsBuy.concat([bill.product.id])
+            billIds = billIds.concat([bill.id])
           }
         })
       })
-      this.$store.dispatch('BuyProductsInCart', { idProductsBuy: idProductsBuy })
+      this.$store.dispatch('BuyProductsInCart', { billIds: billIds }).then(rs => {
+        this.$success({ content: 'Mua sản phẩm thành công!',
+          onOk: () => {
+            this.$router.push({ name: 'purchase' })
+          }
+        })
+      })
       this.keyRerender = !this.keyRerender
     },
     backToHome () {
