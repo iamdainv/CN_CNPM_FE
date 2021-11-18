@@ -90,7 +90,7 @@
             <button type="button" class="btn product-option__select-btn-color">Hồng</button>
           </div>
         </div>
-        <div class="product-option__select" v-if="!product.isSell">
+        <div class="product-option__select" v-if="!!product.isSell">
           <div class="product-option__select-title product-option__select-quantity-product-title">
             Số lượng
           </div>
@@ -162,17 +162,14 @@ export default {
     },
 
     createBill (callback) {
-      const { isLogin } = this.$store.getters.userInfo
-      if (isLogin) {
+      this.checkLoginToRedirect(() => {
         addToCart(this.product.id, this.selectQuantity).then((response) => {
           const { status } = response.data
           if (status === 200) {
             callback()
           }
         })
-      } else {
-        this.$router.push({ path: '/auth/login' })
-      }
+      })
     },
 
     addToCart () {

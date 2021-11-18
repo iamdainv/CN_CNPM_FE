@@ -2,7 +2,10 @@ import { api } from './index'
 import { apiService } from '@/api/api'
 
 export function getPurchaseListByUser (purchaseType) {
-  return apiService.getMockResponse(api.getBillByUser)
+  const query = {
+    status: purchaseType ?? 1
+  }
+  return apiService.get(api.getBillByUser, query)
 }
 
 export function updatePurchaseStatusOfUser (purchaseId, purchaseType) {

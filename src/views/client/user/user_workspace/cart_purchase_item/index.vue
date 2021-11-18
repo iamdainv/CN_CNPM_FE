@@ -5,7 +5,7 @@
         <div class="order-content__header">
           <img src="@/assets/img/user.png" alt="User" class="header__navbar-user-img">&nbsp;&nbsp;
           <span href="#" class="cart-page-shop-header__shop-name fw-600">
-            {{ product.seller.firstname + ' ' + product.seller.lastname }}
+            {{ bill.seller }}
           </span>
           <div
             type="button"
@@ -40,16 +40,16 @@
           <div class="cart-item-wrap">
             <div class="cart-item__cell-overview">
               <a href="#" class="cart-item-overview__thumbnail">
-                <div class="cart-item-overview__thumbnail" :style="{ backgroundImage: 'url(' + product.product.img + ')' }"></div>
+                <div class="cart-item-overview__thumbnail" :style="{ backgroundImage: 'url(' + bill.product.image + ')' }"></div>
               </a>
               <div class="cart-item-overview__name">
-                <p>{{ product.product.name }}</p>
-                <p>x {{ product.billDetail.quantity }}</p>
+                <p>{{ bill.product.name }}</p>
+                <p>x {{ bill.quantity }}</p>
               </div>
             </div>
 
             <div>
-              <span class="cart-item__unit-price cart-item__unit-price--before">{{ formatPrice(product.product.price) }}</span>
+              <span class="cart-item__unit-price cart-item__unit-price--before" v-if="bill.product.discount">{{ formatPrice(bill.product.price) }}</span>
               <span class="cart-item__unit-price cart-item__unit-price--after">{{ formatPrice(newPrice) }}</span>
             </div>
           </div>
@@ -65,7 +65,7 @@
             <span class="cart-item__cell-total-price"> {{ formatPrice(totalPrice) }}</span>
           </div>
         </div>
-        <div v-if="product.billDetail.idStatus === 6" class="purchase-card-buttons__container">
+        <div v-if="bill.status === 6" class="purchase-card-buttons__container">
           <div class="purchase-card-buttons__text-info">
             <span class="purchase-text-info">Bạn đã hủy</span>
           </div>
@@ -83,14 +83,14 @@
           <div class="purchase-card-buttons__show-button-wrapper">
             <button type="button" class="h-button__red p-3 h-color__white cursor-pointer purchase-button-primary" data-purchase-id="" data-bill-id="">Chi tiết đơn hàng</button>
           </div>
-          <div class="purchase-card-buttons__show-button-wrapper">
+          <div class="purchase-card-buttons__show-button-wrapper" v-if="buttonTextOfStatus">
             <button
               @click="cancelPurchase"
               type="button"
               class="h-button__red p-3 h-color__white cursor-pointer purchase-button-primary purchase-button-cancel"
               id="btn-cancle"
               data-purchase-id=""
-              data-bill-id="product.billDetail.id">Hủy đơn hàng</button>
+              data-bill-id="product.billDetail.id"> {{ buttonTextOfStatus }} </button>
           </div>
         </div>
       </div>
@@ -100,6 +100,7 @@
 
 <script>
 import { mixin } from '@/utils/mixins'
+import { PurchaseType } from '@/const/app.const'
 // const Purchase = {
 //     All: 0,
 //     Order: 1,
@@ -113,7 +114,7 @@ export default {
   mixins: [mixin],
     name: 'CartPurchaseItem',
     props: {
-        product: {
+      bill: {
             type: Object,
             required: true
         }
@@ -122,22 +123,32 @@ export default {
         return {
             newPrice: 0,
             totalPrice: 0,
-            typePurchase: ''
+            typePurchase: '',
+            buttonTextOfStatus: ''
         }
     },
     methods: {
         formatPrice (price) {
             return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(price)
         },
-      cancelPurchase () {
-          this.$emit('cancelPurchase', this.product.billDetail.id)
-      }
+        cancelPurchase () {
+            this.$emit('cancelPurchase', this.bill.id)
+        }
     },
     mounted () {
-        console.log(this.product)
-        this.newPrice = this.product.product.price - Math.floor((this.product.product.discount / 100) * this.product.product.price)
-        this.totalPrice = this.newPrice * this.product.billDetail.quantity
-        this.typePurchase = this.labelPurchase(this.product.billDetail.idStatus)
+        this.newPrice = this.bill.product.price - Math.floor((this.bill.product.discount / 100) * this.bill.product.price)
+        this.totalPrice = this.newPrice * this.bill.quantity
+        this.typePurchase = this.labelPurchase(this.bill.status)
+
+      switch (this.bill.status) {
+          case PurchaseType.WAIT_CONFIRM:
+            this.buttonTextOfStatus = 'Hủy đơn hàng'
+            break
+        case PurchaseType.DELIVERED:
+        case PurchaseType.CANCELED:
+          this.buttonTextOfStatus = 'Mua lại'
+          break
+      }
     }
 }
 </script>

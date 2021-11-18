@@ -14,16 +14,12 @@
       <div class="bounce3"></div>
     </div>
 
-    <!-- <div class="purchase-empty-order__container purchase-list-page__empty-page-wrapper">
-        <div class="purchase-empty-order__icon"></div>
-        <div class="purchase-empty-order__text">Chưa có đơn hàng</div>
-    </div> -->
     <template v-else>
       <div class="purchase-order__container">
-        <cart-purchase :listProduct="listProduct" @cancelPurchase="cancelPurchase"></cart-purchase>
+        <cart-purchase :listBills="listBills" @cancelPurchase="cancelPurchase"></cart-purchase>
       </div>
     </template>
-    <div v-if="listProduct.length === 0" class="purchase-empty-order__container purchase-list-page__empty-page-wrapper" >
+    <div v-if="listBills.length === 0" class="purchase-empty-order__container purchase-list-page__empty-page-wrapper" >
       <div class="purchase-empty-order__icon"></div>
       <div class="purchase-empty-order__text">Chưa có đơn hàng</div>
     </div>
@@ -44,15 +40,16 @@ export default {
     },
     data () {
         return {
-            indexActive: 0,
+          indexActive: 0,
             loading: true,
             purchaseType: PurchaseType.ALL,
-            listProduct: []
+          listBills: []
         }
     },
     methods: {
         changeIndexActive (indexActive) {
             this.indexActive = indexActive
+            this.purchaseType = indexActive
             this.loading = true
             this.getListPurchase()
         },
@@ -64,7 +61,19 @@ export default {
 
       getListPurchase () {
         getPurchaseListByUser(this.purchaseType).then(res => {
-          this.listProduct = res.data
+          const { status, data } = res.data
+          if (status === 200) {
+            this.listBills = Array.isArray(data) ? data.map(bill => {
+              const format = {
+                ...bill,
+                ...bill.bills.map((b) => b)[0]
+              }
+              delete format.bills
+              return format
+            }) : []
+          } else {
+            this.listBills = []
+          }
           this.loading = false
         })
       }

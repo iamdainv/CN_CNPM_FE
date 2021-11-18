@@ -11,8 +11,6 @@ import '@/assets/css/index.scss'
 import { domTitle, setDocumentTitle } from '@/utils/domUtil'
 import { i18nRender } from '@/locales'
 import '@/utils/mixins'
-import store from '@/store'
-import { loginByToken } from '@/api/user/auth'
 
 export default {
   data () {
@@ -27,25 +25,7 @@ export default {
     }
   },
   mounted () {
-    const token = this.$cookies.get('token')
-    if (token) {
-      loginByToken(token).then(response => {
-        const { data } = response.data
-        store.commit('SET_INFO', data)
-      }).catch(error => {
-        console.log(error)
-        this.$cookies.remove('token')
-        this.handleTokenIllegal()
-      })
-    } else {
-      this.handleTokenIllegal()
-    }
-  },
-  methods: {
-    handleTokenIllegal () {
-      // TODO: reset state cart
-      this.$store.dispatch('resetUserState')
-    }
+
   }
 }
 </script>

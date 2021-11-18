@@ -1,11 +1,11 @@
 <template>
   <div class="header__cart">
     <div class="header__cart-wrap">
-      <i class="fas fa-shopping-cart header__cart-icon"></i>
+      <div @click="gotoCart">  <i class="fas fa-shopping-cart header__cart-icon" ></i></div>
       <span class="header__cart-notify">{{ listProductInCart.length }}</span>
       <!-- No cart: header__cart-list--no-cart -->
       <div class="header__cart-list" :class="listProductInCart.length === 0 ? 'header__cart-list--no-cart' : ''">
-        <img src="@/assets/img/no-cart.png" alt="No cart" class="header__cart--no-cart-img" />
+        <img src="@/assets/img/no-cart.png" alt="No cart" class="header__cart--no-cart-img"/>
         <span class="header__cart-list--no-cart-msg">Chưa có sản phẩm</span>
         <h4 class="header__cart-heading">Sản phẩm đã thêm</h4>
         <ul class="header__cart-list-item">
@@ -59,9 +59,11 @@ export default {
   methods: {
     ...mapActions(['GetListBillBySeller', 'GetListProductInCart', 'RemoveProductInCart']),
     gotoCart () {
-      if (this.$route.name !== 'cart') {
-        this.$router.push({ name: 'cart' })
-      }
+      this.checkLoginToRedirect(() => {
+        if (this.$route.name !== 'cart') {
+          this.$router.push({ name: 'cart' })
+        }
+      })
     },
     calcNewPrice (price, discount) {
       return Math.floor(price - (discount / 100) * price)
