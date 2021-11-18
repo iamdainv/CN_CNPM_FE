@@ -15,7 +15,6 @@
           <depicted-product
             :images="product.depicted"
             :mainImageProduct="product.productDetail.image"
-            v-if="Array.isArray(product.depicted) && product.depicted.length > 0"
             :productName="product.productDetail.name">
 
           </depicted-product>
@@ -56,6 +55,7 @@
           :total="totalComment"
           :show-size="false"
           :page-size-prop="5"
+          :currentPage="pagination.pageNum"
           @getByPagination="getByPagination"
         ></pagination>
       </div>
@@ -106,8 +106,13 @@ export default {
         const { data, status } = response.data
 
         if (status === 200) {
-          this.product.depicted = data.images
+          this.product.depicted = [ {
+            id: 0,
+            id_product: data.id,
+            path: data.image
+          }, ...data.images]
           this.product.productDetail = data
+          console.log(data)
           this.getListComment(data.id)
         } else if (status === 404) {
           this.visibleModalProductNotFound = true

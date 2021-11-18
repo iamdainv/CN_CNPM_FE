@@ -47,19 +47,17 @@ export default {
     }
   },
   watch: {
-    productDetail: function (newVal, oldVal) { // watch it
-      this.breadCrumbList = newVal?.categories?.map(categoryItem => ({
-        id: categoryItem.id,
-        text: categoryItem.original_category_name
-      })).reverse()
-      console.log(this.breadCrumbList)
-      this.breadCrumbList.unshift({
-        text: 'Shobbe',
-        routerName: '/'
-      })
-    }
+
   },
   mounted () {
+    this.breadCrumbList = this.productDetail?.categories?.map(categoryItem => ({
+      id: categoryItem.id,
+      text: categoryItem.original_category_name
+    })).reverse()
+    this.breadCrumbList.unshift({
+      text: 'Shobbe',
+      routerName: '/'
+    })
   }
 }
 </script>
