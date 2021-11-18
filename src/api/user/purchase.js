@@ -8,6 +8,10 @@ export function getPurchaseListByUser (purchaseType) {
   return apiService.get(api.getBillByUser, query)
 }
 
+export function getPurchaseListByAdmin (purchaseType) {
+  return apiService.get(api.getBillDetailAdmin, purchaseType)
+}
+
 export function updatePurchaseStatusOfUser (purchaseId, purchaseType) {
   const updatePurchaseParams = {
     purchaseId, purchaseType

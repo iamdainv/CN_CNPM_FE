@@ -51,6 +51,7 @@
                   ]">
                   <a-input
                     v-model="modelForm.name"
+                    :disabled="isView"
                     style="color: black"
                     @blur="DeepTrimValue(modelForm)"
                   />
@@ -377,7 +378,7 @@ export default {
               type: 'application/json'
             }
           ))
-        formData.append('id_images', new Blob([JSON.stringify(params)],
+        formData.append('id_images', new Blob([JSON.stringify(this.fileIdRemove)],
           {
             type: 'application/json'
           }

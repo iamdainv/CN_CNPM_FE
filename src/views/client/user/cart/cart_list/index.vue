@@ -28,8 +28,8 @@ export default {
     CartShop
   },
   methods: {
-    handleProductChecked ({ idSeller, indexBill }) {
-      this.$emit('productChecked', { idSeller, indexBill })
+    handleProductChecked ({ idBill }) {
+      this.$emit('productChecked', { idBill })
     },
     handleCartShopChecked ({ idSeller, checkto }) {
       this.$emit('cartShopChecked', { idSeller, checkto })

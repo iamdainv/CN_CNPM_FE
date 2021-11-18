@@ -39,5 +39,6 @@ export const api = {
 
   // purchase
   addToCart: '/api/bill/addToCart',
-  getBillByUser: '/api/bill/all/user'
+  getBillByUser: '/api/bill/all/user',
+  getBillDetailAdmin: '/api/bill/all/admin'
 }
