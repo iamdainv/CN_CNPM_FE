@@ -3,9 +3,9 @@
 
     <div class="cart-list">
       <cart-purchase-item
-        v-for="(product, index) in listProduct"
+        v-for="(bill, index) in listBills"
         :key="index"
-        :product="product"
+        :bill="bill"
         @cancelPurchase="cancelPurchase"
       ></cart-purchase-item>
     </div>
@@ -20,16 +20,19 @@ export default {
         CartPurchaseItem
     },
     props: {
-        listProduct: {
+      listBills: {
             type: Array,
-            required: true
+            require: false
         }
     },
     methods: {
       cancelPurchase (purchaseId) {
         this.$emit('cancelPurchase', purchaseId)
       }
-    }
+    },
+  watch: {
+
+  }
 }
 </script>
 
