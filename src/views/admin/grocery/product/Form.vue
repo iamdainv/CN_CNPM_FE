@@ -51,6 +51,7 @@
                   ]">
                   <a-input
                     v-model="modelForm.name"
+                    :disabled="isView"
                     style="color: black"
                     @blur="DeepTrimValue(modelForm)"
                   />

@@ -49,7 +49,7 @@
             </template>
             <template slot="isSell" slot-scope="text, record">
               <a-switch
-                :checked="!!record.isSell"
+                :checked="!!!record.isSell"
                 @change="switchStatus(record)"
               />
             </template>
