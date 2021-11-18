@@ -1,3 +1,5 @@
+import Vue from 'vue'
+import { loginByToken } from '@/api/user/auth'
 
 const user = {
   state: {
@@ -89,11 +91,31 @@ const user = {
     logout ({ commit }, userInfo) {
       commit('LOGOUT')
     },
-    loginToken ({ commit }, userInfo) {
-    commit('SET_INFO', userInfo)
+    loginToken ({ commit, dispatch }, userInfo) {
+      return new Promise((resolve, reject) => {
+        const token = Vue.$cookies.get('token')
+        if (token) {
+          loginByToken(token).then(response => {
+            const { data } = response.data
+            commit('SET_INFO', data)
+            resolve(data)
+          }).catch(error => {
+            Vue.$cookies.remove('token')
+            dispatch('handleTokenIllegal')
+            reject(error)
+          })
+        } else {
+          dispatch('handleTokenIllegal')
+          reject(new Error('Không có token'))
+        }
+      })
     },
     resetUserState ({ commit }) {
       commit('RESET_STATE')
+    },
+    handleTokenIllegal ({ commit, dispatch }) {
+      // TODO: reset state cart
+      dispatch('resetUserState')
     }
   }
 }

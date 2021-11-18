@@ -180,6 +180,13 @@ export const mixin = {
     },
     convertToSlugToProductDetail (productName, productId) {
       return productName.split(' ').join('-') + `.${productId}`
+    },
+    checkLoginToRedirect (callback) {
+      if (!this.$store.getters.userInfo.isLogin) {
+        this.$router.push({ path: '/auth/login' })
+        return
+      }
+      callback()
     }
   }
 }
