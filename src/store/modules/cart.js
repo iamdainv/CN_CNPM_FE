@@ -48,7 +48,6 @@ const user = {
                 changeQuantityProductInCart({ idBill: params.idBill, quantity: params.quantity }).then(rs => {
                     let result = null
                     if (rs.data.status === 500) {
-                        this.$error(rs.data.data)
                         const newParams = {
                             idBill: params.idBill,
                             quantity: rs.data.quantityProduct ? rs.data.quantityProduct : 1
@@ -78,15 +77,22 @@ const user = {
                 })
             })
         },
-        BuyProductsInCart: ({ dispatch }, params) => {
+        BuyProductsInCart: ({ dispatch, commit }, params) => {
             return new Promise((resolve, reject) => {
                 buyProductInCart(params).then(rs => {
                     let result = null
-                    if (rs) {
+                    if (rs.data.status === 500) {
+                        alert(rs.data.data)
+                        const newParams = {
+                            idBill: params.idBill,
+                            quantity: rs.data.quantityProduct ? rs.data.quantityProduct : 1
+                        }
+                        commit('ChangeQuantityProductInCart', newParams)
+                    } else {
                         result = rs.data
+                        dispatch('GetListBillBySeller')
+                        resolve(result)
                     }
-                    dispatch('GetListBillBySeller')
-                    resolve(result)
                 }).catch(err => {
                     reject(err)
                 })
