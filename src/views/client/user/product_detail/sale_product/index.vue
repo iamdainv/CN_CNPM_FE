@@ -90,35 +90,40 @@
             <button type="button" class="btn product-option__select-btn-color">Hồng</button>
           </div>
         </div>
-        <div class="product-option__select" v-if="!!product.isSell">
-          <div class="product-option__select-title product-option__select-quantity-product-title">
-            Số lượng
-          </div>
-          <div class="product-option__select-desc product-option__select-quantity-product">
-            <div class="quantity-product">
-              <button class="btn-sub-quantity" @click="subQuantity">-</button>
-              <input
-                type="number"
-                class="input-quantity"
-                :value="selectQuantity"
-                :min="1"
-                :max="product.quantity"
-                oninput="">
-              <button class="btn-add-quantity" @click="addQuantity">+</button>
+        <template v-if="!!product.isSell">
+          <div class="product-option__select">
+            <div class="product-option__select-title product-option__select-quantity-product-title">
+              Số lượng
             </div>
-            <div> {{ product.quantity }} (Sản Phẩm) </div>
+            <div class="product-option__select-desc product-option__select-quantity-product">
+              <div class="quantity-product">
+                <button class="btn-sub-quantity" @click="subQuantity">-</button>
+                <input
+                  type="number"
+                  class="input-quantity"
+                  :value="selectQuantity"
+                  :min="1"
+                  :max="product.quantity"
+                  oninput="">
+                <button class="btn-add-quantity" @click="addQuantity">+</button>
+              </div>
+              <div> {{ product.quantity }} (Sản Phẩm) </div>
+            </div>
           </div>
-        </div>
-        <div class="product-option__select">
-          <div v-if="!product.isSell">
-            <button type="button" class="product-option-btn btn-add-to-cart" @click="addToCart">
-              Thêm vào giỏ
-              hàng
-            </button>
-            <button type="button" class="product-option-btn btn-buy-now" @click="buyRightNow">Mua ngay</button>
+          <div class="product-option__select">
+            <div>
+              <button type="button" class="product-option-btn btn-add-to-cart" @click="addToCart">
+                Thêm vào giỏ
+                hàng
+              </button>
+              <button type="button" class="product-option-btn btn-buy-now" @click="buyRightNow">Mua ngay</button>
+            </div>
           </div>
-          <p class="product-price__detail-new" style="font-size : 20px" v-if="product.isSell">Sản phẩm không được bán nữa</p>
-        </div>
+        </template>
+        <template v-else>
+
+          <p class="product-price__detail-new" style="font-size : 20px">Sản phẩm không được bán nữa</p>
+        </template>
       </div>
     </div>
   </div>
@@ -127,6 +132,7 @@
 <script>
 
 import { addToCart } from '@/api/user/purchase'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'SaleProduct',
@@ -152,6 +158,7 @@ export default {
     console.log(this.product)
   },
   methods: {
+    ...mapActions(['GetListBillBySeller']),
     subQuantity () {
       if (this.selectQuantity - 1 > 0) {
         this.selectQuantity = Math.min(this.selectQuantity - 1, this.product.quantity)
@@ -175,6 +182,7 @@ export default {
     addToCart () {
       this.createBill(() => {
         this.$toast.open('Thêm vào giỏ hàng thành công')
+        this.$store.dispatch('GetListBillBySeller')
       })
     },
     buyRightNow () {
