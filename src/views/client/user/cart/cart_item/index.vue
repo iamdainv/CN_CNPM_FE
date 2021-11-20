@@ -105,13 +105,15 @@ export default {
                 if (rs) {
                   this.$toast.open('Thay đổi lượng sản phẩm thành công!')
                 }
-            }).catch(err => {
-                this.$error(err.message)
+            }).catch(() => {
+                this.$toast.error('Thay đổi số lượng sản phẩm thất bại')
             })
         },
         handleDeleteProduct () {
-            this.$store.dispatch('RemoveProductInCart', { idBill: this.bill.id }).catch(err => {
-                this.$error(err)
+            this.$store.dispatch('RemoveProductInCart', { idBill: this.bill.id }).then(rs => {
+              this.$toast.success('Xóa sản phẩm khỏi giỏ hàng thành công!')
+            }).catch(() => {
+                this.$toast.error('Xóa sản phẩm hỏi giỏ hàng thất bại!')
             })
         },
         handleChecked () {

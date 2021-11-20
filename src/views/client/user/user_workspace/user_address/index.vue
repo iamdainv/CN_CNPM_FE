@@ -16,11 +16,11 @@
       <div class="d-flex flex-column flex-70">
         <div class="d-flex mb-4">
           <div class="address-display__field-label">
-            <div >Họ và tên</div>
+            <div >Họ và tên: </div>
           </div>
           <div class="address-display__field-value d-flex flex-1">
-            <div class="fw-bold mr-4 font-16">{{ address.name }}</div>
-            <template v-if="address.is_delivery_address">
+            <div class="fw-bold mr-4 font-16">{{ address.recipientName }}</div>
+            <template v-if="address.isDefault">
               <div class="address-tag">Mặc định</div>
               <div class="address-pickup">Địa chỉ lấy hàng</div>
               <div class="address-pickup">Địa chỉ trả hàng</div>
@@ -32,7 +32,7 @@
             Số điện thoại
           </div>
           <div class="address-display__field-value flex-1">
-            {{ address.phone }}
+            {{ address.recipientNumberPhone }}
           </div>
         </div>
         <div class="d-flex mb-4">
