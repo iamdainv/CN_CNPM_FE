@@ -16,7 +16,7 @@
 
     <template v-else>
       <div class="purchase-order__container">
-        <cart-purchase :listBills="listBills" @cancelPurchase="cancelPurchase"></cart-purchase>
+        <cart-purchase :listBills="listBills" @purchaseAction="purchaseAction"></cart-purchase>
       </div>
     </template>
     <div v-if="listBills.length === 0" class="purchase-empty-order__container purchase-list-page__empty-page-wrapper" >
@@ -53,9 +53,9 @@ export default {
             this.loading = true
             this.getListPurchase()
         },
-      cancelPurchase (idPurchase) {
-        updatePurchaseStatusOfUser(idPurchase, PurchaseType.CANCELED).then(response => {
-          if (response.status === 200) { this.getListPurchase() }
+      purchaseAction (bill, callback) {
+        updatePurchaseStatusOfUser(bill.id, bill.actionType).then(response => {
+          if (response.status === 200) { callback ? callback() : this.getListPurchase() }
         })
       },
 
@@ -63,14 +63,7 @@ export default {
         getPurchaseListByUser(this.purchaseType).then(res => {
           const { status, data } = res.data
           if (status === 200) {
-            this.listBills = Array.isArray(data) ? data.map(bill => {
-              const format = {
-                ...bill,
-                ...bill.bills.map((b) => b)[0]
-              }
-              delete format.bills
-              return format
-            }) : []
+            this.listBills = Array.isArray(data) ? data : []
           } else {
             this.listBills = []
           }

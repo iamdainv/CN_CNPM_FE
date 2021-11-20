@@ -70,7 +70,13 @@
             <span class="purchase-text-info">Bạn đã hủy</span>
           </div>
           <div class="purchase-card-buttons__show-button-wrapper">
-            <button type="button" class="h-button__red p-3 h-color__white cursor-pointer" id="btn-buy-again" data-purchase-id="" data-bill-id="product.billDetail.id">Mua lần nữa</button>
+            <button
+              type="button"
+              class="h-button__red p-3 h-color__white cursor-pointer"
+              id="btn-buy-again"
+              data-purchase-id=""
+              @click="purchaseAction"
+              data-bill-id="product.billDetail.id">Mua lần nữa</button>
           </div>
           <div class="purchase-card-buttons__show-button-wrapper">
             <button type="button" class="h-button__red p-3 h-color__white cursor-pointer purchase-button-primary" id="btn-save-address" >Chi tiết đơn hủy</button>
@@ -85,7 +91,7 @@
           </div>
           <div class="purchase-card-buttons__show-button-wrapper" v-if="buttonTextOfStatus">
             <button
-              @click="cancelPurchase"
+              @click="purchaseAction"
               type="button"
               class="h-button__red p-3 h-color__white cursor-pointer purchase-button-primary purchase-button-cancel"
               id="btn-cancle"
@@ -131,8 +137,21 @@ export default {
         formatPrice (price) {
             return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(price)
         },
-        cancelPurchase () {
-            this.$emit('cancelPurchase', this.bill.id)
+        purchaseAction () {
+          let actionType = 0
+          let callback = null
+          switch (this.bill.status) {
+            case PurchaseType.CANCELED:
+              actionType = 1
+              callback = () => {
+                this.$router.push({ path: '/cart' })
+              }
+              break
+            case PurchaseType.WAIT_CONFIRM:
+              actionType = 2
+              break
+          }
+            this.$emit('purchaseAction', { ...this.bill, actionType }, callback)
         }
     },
     mounted () {

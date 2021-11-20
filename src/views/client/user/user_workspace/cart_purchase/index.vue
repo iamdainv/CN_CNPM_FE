@@ -2,12 +2,14 @@
   <div class="cart__content">
 
     <div class="cart-list">
-      <cart-purchase-item
-        v-for="(bill, index) in listBills"
-        :key="index"
-        :bill="bill"
-        @cancelPurchase="cancelPurchase"
-      ></cart-purchase-item>
+      <div v-for="(bill, index) in listBills" :key="index">
+        <cart-purchase-item
+          v-for="(bill, idx) in bill.bills"
+          :key="idx"
+          :bill="bill"
+          @purchaseAction="purchaseAction"
+        ></cart-purchase-item>
+      </div>
     </div>
   </div>
 </template>
@@ -26,8 +28,8 @@ export default {
         }
     },
     methods: {
-      cancelPurchase (purchaseId) {
-        this.$emit('cancelPurchase', purchaseId)
+      purchaseAction (bill, callback) {
+        this.$emit('purchaseAction', bill, callback)
       }
     },
   watch: {
