@@ -24,7 +24,7 @@ export const api = {
   removeProductInCart: (idBill) => {
     return `/api/bill/${idBill}`
   },
-  buyProductInCart: '/cart',
+  buyProductInCart: '/api/bill/buy',
 
   // auth
   login: '/users',

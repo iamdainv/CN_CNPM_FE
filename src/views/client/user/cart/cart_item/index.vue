@@ -72,14 +72,22 @@ export default {
         },
         handleSubQuantityProduct () {
             if (this.bill.quantity > 1) {
-                this.$store.dispatch('ChangeQuantityProductInCart', { idBill: this.bill.id, quantity: this.bill.quantity - 1 }).catch(err => {
+                this.$store.dispatch('ChangeQuantityProductInCart', { idBill: this.bill.id, quantity: this.bill.quantity - 1 }).then(rs => {
+                    if (rs) {
+                      this.$toast.open('Giảm số lượng sản phẩm thành công!')
+                    }
+                }).catch(err => {
                     this.$error(err)
                 })
             }
         },
         handleAddQuantityProduct () {
             if (this.bill.quantity < this.bill.product.quantity) {
-                this.$store.dispatch('ChangeQuantityProductInCart', { idBill: this.bill.id, quantity: this.bill.quantity + 1 }).catch(err => {
+                this.$store.dispatch('ChangeQuantityProductInCart', { idBill: this.bill.id, quantity: this.bill.quantity + 1 }).then(rs => {
+                    if (rs) {
+                      this.$toast.open('Tăng số lượng sản phẩm thành công!')
+                    }
+                }).catch(err => {
                     this.$error(err)
                 })
             }
@@ -93,7 +101,11 @@ export default {
             if (value > this.bill.product.quantity) {
                 value = this.bill.product.quantity
             }
-            this.$store.dispatch('ChangeQuantityProductInCart', { idBill: this.bill.id, quantity: value }).catch(err => {
+            this.$store.dispatch('ChangeQuantityProductInCart', { idBill: this.bill.id, quantity: value }).then(rs => {
+                if (rs) {
+                  this.$toast.open('Thay đổi lượng sản phẩm thành công!')
+                }
+            }).catch(err => {
                 this.$error(err.message)
             })
         },
