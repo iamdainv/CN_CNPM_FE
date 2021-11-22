@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { loginByToken } from '@/api/user/auth'
-import { getUserAddress } from '@/api/user/user'
+import { getUserAddress, createUserAddress, removeUserAddress, updateUserAddressDefault } from '@/api/user/user'
 import _ from 'lodash'
 
 const user = {
@@ -82,6 +82,27 @@ const user = {
       getUserAddress().then(rs => {
         const userAddress = rs.data.data
         commit('SET_USER_ADDRESS', userAddress)
+      })
+    },
+    createUserAddress ({ dispatch }, params) {
+      createUserAddress(params).then(rs => {
+        if (rs) {
+          dispatch('getUserAddress')
+        }
+      })
+    },
+    removeUserAddress ({ dispatch }, params) {
+      removeUserAddress(params).then(rs => {
+        if (rs) {
+          dispatch('getUserAddress')
+        }
+      })
+    },
+    updateUserAddressDefault ({ dispatch }, params) {
+      updateUserAddressDefault(params).then(rs => {
+        if (rs) {
+          dispatch('getUserAddress')
+        }
       })
     },
     resetUserState ({ commit }) {

@@ -43,5 +43,8 @@ export const api = {
   getBillDetailAdmin: '/api/bill/all/admin',
 
   // address
-  getUserAddress: 'users/address'
+  getUserAddress: '/users/address',
+  createUserAddress: '/users/address/create',
+  removeUserAddress: (idAddress) => `/users/address/${idAddress}/remove`,
+  updateUserAddressDefault: (idAddress) => `/users/address/${idAddress}/default`
 }
