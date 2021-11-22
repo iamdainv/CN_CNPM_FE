@@ -175,7 +175,6 @@ export const mixin = {
           purchaseLabel = ''
           break
       }
-
       return purchaseLabel
     },
     convertToSlugToProductDetail (productName, productId) {
