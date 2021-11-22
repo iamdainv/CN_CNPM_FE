@@ -15,11 +15,6 @@
           <a-icon type="shopping" />
           {{ $t('menu.account.sub-system.client') }}
         </a-menu-item>
-        <a-menu-divider v-if="menu" />
-        <a-menu-item key="logout" @click="handleLogout">
-          <a-icon type="logout" />
-          {{ $t('menu.account.logout') }}
-        </a-menu-item>
       </a-menu>
     </template>
   </a-dropdown>
@@ -29,8 +24,6 @@
 </template>
 
 <script>
-import { Modal } from 'ant-design-vue'
-
 export default {
   name: 'AvatarDropdown',
   data () {
@@ -64,18 +57,6 @@ export default {
     },
     handleToSettings () {
       this.$router.push({ path: '/account/settings' })
-    },
-    handleLogout (e) {
-      Modal.confirm({
-        title: this.$t('layouts.usermenu.dialog.title'),
-        content: this.$t('layouts.usermenu.dialog.content'),
-        onOk: () => {
-          return this.$store.dispatch('Logout').then(() => {
-            this.$router.push({ name: 'login' })
-          })
-        },
-        onCancel () {}
-      })
     }
   }
 }
