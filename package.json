@@ -33,6 +33,7 @@
     "randomstring": "^1.2.1",
     "sass": "^1.42.1",
     "sass-loader": "10.0.0",
+    "sockjs-client": "^1.5.2",
     "store": "^2.0.12",
     "viser-vue": "^2.4.6",
     "vue": "^2.6.14",
@@ -46,7 +47,8 @@
     "vue-toast-notification": "0.6",
     "vue2-google-maps": "^0.10.7",
     "vuex": "^3.1.1",
-    "wangeditor": "^3.1.1"
+    "wangeditor": "^3.1.1",
+    "webstomp-client": "^1.2.6"
   },
   "devDependencies": {
     "@ant-design/colors": "^3.2.1",

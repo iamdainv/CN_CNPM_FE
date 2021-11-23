@@ -6,7 +6,8 @@ import Vue from 'vue'
 const instance = axios.create({
   baseURL: envConfig.baseUrl,
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Access-Control-Expose-Headers': '*'
   }
 })
 
@@ -33,6 +34,7 @@ instance.interceptors.request.use(
 // Response interceptor for API calls
 instance.interceptors.response.use(
   response => {
+    console.log(response)
     return response
   },
   async function (error) {

@@ -98,6 +98,7 @@ const user = {
           loginByToken(token).then(response => {
             const { data } = response.data
             commit('SET_INFO', data)
+            commit('SET_TOKEN', token)
             resolve(data)
           }).catch(error => {
             Vue.$cookies.remove('token')

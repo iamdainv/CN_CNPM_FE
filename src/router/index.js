@@ -25,7 +25,6 @@ router.beforeEach((routeTo, routeFrom, next) => {
   NProgress.start() // start progress bar
 
   if (!Vue.$cookies.get('token')) {
-    console.log(pathRequireAuth.includes(routeTo.path), routeTo.path)
     if (pathRequireAuth.includes(routeTo.path)) {
       next({ path: '/auth/login' })
       NProgress.done()

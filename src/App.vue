@@ -12,6 +12,7 @@ import { domTitle, setDocumentTitle } from '@/utils/domUtil'
 import { i18nRender } from '@/locales'
 import '@/utils/mixins'
 
+import { onConnectWebSocket } from '@/config/websocket'
 export default {
   data () {
     return {}
@@ -23,9 +24,17 @@ export default {
       title && setDocumentTitle(`${i18nRender(title)} - ${domTitle}`)
       return this.$i18n.getLocaleMessage(this.$store.getters.lang).antLocale
     }
+
+  },
+  watch: {
+    '$store.getters.userInfo.token': function () {
+      onConnectWebSocket()
+    }
+  },
+  created () {
+
   },
   mounted () {
-
   }
 }
 </script>
