@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import { loginByToken } from '@/api/user/auth'
+import { getUserAddress, createUserAddress, updateUserAddress, removeUserAddress, updateUserAddressDefault } from '@/api/user/user'
+import _ from 'lodash'
 
 const user = {
   state: {
@@ -16,53 +18,13 @@ const user = {
       address: '',
       id: 0
     },
-    userAddress: [
-      {
-        id: 1,
-        name: 'Nguyễn Viêt Đại',
-        phone: '(+84) 888539611',
-        address: 'Số nhà 26 ngõ 62 đường Hậu Ái, Vân Canh , Hoài Đức , Hà Nội',
-        ward: 'Xã Vân Canh',
-        district: 'Huyện Hoài Đức',
-        city: 'Hà Nội',
-        is_delivery_address: true
-      },
-      {
-        id: 4,
-        name: 'Nguyễn Viêt Đại',
-        phone: '(+84) 888539611',
-        address: 'Số nhà 26 ngõ 62 đường Hậu Ái, Vân Canh , Hoài Đức , Hà Nội',
-        ward: 'Xã Vân Canh',
-        district: 'Huyện Hoài Đức',
-        city: 'Hà Nội',
-        is_delivery_address: false
-      },
-      {
-        id: 2,
-        name: 'Nguyễn Viêt Đại',
-        phone: '(+84) 888539611',
-        address: 'Số nhà 26 ngõ 62 đường Hậu Ái, Vân Canh , Hoài Đức , Hà Nội',
-        ward: 'Xã Vân Canh',
-        district: 'Huyện Hoài Đức',
-        city: 'Hà Nội',
-        is_delivery_address: false
-      },
-      {
-        id: 123,
-        name: 'Nguyễn Viêt Đại',
-        phone: '(+84) 888539611',
-        address: 'Số nhà 26 ngõ 62 đường Hậu Ái, Vân Canh , Hoài Đức , Hà Nội',
-        ward: 'Xã Vân Canh',
-        district: 'Huyện Hoài Đức',
-        city: 'Hà Nội',
-        is_delivery_address: false
-      }
-    ]
+    userAddress: []
   },
   getters: {
     isLogin: state => state.isLogin,
     userId: state => state.info.id,
-    shopName: state => state.info.shopName ?? `${state.info.firstName}`
+    shopName: state => state.info.shopName ?? `${state.info.firstName}`,
+    address: state => state.userAddress
   },
   mutations: {
     SET_TOKEN: (state, token) => {
@@ -73,8 +35,12 @@ const user = {
       state.info = info
       state.isLogin = true
     },
+    SET_USER_ADDRESS: (state, address) => {
+      state.userAddress = _.cloneDeep(address)
+    },
     LOGOUT: (state, info) => {
-
+      state.info = {}
+      state.isLogin = false
     },
     RESET_STATE (state) {
       // Merge rather than replace so we don't lose observers
@@ -103,11 +69,67 @@ const user = {
             Vue.$cookies.remove('token')
             dispatch('handleTokenIllegal')
             reject(error)
+          }).finally(() => {
+            dispatch('getUserAddress')
           })
         } else {
           dispatch('handleTokenIllegal')
           reject(new Error('Không có token'))
         }
+      })
+    },
+    getUserAddress ({ commit }) {
+      getUserAddress().then(rs => {
+        const userAddress = rs.data.data
+        commit('SET_USER_ADDRESS', userAddress)
+      })
+    },
+    createUserAddress ({ dispatch }, params) {
+      return new Promise((resolve, reject) => {
+        createUserAddress(params).then(rs => {
+          if (rs) {
+            dispatch('getUserAddress')
+            resolve(rs)
+          }
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
+    updateUserAddress ({ dispatch }, params) {
+      return new Promise((resolve, reject) => {
+        updateUserAddress(params).then(rs => {
+          if (rs) {
+            dispatch('getUserAddress')
+            resolve(rs)
+          }
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
+    removeUserAddress ({ dispatch }, params) {
+      return new Promise((resolve, reject) => {
+        removeUserAddress(params).then(rs => {
+          if (rs) {
+            dispatch('getUserAddress')
+            resolve(rs)
+          }
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
+    updateUserAddressDefault ({ dispatch }, params) {
+      return new Promise((resolve, reject) => {
+        updateUserAddressDefault(params).then(rs => {
+          if (rs) {
+            dispatch('getUserAddress')
+            resolve(rs)
+          }
+        }).catch(err => {
+          reject(err)
+        })
       })
     },
     resetUserState ({ commit }) {
