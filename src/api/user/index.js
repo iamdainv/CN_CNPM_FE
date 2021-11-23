@@ -41,6 +41,7 @@ export const api = {
   addToCart: '/api/bill/addToCart',
   getBillByUser: '/api/bill/all/user',
   getBillDetailAdmin: '/api/bill/all/admin',
+  updateBillStatusViaActionType: '/api/bill',
 
   // address
   getUserAddress: '/users/address',

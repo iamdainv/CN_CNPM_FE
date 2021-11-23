@@ -5,7 +5,7 @@
         v-for="(product, index) in listBillDetail"
         :key="index"
         :product="product"
-        @cancelPurchase="cancelPurchase"
+        @acceptPurchase="acceptPurchase"
       ></status-bill-detail>
     </div>
   </div>
@@ -25,8 +25,8 @@ export default {
     }
   },
   methods: {
-    cancelPurchase (purchaseId) {
-      this.$emit('cancelPurchase', purchaseId)
+    acceptPurchase (purchaseId) {
+      this.$emit('acceptPurchase', purchaseId)
     }
   }
 }

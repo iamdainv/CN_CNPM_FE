@@ -11,7 +11,7 @@
     <div class="list-address">
 
     </div>
-    <div class="d-flex p-3 justify-between" v-for="(address) in listUserAddress" :key="address.id">
+    <div class="d-flex p-3 justify-between" v-for="(address) in listUserAddress" :key="address.id" style="border-bottom: 1px solid #ccc; padding-top: 10px;">
 
       <div class="d-flex flex-column flex-70">
         <div class="d-flex mb-4">

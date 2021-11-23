@@ -12,11 +12,11 @@ export function getPurchaseListByAdmin (purchaseType) {
   return apiService.get(api.getBillDetailAdmin, purchaseType)
 }
 
-export function updatePurchaseStatusOfUser (purchaseId, purchaseType) {
+export function updatePurchaseStatusOfUser (purchaseId, actionType) {
   const updatePurchaseParams = {
-    purchaseId, purchaseType
+     actionType
   }
-  return apiService.put(api.updateBillStatus, updatePurchaseParams)
+  return apiService.put(`${api.updateBillStatusViaActionType}/${purchaseId}`, updatePurchaseParams)
 }
 
 export function addToCart (productId, quantity) {

@@ -161,8 +161,7 @@
                 <l-tile-layer :url="url" :attribution="attribution"></l-tile-layer>
                 <l-marker
                   :lat-lng="markerLatLng"
-                  :draggable="true"
-                  @dragend="drag"
+                  :draggable="false"
                   :icon="icon"
                 >
                 </l-marker>
@@ -368,9 +367,6 @@ export default {
     onChangeCheckedDefault (e) {
       this.form.isDefault = e.target.checked
     },
-    drag (e) {
-      console.log(e.target.getLatLng())
-    },
     handleOk () {
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
@@ -388,7 +384,6 @@ export default {
                 latitude: Number.parseFloat(this.form.lat),
                 longitude: Number.parseFloat(this.form.lon)
               }
-              console.log('params created: ', params)
               this.$store.dispatch('createUserAddress', params).then(rs => {
                 this.$success({ content: 'Thêm mới địa chỉ thành công!',
                   onOk: () => {
@@ -412,7 +407,6 @@ export default {
                 latitude: this.form.lat,
                 longitude: this.form.lon
               }
-              console.log('params updated: ', params)
               this.$store.dispatch('updateUserAddress', params).then(rs => {
                 this.$success({ content: 'Cập nhật địa chỉ thành công!',
                   onOk: () => {
