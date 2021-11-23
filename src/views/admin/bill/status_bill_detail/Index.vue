@@ -3,9 +3,9 @@
     <div class="cart-shop-header" style="padding : 10px;">
       <div class="cart-shop-header-content">
         <div class="order-content__header">
-          <img :src="product.user.image ? product.user.image : '@/assets/img/user.png'" alt="User" class="header__navbar-user-img">&nbsp;&nbsp;
+          <img :src="bill.user.image ? bill.user.image : '@/assets/img/user.png'" alt="User" class="header__navbar-user-img">&nbsp;&nbsp;
           <span href="#" class="cart-page-shop-header__shop-name fw-600">
-            {{ `${product.user.firstName} ${product.user.lastName}` }}
+            {{ `${bill.user.firstName} ${bill.user.lastName}` }}
           </span>
           <div
             type="button"
@@ -20,20 +20,25 @@
 
     <div class="cart-page-shop-section__items">
       <div class="cart-page-shop-section__item" style="margin : 0; border : none">
-        <div class="cart-item" data-id="product.product.id" style="padding : 0">
+        <div class="cart-item" data-id="bill.product.id" style="padding : 0">
           <div class="cart-item-wrap">
             <div class="cart-item__cell-overview">
               <a href="#" class="cart-item-overview__thumbnail">
-                <div class="cart-item-overview__thumbnail" :style="{ backgroundImage: 'url(' + product.product.image + ')' }"></div>
+                <div class="cart-item-overview__thumbnail" :style="{ backgroundImage: 'url(' + bill.product.image + ')' }"></div>
               </a>
               <div class="cart-item-overview__name">
-                <p>{{ product.product.name }}</p>
-                <p>x {{ product.quantity }}</p>
+                <p>{{ bill.product.name }}</p>
+                <p>x {{ bill.quantity }}</p>
+                <p>{{ `Địa chỉ giao hàng: ${bill.address && bill.address.address ? bill.address.address : ''},
+                                          ${bill.address && bill.address.ward ? bill.address.ward : ''},
+                                          ${bill.address && bill.address.district ? bill.address.district : '' },
+                                          ${bill.address && bill.address.city ? bill.address.city : ''},
+                                          ${bill.address && bill.address.country ? bill.address.country : ''}` }}</p>
               </div>
             </div>
 
             <div>
-              <span class="cart-item__unit-price cart-item__unit-price--before">{{ formatPrice(product.product.price) }}</span>
+              <span class="cart-item__unit-price cart-item__unit-price--before">{{ formatPrice(bill.product.price) }}</span>
               <span class="cart-item__unit-price cart-item__unit-price--after">{{ formatPrice(newPrice) }}</span>
             </div>
           </div>
@@ -49,12 +54,12 @@
             <span class="cart-item__cell-total-price"> {{ formatPrice(totalPrice) }}</span>
           </div>
         </div>
-        <div v-if="this.product.status === 4" class="purchase-card-buttons__container">
+        <div v-if="this.bill.status === 4" class="purchase-card-buttons__container">
           <div class="purchase-card-buttons__text-info">
             <span class="purchase-text-info"><b>{{ `Đang giao hàng`.toUpperCase() }}</b></span>
           </div>
         </div>
-        <div v-else-if="this.product.status === 5" class="purchase-card-buttons__container">
+        <div v-else-if="this.bill.status === 5" class="purchase-card-buttons__container">
           <div class="purchase-card-buttons__text-info">
             <span class="purchase-text-info"><b>{{ `Đã giao hàng`.toUpperCase() }}</b></span>
           </div>
@@ -66,14 +71,21 @@
           <div class="purchase-card-buttons__show-button-wrapper">
             <button type="button" class="h-button__red p-3 h-color__white cursor-pointer purchase-button-primary" data-purchase-id="" data-bill-id="">Chi tiết đơn hàng</button>
           </div>
-          <div class="purchase-card-buttons__show-button-wrapper">
+          <div v-if="bill.status === 2" class="purchase-card-buttons__show-button-wrapper">
             <button
               @click="acceptPurchase"
               type="button"
               class="h-button__red p-3 h-color__white cursor-pointer purchase-button-primary purchase-button-cancel"
-              id="btn-cancle"
               data-purchase-id=""
-              data-bill-id="product.id">Xác nhận đơn hàng</button>
+              data-bill-id="bill.id">Xác nhận đơn hàng</button>
+          </div>
+          <div v-else-if="bill.status === 3" class="purchase-card-buttons__show-button-wrapper">
+            <button
+              @click="acceptDelivery"
+              type="button"
+              class="h-button__red p-3 h-color__white cursor-pointer purchase-button-primary purchase-button-cancel"
+              data-purchase-id=""
+              data-bill-id="bill.id">Giao hàng</button>
           </div>
         </div>
       </div>
@@ -88,7 +100,7 @@ export default {
   mixins: [mixin],
   name: 'Index',
   props: {
-    product: {
+    bill: {
       type: Object,
       required: true
     }
@@ -105,13 +117,16 @@ export default {
       return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(price)
     },
     acceptPurchase () {
-      this.$emit('acceptPurchase', this.product.id)
+      this.$emit('acceptPurchase', this.bill.id)
+    },
+    acceptDelivery () {
+      this.$emit('acceptDelivery', this.bill.id)
     }
   },
   mounted () {
-    this.newPrice = this.product.product.price - Math.floor((this.product.product.discount / 100) * this.product.product.price)
-    this.totalPrice = this.newPrice * this.product.quantity
-    this.typePurchase = this.labelPurchase(this.product.status)
+    this.newPrice = this.bill.product.price - Math.floor((this.bill.product.discount / 100) * this.bill.product.price)
+    this.totalPrice = this.newPrice * this.bill.quantity
+    this.typePurchase = this.labelPurchase(this.bill.status)
   }
 }
 </script>
@@ -171,8 +186,8 @@ export default {
 }
 
 .cart-item-overview__thumbnail {
-  height: 80px;
-  width: 80px;
+  height: 95px;
+  width: 95px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -180,13 +195,13 @@ export default {
 
 .cart-item-overview__name {
   text-decoration: none;
-  /* max-height: 4rem;*/
+  max-height: 10rem;
   text-overflow: ellipsis;
   overflow: hidden;
   word-break: break-word;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   padding: 4px 20px 0 12px;
 }
 
