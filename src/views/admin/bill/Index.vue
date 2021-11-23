@@ -4,6 +4,7 @@
     <div class="tab">
       <button class="purchase-list-page__tab" :class="indexActive===0?' active':''" @click="changeIndexActive(0)" id="allbill" data-purchase="0">Tất cả</button>
       <button class="purchase-list-page__tab" :class="indexActive===2?' active':''" @click="changeIndexActive(2)" id="billConfirmation" data-purchase="2">Chờ xác nhận</button>
+      <button class="purchase-list-page__tab" :class="indexActive===3?' active':''" @click="changeIndexActive(3)" id="billWaitTake" data-purchase="3">Chờ lấy hàng</button>
       <button class="purchase-list-page__tab" :class="indexActive===4?' active':''" @click="changeIndexActive(4)" id="billDelivering" data-purchase="4">Đang giao</button>
       <button class="purchase-list-page__tab" :class="indexActive===5?' active':''" @click="changeIndexActive(5)" id="billDelivered" data-purchase="5">Đã giao</button>
     </div>
@@ -19,7 +20,7 @@
     </div> -->
     <template v-else>
       <div class="purchase-order__container">
-        <status-bill :listBillDetail="this.listBill" @acceptPurchase="acceptPurchase"></status-bill>
+        <status-bill :listBillDetail="this.listBill" @acceptPurchase="acceptPurchase" @acceptDelivery="acceptDelivery"></status-bill>
       </div>
     </template>
     <div v-if="this.listBill.length === 0" class="purchase-empty-order__container purchase-list-page__empty-page-wrapper" >
@@ -30,7 +31,7 @@
 </template>
 
 <script>
-import { PurchaseType } from '@/const/app.const'
+import { ACTION_TYPE, PurchaseType } from '@/const/app.const'
 import { getPurchaseListByAdmin } from '@/api/user/purchase'
 import StatusBill from '@/views/admin/bill/status_bill/Index'
 const { updatePurchaseStatusOfUser } = require('@/api/user/purchase')
@@ -54,8 +55,13 @@ export default {
       this.loading = true
       this.getListBillDetail(indexActive)
     },
-    acceptPurchase (idPurchase) {
-      updatePurchaseStatusOfUser(idPurchase, PurchaseType.WAIT_CONFIRM).then(response => {
+    acceptPurchase (billId) {
+      updatePurchaseStatusOfUser(billId, ACTION_TYPE.WAIT_CONFIRM).then(response => {
+        if (response.status === 200) { this.getListBillDetail(this.indexActive) }
+      })
+    },
+    acceptDelivery (billId) {
+      updatePurchaseStatusOfUser(billId, ACTION_TYPE.DELIVERING).then(response => {
         if (response.status === 200) { this.getListBillDetail(this.indexActive) }
       })
     },
@@ -63,9 +69,9 @@ export default {
       const params = {
         status: indexActive
       }
+      this.listBill = []
       getPurchaseListByAdmin(params).then(res => {
-        this.listBill = res.data.data[0].bills ?? []
-        console.log(this.listBill)
+        this.listBill = res.data.data[0].bills.filter(item => item.id_user !== res.data.data[0].idSeller) ?? []
       }).finally(() => {
         this.loading = false
       })
@@ -85,7 +91,7 @@ export default {
 }
 
 .tab button {
-  width: 25%;
+  width: 20%;
   float: left;
   border: none;
   outline: none;

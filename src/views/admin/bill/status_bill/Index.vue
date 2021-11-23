@@ -2,10 +2,11 @@
   <div class="cart__content">
     <div class="cart-list">
       <status-bill-detail
-        v-for="(product, index) in listBillDetail"
+        v-for="(bill, index) in listBillDetail"
         :key="index"
-        :product="product"
+        :bill="bill"
         @acceptPurchase="acceptPurchase"
+        @acceptDelivery="acceptDelivery"
       ></status-bill-detail>
     </div>
   </div>
@@ -25,8 +26,11 @@ export default {
     }
   },
   methods: {
-    acceptPurchase (purchaseId) {
-      this.$emit('acceptPurchase', purchaseId)
+    acceptPurchase (billId) {
+      this.$emit('acceptPurchase', billId)
+    },
+    acceptDelivery (billId) {
+      this.$emit('acceptDelivery', billId)
     }
   }
 }
