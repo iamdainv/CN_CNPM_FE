@@ -52,7 +52,7 @@
           <p class="text-decoration-underline mr-3" style="cursor: pointer;" @click="handleOpenModalUpdate(address)">Sửa</p>
           <p class="text-decoration-underline" v-if="!address.isDefault" @click="handleDeleteUserAddress(address.id)">Xóa</p>
         </div>
-        <div class=" p-2 btn-light cursor-pointer" @click="setDeliveryAddress(address)">
+        <div class=" p-2 btn-light cursor-pointer" @click="setDeliveryAddress(address.id)">
 
           <span class="mx-2"> Thiết lập mặc định </span>
         </div>
@@ -82,12 +82,11 @@ export default {
         address: '',
         district: '',
         ward: '',
-        addressDetail: '',
         lat: '',
         lon: '',
         recipientName: '',
         recipientNumberPhone: '',
-        isDefault: ''
+        isDefault: 0
       }
     }
   },
@@ -108,15 +107,23 @@ export default {
     console.log(this.$store.getters.userAddress)
   },
   methods: {
-    ...mapActions(['getUserAddress', 'removeUserAddress']),
+    ...mapActions(['getUserAddress', 'removeUserAddress', 'updateUserAddressDefault']),
     getData () {
       this.$store.dispatch('getUserAddress')
     },
     handleDeleteUserAddress (id) {
-      this.$store.dispatch('removeUserAddress', { idAddress: id })
+      this.$store.dispatch('removeUserAddress', { idAddress: id }).then(rs => {
+        this.$toast.success('Xóa địa chỉ thành công!')
+      }).catch(() => {
+        this.$toast.error('Xóa địa chỉ thất bại!')
+      })
     },
-    setDeliveryAddress (address) {
-      console.log(address)
+    setDeliveryAddress (id) {
+      this.$store.dispatch('updateUserAddressDefault', { idAddress: id }).then(rs => {
+        this.$toast.success('Đặt địa chỉ mặc định thành công!')
+      }).catch(() => {
+        this.$toast.error('Đặt địa chỉ mặc định thất bại!')
+      })
     },
     handleOpenModalCreate () {
       this.visibleModal = true
@@ -128,7 +135,6 @@ export default {
       this.formData = { ...address }
     },
     resetFormData () {
-      this.visibleModal = false
       this.isCreated = false
       this.formData = {
         city: '',
@@ -136,12 +142,11 @@ export default {
         address: '',
         district: '',
         ward: '',
-        addressDetail: '',
         lat: '',
         lon: '',
         recipientName: '',
         recipientNumberPhone: '',
-        isDefault: ''
+        isDefault: this.listUserAddress.length > 0 ? 0 : 1
       }
     },
     handleCloseModal (reload = false) {

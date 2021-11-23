@@ -10,7 +10,11 @@ export function getUserAddress () {
 }
 
 export function createUserAddress (params) {
-  return apiService.post(api.createUserAddress)
+  return apiService.post(api.createUserAddress, params)
+}
+
+export function updateUserAddress (params) {
+  return apiService.post(api.updateUserAddress, params)
 }
 
 export function removeUserAddress ({ idAddress }) {

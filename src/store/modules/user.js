@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { loginByToken } from '@/api/user/auth'
-import { getUserAddress, createUserAddress, removeUserAddress, updateUserAddressDefault } from '@/api/user/user'
+import { getUserAddress, createUserAddress, updateUserAddress, removeUserAddress, updateUserAddressDefault } from '@/api/user/user'
 import _ from 'lodash'
 
 const user = {
@@ -85,24 +85,51 @@ const user = {
       })
     },
     createUserAddress ({ dispatch }, params) {
-      createUserAddress(params).then(rs => {
-        if (rs) {
-          dispatch('getUserAddress')
-        }
+      return new Promise((resolve, reject) => {
+        createUserAddress(params).then(rs => {
+          if (rs) {
+            dispatch('getUserAddress')
+            resolve(rs)
+          }
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
+    updateUserAddress ({ dispatch }, params) {
+      return new Promise((resolve, reject) => {
+        updateUserAddress(params).then(rs => {
+          if (rs) {
+            dispatch('getUserAddress')
+            resolve(rs)
+          }
+        }).catch(err => {
+          reject(err)
+        })
       })
     },
     removeUserAddress ({ dispatch }, params) {
-      removeUserAddress(params).then(rs => {
-        if (rs) {
-          dispatch('getUserAddress')
-        }
+      return new Promise((resolve, reject) => {
+        removeUserAddress(params).then(rs => {
+          if (rs) {
+            dispatch('getUserAddress')
+            resolve(rs)
+          }
+        }).catch(err => {
+          reject(err)
+        })
       })
     },
     updateUserAddressDefault ({ dispatch }, params) {
-      updateUserAddressDefault(params).then(rs => {
-        if (rs) {
-          dispatch('getUserAddress')
-        }
+      return new Promise((resolve, reject) => {
+        updateUserAddressDefault(params).then(rs => {
+          if (rs) {
+            dispatch('getUserAddress')
+            resolve(rs)
+          }
+        }).catch(err => {
+          reject(err)
+        })
       })
     },
     resetUserState ({ commit }) {

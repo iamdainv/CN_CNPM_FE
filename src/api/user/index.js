@@ -45,6 +45,7 @@ export const api = {
   // address
   getUserAddress: '/users/address',
   createUserAddress: '/users/address/create',
+  updateUserAddress: '',
   removeUserAddress: (idAddress) => `/users/address/${idAddress}/remove`,
   updateUserAddressDefault: (idAddress) => `/users/address/${idAddress}/default`
 }

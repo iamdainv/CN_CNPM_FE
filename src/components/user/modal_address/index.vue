@@ -77,7 +77,7 @@
                   style="width: 100%"
                   @change="handleChangeProvince"
                 >
-                  <a-select-option v-for="(item, index) in listProvince" :key="index" :value="item.code">
+                  <a-select-option v-for="(item, index) in listProvince" :key="index" :value="item.name">
                     {{ item.name }}
                   </a-select-option>
                 </a-select>
@@ -101,7 +101,7 @@
                   style="width: 100%"
                   @change="handleChangeDistrict"
                 >
-                  <a-select-option v-for="(item, index) in listDistrict" :key="index" :value="item.code">
+                  <a-select-option v-for="(item, index) in listDistrict" :key="index" :value="item.name">
                     {{ item.name }}
                   </a-select-option>
                 </a-select>
@@ -123,7 +123,7 @@
                   show-search
                   placeholder="Phường/Xã"
                 >
-                  <a-select-option v-for="(item, index) in listWard" :key="index" :value="item.code">
+                  <a-select-option v-for="(item, index) in listWard" :key="index" :value="item.name">
                     {{ item.name }}
                   </a-select-option>
                 </a-select>
@@ -134,7 +134,7 @@
             <a-col :span="12" class="filter-item-container">
               <span>Địa chỉ cụ thể <span style="color: red;"> *</span></span>
               <a-form-model-item
-                prop="addressDetail"
+                prop="address"
                 :rules="[
                   {
                     required: true,
@@ -144,7 +144,7 @@
                 ]"
               >
                 <a-input
-                  v-model="form.addressDetail"
+                  v-model="form.address"
                   placeholder="Địa chỉ cụ thể"
                   size="large"
                   style="width: 100%"
@@ -180,6 +180,7 @@ import axios from 'axios'
 import _ from 'lodash'
 import { LMap, LTileLayer, LMarker } from 'vue2-leaflet'
 import { icon } from 'leaflet'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'modal-address',
@@ -211,13 +212,15 @@ export default {
         address: '',
         district: '',
         ward: '',
-        addressDetail: '',
         lat: '',
         lon: '',
         recipientName: '',
         recipientNumberPhone: '',
-        isDefault: ''
+        isDefault: 0
       },
+      provinceCode: null,
+      districtCode: null,
+      wardCode: null,
       listProvince: [],
       listDistrict: [],
       listWard: [],
@@ -229,19 +232,29 @@ export default {
         iconUrl: 'http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/map-marker-icon.png',
         iconSize: [37, 37]
       }),
-      center: [21.135425028881837, 106.00459399317398],
-      // center: [this.form.lat, this.form.lon],
-      markerLatLng: [21.135425028881837, 106.00459399317398]
+      center: [-1, -1],
+      markerLatLng: [-1, -1]
     }
   },
   created () {
     this.visibleModal = this.visible
-    this.getListProvince()
     this.form = _.cloneDeep(this.formData)
-    this.center = [this.form.lat ? this.form.lat : 21.135425028881837, this.form.lon ? this.form.lon : 106.00459399317398]
-    this.markerLatLng = [this.form.lat ? this.form.lat : 21.135425028881837, this.form.lon ? this.form.lon : 106.00459399317398]
+    this.getListProvince()
+    if (!this.isCreated) {
+      if (this.form.city) {
+        this.getProvinceCode(this.form.city)
+        this.getListDistrict()
+        if (this.form.district) {
+          this.getDistrictCode(this.form.district)
+          this.getListWard()
+        }
+      }
+    }
+    this.center = [this.form.lat ? this.form.lat : -1, this.form.lon ? this.form.lon : -1]
+    this.markerLatLng = [this.form.lat ? this.form.lat : -1, this.form.lon ? this.form.lon : -1]
   },
   methods: {
+    ...mapActions(['createUserAddress', 'updateUserAddress']),
     getListProvince () {
       axios({
         method: 'get',
@@ -251,22 +264,30 @@ export default {
       })
     },
     getListDistrict () {
-      axios({
-        method: 'get',
-        url: `https://provinces.open-api.vn/api/p/${this.form.city}/?depth=2`
-      }).then(rs => {
-        if (rs) {
-          this.listDistrict = rs.data.districts ? rs.data.districts : []
-        }
-      })
+      if (this.provinceCode) {
+        axios({
+          method: 'get',
+          url: `https://provinces.open-api.vn/api/p/${this.provinceCode}/?depth=2`
+        }).then(rs => {
+          if (rs) {
+            this.listDistrict = rs.data.districts ? rs.data.districts : []
+          }
+        })
+      } else {
+        this.listDistrict = []
+      }
     },
     getListWard () {
-      axios({
-        method: 'get',
-        url: `https://provinces.open-api.vn/api/d/${this.form.district}/?depth=2`
-      }).then(rs => {
-        this.listWard = rs.data.wards ? rs.data.wards : []
-      })
+      if (this.districtCode) {
+        axios({
+          method: 'get',
+          url: `https://provinces.open-api.vn/api/d/${this.districtCode}/?depth=2`
+        }).then(rs => {
+          this.listWard = rs.data.wards ? rs.data.wards : []
+        })
+      } else {
+        this.listWard = []
+      }
     },
     getLocation (keyword) {
       axios({
@@ -311,31 +332,106 @@ export default {
       })
       return wardName
     },
+    getProvinceCode (provinceName) {
+      let provinceCode = null
+      this.listProvince.forEach(item => {
+        if (item.name === provinceName) {
+          provinceCode = item.code
+          return false
+        }
+      })
+      return provinceCode
+    },
+    getDistrictCode (districtName) {
+      let districtCode = null
+      this.listDistrict.forEach(item => {
+        if (item.name === districtName) {
+          districtCode = item.code
+          return false
+        }
+      })
+      return districtCode
+    },
     handleChangeProvince () {
+      this.provinceCode = this.getProvinceCode(this.form.city)
       this.getListDistrict()
     },
     handleChangeDistrict () {
+      this.districtCode = this.getDistrictCode(this.form.district)
       this.getListWard()
     },
     handleFindCurrentAddress () {
-      const keyword = this.form.addressDetail + ' ' + this.getWardName(this.form.ward) + ' ' + this.getDistrictName(this.form.district) + ' ' + this.getProvinceName(this.form.city)
+      const keyword = this.form.address + ' ' + this.form.ward + ' ' + this.form.district + ' ' + this.form.city
+      console.log(keyword)
       this.getLocation(keyword)
+    },
+    onChangeCheckedDefault (e) {
+      this.form.isDefault = e.target.checked
     },
     drag (e) {
       console.log(e.target.getLatLng())
     },
     handleOk () {
-      this.$refs.ruleForm(valid => {
+      this.$refs.ruleForm.validate(valid => {
         if (valid) {
-          if (this.form.lat && this.form.lon) {}
+          if (this.form.lat >= 0 && this.form.lon >= 0) {
+            if (this.isCreated && !this.form.id) {
+              const params = {
+                city: this.form.city,
+                country: 'Việt Nam',
+                address: this.form.address,
+                ward: this.form.ward,
+                district: this.form.district,
+                recipientName: this.form.recipientName,
+                recipientNumberPhone: this.form.recipientNumberPhone,
+                isDefault: this.form.isDefault,
+                latitude: Number.parseFloat(this.form.lat),
+                longitude: Number.parseFloat(this.form.lon)
+              }
+              console.log('params created: ', params)
+              this.$store.dispatch('createUserAddress', params).then(rs => {
+                this.$success({ content: 'Thêm mới địa chỉ thành công!',
+                  onOk: () => {
+                    this.closeModal(false)
+                  }
+                })
+              }).catch(() => {
+                this.$error({ content: 'Thêm mới địa chỉ thất bại!' })
+              })
+            } else {
+              const params = {
+                id: this.form.id,
+                city: this.form.city,
+                country: 'Việt Nam',
+                address: this.form.address,
+                ward: this.form.ward,
+                district: this.form.district,
+                recipientName: this.form.recipientName,
+                recipientNumberPhone: this.form.recipientNumberPhone,
+                isDefault: this.form.isDefault,
+                latitude: this.form.lat,
+                longitude: this.form.lon
+              }
+              console.log('params updated: ', params)
+              this.$store.dispatch('updateUserAddress', params).then(rs => {
+                this.$success({ content: 'Cập nhật địa chỉ thành công!',
+                  onOk: () => {
+                    this.closeModal(false)
+                  }
+                })
+              }).catch(() => {
+                this.$error({ content: 'Cập nhật địa chỉ thất bại!' })
+              })
+            }
+          }
         }
       })
     },
     handleCancel () {
-      this.visibleModal = false
       this.closeModal(false)
     },
     closeModal (reload = false) {
+      this.visibleModal = false
       this.$emit('closeModal', reload)
     }
   }
