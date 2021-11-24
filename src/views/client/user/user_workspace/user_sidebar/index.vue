@@ -2,10 +2,10 @@
   <div class="userpage-sidebar">
     <div class="user-photo">
       <div class="rounded-circle">
-        <img class="rounded-circle" src="https://cf.shopee.vn/file/f3f241bf2fd5593f85eecbaeec6e0ccc_tn" width="48" height="48" />
+        <img class="rounded-circle" :src="image" width="48" height="48" />
       </div>
       <div class="d-flex ml-3 flex-column pt-2">
-        <div class="product-comment-user__name fw-600">Nguyễn Viết Đại</div>
+        <div class="product-comment-user__name fw-600">{{ username }}</div>
         <div class="text-muted"><i class="fas fa-pen"></i>   <router-link :to="{name: 'userInfo'}"> <span>Chỉnh sửa</span></router-link> </div>
       </div>
 
@@ -115,7 +115,21 @@
 
 <script>
 export default {
-    name: 'UserSidebar'
+  name: 'UserSidebar',
+  data () {
+    return {
+      username: '',
+      image: ''
+    }
+  },
+  mounted () {
+    const { isLogin } = this.$store.getters.userInfo
+    if (isLogin) {
+      const { firstName, image } = this.$store.getters.userInfo.info
+      this.username = firstName
+      this.image = image
+    }
+  }
 }
 </script>
 
