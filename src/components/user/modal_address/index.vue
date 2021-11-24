@@ -211,8 +211,8 @@ export default {
         address: '',
         district: '',
         ward: '',
-        lat: '',
-        lon: '',
+        latitude: '',
+        longitude: '',
         recipientName: '',
         recipientNumberPhone: '',
         isDefault: 0
@@ -249,8 +249,8 @@ export default {
         }
       }
     }
-    this.center = [this.form.lat ? this.form.lat : -1, this.form.lon ? this.form.lon : -1]
-    this.markerLatLng = [this.form.lat ? this.form.lat : -1, this.form.lon ? this.form.lon : -1]
+    this.center = [this.form.latitude ? this.form.latitude : -1, this.form.longitude ? this.form.longitude : -1]
+    this.markerLatLng = [this.form.latitude ? this.form.latitude : -1, this.form.longitude ? this.form.longitude : -1]
   },
   methods: {
     ...mapActions(['createUserAddress', 'updateUserAddress']),
@@ -294,10 +294,10 @@ export default {
         url: 'https://nominatim.openstreetmap.org/search.php?q=' + keyword + '&format=jsonv2'
       }).then(rs => {
         if (rs.data[0]) {
-          this.form.lat = rs.data[0].lat
-          this.form.lon = rs.data[0].lon
-          this.center = [this.form.lat, this.form.lon]
-          this.markerLatLng = [this.form.lat, this.form.lon]
+          this.form.latitude = rs.data[0].lat
+          this.form.longitude = rs.data[0].lon
+          this.center = [this.form.latitude, this.form.longitude]
+          this.markerLatLng = [this.form.latitude, this.form.longitude]
         }
       })
     },
@@ -370,7 +370,7 @@ export default {
     handleOk () {
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
-          if (this.form.lat >= 0 && this.form.lon >= 0) {
+          if (this.form.latitude >= 0 && this.form.longitude >= 0) {
             if (this.isCreated && !this.form.id) {
               const params = {
                 city: this.form.city,
@@ -381,13 +381,13 @@ export default {
                 recipientName: this.form.recipientName,
                 recipientNumberPhone: this.form.recipientNumberPhone,
                 isDefault: this.form.isDefault,
-                latitude: Number.parseFloat(this.form.lat),
-                longitude: Number.parseFloat(this.form.lon)
+                latitude: Number.parseFloat(this.form.latitude),
+                longitude: Number.parseFloat(this.form.longitude)
               }
               this.$store.dispatch('createUserAddress', params).then(rs => {
                 this.$success({ content: 'Thêm mới địa chỉ thành công!',
                   onOk: () => {
-                    this.closeModal(false)
+                    this.closeModal()
                   }
                 })
               }).catch(() => {
@@ -404,13 +404,13 @@ export default {
                 recipientName: this.form.recipientName,
                 recipientNumberPhone: this.form.recipientNumberPhone,
                 isDefault: this.form.isDefault,
-                latitude: this.form.lat,
-                longitude: this.form.lon
+                latitude: this.form.latitude,
+                longitude: this.form.longitude
               }
               this.$store.dispatch('updateUserAddress', params).then(rs => {
                 this.$success({ content: 'Cập nhật địa chỉ thành công!',
                   onOk: () => {
-                    this.closeModal(false)
+                    this.closeModal()
                   }
                 })
               }).catch(() => {
@@ -422,11 +422,11 @@ export default {
       })
     },
     handleCancel () {
-      this.closeModal(false)
+      this.closeModal()
     },
-    closeModal (reload = false) {
+    closeModal () {
       this.visibleModal = false
-      this.$emit('closeModal', reload)
+      this.$emit('closeModal')
     }
   }
 }

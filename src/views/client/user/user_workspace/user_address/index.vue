@@ -50,7 +50,7 @@
       <div class="d-flex flex-column justify-content-center">
         <div class="d-flex justify-content-end ">
           <p class="text-decoration-underline mr-3" style="cursor: pointer;" @click="handleOpenModalUpdate(address)">Sửa</p>
-          <p class="text-decoration-underline" v-if="!address.isDefault" @click="handleDeleteUserAddress(address.id)">Xóa</p>
+          <p class="text-decoration-underline" style="cursor: pointer;" v-if="!address.isDefault" @click="handleDeleteUserAddress(address.id)">Xóa</p>
         </div>
         <div class=" p-2 btn-light cursor-pointer" @click="setDeliveryAddress(address.id)">
 
@@ -82,8 +82,8 @@ export default {
         address: '',
         district: '',
         ward: '',
-        lat: '',
-        lon: '',
+        latitude: '',
+        longitude: '',
         recipientName: '',
         recipientNumberPhone: '',
         isDefault: 0
@@ -97,14 +97,10 @@ export default {
   },
   watch: {
     listUserAddress (newList, oldList) {
-      console.log('newListAddress: ', newList)
     }
   },
   created () {
     this.getData()
-  },
-  mounted () {
-    console.log(this.$store.getters.userAddress)
   },
   methods: {
     ...mapActions(['getUserAddress', 'removeUserAddress', 'updateUserAddressDefault']),
@@ -112,10 +108,14 @@ export default {
       this.$store.dispatch('getUserAddress')
     },
     handleDeleteUserAddress (id) {
-      this.$store.dispatch('removeUserAddress', { idAddress: id }).then(rs => {
-        this.$toast.success('Xóa địa chỉ thành công!')
-      }).catch(() => {
-        this.$toast.error('Xóa địa chỉ thất bại!')
+      this.$confirm({ content: 'Bạn có chắc chắn muốn xóa địa chỉ?',
+        onOk: () => {
+          this.$store.dispatch('removeUserAddress', { idAddress: id }).then(rs => {
+            this.$toast.success('Xóa địa chỉ thành công!')
+          }).catch(() => {
+            this.$toast.error('Xóa địa chỉ thất bại!')
+          })
+        }
       })
     },
     setDeliveryAddress (id) {
@@ -142,20 +142,17 @@ export default {
         address: '',
         district: '',
         ward: '',
-        lat: '',
-        lon: '',
+        latitude: '',
+        longitude: '',
         recipientName: '',
         recipientNumberPhone: '',
         isDefault: this.listUserAddress.length > 0 ? 0 : 1
       }
     },
-    handleCloseModal (reload = false) {
+    handleCloseModal () {
       this.resetFormData()
       this.visibleModal = false
       this.create = false
-      if (reload) {
-        this.getData()
-      }
     }
   }
 }
