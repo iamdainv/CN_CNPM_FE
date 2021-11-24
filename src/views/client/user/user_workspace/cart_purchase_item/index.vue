@@ -98,6 +98,11 @@
               data-purchase-id=""
               data-bill-id="product.billDetail.id"> {{ buttonTextOfStatus }} </button>
           </div>
+          <div v-if="bill.status === 5" class="purchase-card-buttons__container">
+            <div class="purchase-card-buttons__show-button-wrapper">
+              <button type="button" class="h-button__red p-3 h-color__white cursor-pointer purchase-button-primary" @click="evaluateProduct">Đánh giá sản phẩm</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -134,6 +139,9 @@ export default {
         }
     },
     methods: {
+      evaluateProduct () {
+        this.$router.push({ path: `/product/${this.convertToSlugToProductDetail(this.bill.product.name, this.bill.product.id)}?billId=${this.bill.id}`, query: { billId: this.bill.id } })
+      },
         formatPrice (price) {
             return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(price)
         },

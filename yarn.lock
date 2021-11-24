@@ -1693,6 +1693,11 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
+"@types/geojson@*":
+  "integrity" "sha512-1rkryxURpr6aWP7R786/UQOkJ3PcpQiWkAXBmdWc7ryFWqN6a4xfK7BtjXvFBKO9LjQ+MWQSWxYeZX1OApnArA=="
+  "resolved" "https://registry.npmjs.org/@types/geojson/-/geojson-7946.0.8.tgz"
+  "version" "7946.0.8"
+
 "@types/glob@^7.1.1":
   "integrity" "sha512-w+LsMxKyYQm347Otw+IfBXOv9UWVjpHpCDdbBMt8Kz/xbvCYNjP+0qPh91Km3iKfSRLBB0P7fAMf0KHrPu+MyA=="
   "resolved" "https://registry.npmjs.org/@types/glob/-/glob-7.1.4.tgz"
@@ -1744,6 +1749,13 @@
   "integrity" "sha1-7ihweulOEdK4J7y+UnC86n8+ce4="
   "resolved" "https://registry.npmjs.org/@types/json5/-/json5-0.0.29.tgz"
   "version" "0.0.29"
+
+"@types/leaflet@^1.5.7":
+  "integrity" "sha512-Emkz3V08QnlelSbpT46OEAx+TBZYTOX2r1yM7W+hWg5+djHtQ1GbEXBDRLaqQDOYcDI51Ss0ayoqoKD4CtLUDA=="
+  "resolved" "https://registry.npmjs.org/@types/leaflet/-/leaflet-1.7.6.tgz"
+  "version" "1.7.6"
+  dependencies:
+    "@types/geojson" "*"
 
 "@types/loader-utils@1.1.3":
   "integrity" "sha512-euKGFr2oCB3ASBwG39CYJMR3N9T0nanVqXdiH7Zu/Nqddt6SmFRxytq/i2w9LQYNQekEtGBz+pE3qG6fQTNvRg=="
@@ -8221,6 +8233,11 @@
   "resolved" "https://registry.npmjs.org/lazy-cache/-/lazy-cache-1.0.4.tgz"
   "version" "1.0.4"
 
+"leaflet@^1.3.4", "leaflet@^1.7.1":
+  "integrity" "sha512-/xwPEBidtg69Q3HlqPdU3DnrXQOvQU/CCHA1tcDQVzOwm91YMYaILjNp7L4Eaw5Z4sOYdbBz6koWyibppd8Zqw=="
+  "resolved" "https://registry.npmjs.org/leaflet/-/leaflet-1.7.1.tgz"
+  "version" "1.7.1"
+
 "left-pad@^1.3.0":
   "integrity" "sha512-XI5MPzVNApjAyhQzphX8BkmKsKUxD4LdyK24iZeQGinBN9yTQT3bFlCBy/aVx2HrNcqQGsdot8ghrjyrvMCoEA=="
   "resolved" "https://registry.npmjs.org/left-pad/-/left-pad-1.3.0.tgz"
@@ -12697,6 +12714,11 @@
   dependencies:
     "babel-runtime" "^6.26.0"
     "marker-clusterer-plus" "^2.1.4"
+
+"vue2-leaflet@^2.7.1":
+  "integrity" "sha512-K7HOlzRhjt3Z7+IvTqEavIBRbmCwSZSCVUlz9u4Rc+3xGCLsHKz4TAL4diAmfHElCQdPPVdZdJk8wPUt2fu6WQ=="
+  "resolved" "https://registry.npmjs.org/vue2-leaflet/-/vue2-leaflet-2.7.1.tgz"
+  "version" "2.7.1"
 
 "vuex@^3.1.1":
   "integrity" "sha512-ETW44IqCgBpVomy520DT5jf8n0zoCac+sxWnn+hMe/CzaSejb/eVw2YToiXYX+Ex/AuHHia28vWTq4goAexFbw=="

@@ -102,7 +102,9 @@ export default {
   },
   mounted () {
     const { slugWithId } = this.$route.params
-      getProductById(this.getIdProductFromSlug(slugWithId)).then(response => {
+    const billId = this.$route.query.billId
+
+      getProductById(this.getIdProductFromSlug(slugWithId), billId).then(response => {
         const { data, status } = response.data
 
         if (status === 200) {
@@ -112,7 +114,6 @@ export default {
             path: data.image
           }, ...data.images]
           this.product.productDetail = data
-          console.log(data)
           this.getListComment(data.id)
         } else if (status === 404) {
           this.visibleModalProductNotFound = true

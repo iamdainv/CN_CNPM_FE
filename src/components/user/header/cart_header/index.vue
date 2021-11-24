@@ -42,7 +42,8 @@
 import { mapActions } from 'vuex'
 export default {
   name: 'CartHeader',
-  async created () {
+  created () {
+    console.log('getter created: ', this.$store.getters.token)
     if (this.$store.state.user.token) {
       this.$store.dispatch('GetListBillBySeller')
     }
@@ -55,6 +56,9 @@ export default {
   watch: {
     listProductInCart (newList, oldList) {
     }
+  },
+  mounted () {
+    this.$store.dispatch('GetListBillBySeller')
   },
   methods: {
     ...mapActions(['GetListBillBySeller', 'GetListProductInCart', 'RemoveProductInCart']),
@@ -69,7 +73,11 @@ export default {
       return Math.floor(price - (discount / 100) * price)
     },
     handleDeleteProductInCart (id) {
-      this.$store.dispatch('RemoveProductInCart', { idBill: id })
+      this.$store.dispatch('RemoveProductInCart', { idBill: id }).then(rs => {
+        this.$toast.success('Xóa sản phẩm khỏi giỏ hàng thành công!')
+      }).catch(() => {
+        this.$toast.error('Xóa sản phẩm khỏi giỏ hàng thất bại!')
+      })
     }
   }
 }

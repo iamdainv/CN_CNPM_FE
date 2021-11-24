@@ -68,7 +68,6 @@ class ApiService {
   get (url, params = {}, headers = {}) {
     const queryString = objectToQueryString(params)
     const urlParam = queryString ? `?${queryString}` : ''
-    console.log('queryString', queryString)
     return this.makeRequest('GET', url + urlParam, null, headers)
   }
 

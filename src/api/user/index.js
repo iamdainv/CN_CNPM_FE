@@ -41,5 +41,12 @@ export const api = {
   addToCart: '/api/bill/addToCart',
   getBillByUser: '/api/bill/all/user',
   getBillDetailAdmin: '/api/bill/all/admin',
-  updateBillStatusViaActionType: '/api/bill'
+  updateBillStatusViaActionType: '/api/bill',
+
+  // address
+  getUserAddress: '/users/address',
+  createUserAddress: '/users/address/create',
+  updateUserAddress: '',
+  removeUserAddress: (idAddress) => `/users/address/${idAddress}/remove`,
+  updateUserAddressDefault: (idAddress) => `/users/address/${idAddress}/default`
 }

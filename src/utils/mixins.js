@@ -175,7 +175,6 @@ export const mixin = {
           purchaseLabel = ''
           break
       }
-
       return purchaseLabel
     },
     convertToSlugToProductDetail (productName, productId) {
@@ -183,7 +182,7 @@ export const mixin = {
     },
 
     checkLoginToRedirect (callback) {
-      if (!this.$store.getters.userInfo.isLogin) {
+      if (!this.$store.getters.isLogin) {
         this.$router.push({ path: '/auth/login' })
         return
       }

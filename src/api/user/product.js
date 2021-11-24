@@ -5,8 +5,10 @@ export function getListProduct (params) {
     return apiService.get(api.getListProduct, params)
 }
 
-export function getProductById (productId) {
-    return apiService.get(`${api.getProductById}/${productId}`, 500)
+export function getProductById (productId, billId) {
+  const query = {}
+  if (billId) query.billId = billId
+    return apiService.get(`${api.getProductById}/${productId}`, query)
 }
 
 export function getListProductByAdmin (params) {
