@@ -27,6 +27,9 @@
               <i class="header__navbar-icon fab fa-instagram"></i>
             </div>
           </li>
+          <li class="header__navbar-item">
+            <p>Test cicd</p>
+          </li>
         </ul>
 
         <ul class="header__navbar-list">
