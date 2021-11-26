@@ -2,7 +2,7 @@
 
 # RUN YOUR APP WITH DOCKER
 
-INSTALL DOCKER: [here](https://www.youtube.com/watch?v=Sh9n6IR6Knk)
+install docker: [here](https://www.youtube.com/watch?v=Sh9n6IR6Knk)
 
 ```
 
