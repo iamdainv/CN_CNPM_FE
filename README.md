@@ -3,7 +3,7 @@
 # RUN YOUR APP WITH DOCKER
 
 ```
-INSTALL DOCKER: [here](https://docs.docker.com/get-docker/)
+INSTALL DOCKER: [here](https://docs.docker.com/get-docker)
 
 docker build -t $IMAGE_NAME:$IMAGE_TAG .
 
