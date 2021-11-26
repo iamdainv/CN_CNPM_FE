@@ -15,6 +15,12 @@ export const PurchaseType = Object.freeze({
   CANCELED: 6
 })
 
+export const ACTION_TYPE = Object.freeze({
+  WAIT_CONFIRM: 3,
+  DELIVERING: 4,
+  DELIVERED: 5
+})
+
 export const SortType = {
   NEWEST: 'createdAt',
   POPULAR: 'star',

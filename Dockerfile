@@ -1,11 +1,10 @@
-FROM node:14-alpine as build-stage
+FROM node:14-stretch-slim as builder-stage
 WORKDIR /app
-COPY package*.json ./
+COPY . /app
+RUN npm cache clean --force
 RUN npm install
-COPY ./ .
-RUN npm run build
+RUN npm install --save vue-container-query
+RUN npm run build:staging
 
-FROM nginx as production-stage
-RUN mkdir /app
-COPY --from=build-stage /app/dist /app
-COPY nginx.conf /etc/nginx/nginx.conf
+FROM nginx:latest
+COPY --from=builder-stage /app/dist /usr/share/nginx/html

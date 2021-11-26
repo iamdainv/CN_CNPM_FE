@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "serve:dev": "vue-cli-service serve --mode .env.development",
-    "serve:staging": "vue-cli-service serve --mode .env.staging",
+    "serve:dev": "vue-cli-service serve --mode development",
+    "serve:staging": "vue-cli-service serve --mode staging",
     "build": "vue-cli-service build",
+    "build:staging": "vue-cli-service build --mode staging",
+    "docker:staing": "docker build -t shobbecnpm/client:latest .", 
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
     "build:preview": "vue-cli-service build --mode preview",
