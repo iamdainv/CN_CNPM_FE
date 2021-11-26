@@ -43,7 +43,7 @@ jobs:
       - run: ssh -oStrictHostKeyChecking=no $DEPLOYED_USER@$DEPLOYED_SERVER './deploy.sh'
 
 workflows:
-  my-pipeline:
+  shobbebus-client:
     jobs:
       #write unit test for it
       - node/test
