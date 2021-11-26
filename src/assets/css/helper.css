@@ -1,0 +1,59 @@
+﻿
+
+
+.-w100{
+    width : 100px;
+}
+
+.f-14 {
+    font-size: 1.4rem !important;
+}
+
+.fw-bold{
+    font-weight : bold;
+}
+
+.fw-600 {
+    font-weight: bold;
+}
+
+.flex-1{
+    flex : 1 1 100%;
+}
+
+.flex-70 {
+    flex: 1 1 70%;
+}
+
+.h-full{
+    height : 100% !important;
+}
+
+.cursor-pointer{
+    cursor : pointer;
+}
+
+.cursor-disable {
+    cursor: not-allowed;
+}
+
+.text-decoration-underline{
+    text-decoration : underline;
+}
+
+.btn-light {
+    background: #fff;
+    color: #555;
+    border: 1px solid rgba(0,0,0,.09);
+    box-shadow: 0 1px 1px 0 rgb(0 0 0 / 3%);
+    height: 30px;
+    padding: 0 15px;
+    min-width: 60px;
+    max-width: 190px;
+}
+
+.btn-light--disabled {
+
+    color: #ccc !important;
+    cursor: not-allowed !important;
+}

@@ -1,0 +1,141 @@
+{
+    "body": {
+        "data": [
+            {
+              "id_bill": "2",
+              "id_product": "3",
+              "quantity": "1",
+              "createdAt": "31/3/2021 17:06:23.597",
+              "updatedAt": "10/5/2021 05:08:30.77",
+              "id": "3",
+              "id_status": "4"
+            },
+            {
+              "id_bill": "3",
+              "id_product": "20",
+              "quantity": "3",
+              "createdAt": "31/3/2021 17:06:23.597",
+              "updatedAt": "31/3/2021 17:06:23.597",
+              "id": "6",
+              "id_status": "1"
+            },
+            {
+              "id_bill": "3",
+              "id_product": "22",
+              "quantity": "1",
+              "createdAt": "31/3/2021 17:06:23.597",
+              "updatedAt": "31/3/2021 17:06:23.597",
+              "id": "7",
+              "id_status": "1"
+            },
+            {
+              "id_bill": "4",
+              "id_product": "8",
+              "quantity": "5",
+              "createdAt": "31/3/2021 17:06:23.597",
+              "updatedAt": "31/3/2021 17:06:23.597",
+              "id": "8",
+              "id_status": "1"
+            },
+            {
+              "id_bill": "4",
+              "id_product": "17",
+              "quantity": "2",
+              "createdAt": "31/3/2021 17:06:23.597",
+              "updatedAt": "10/5/2021 04:53:34.227",
+              "id": "9",
+              "id_status": "4"
+            },
+            {
+              "id_bill": "1",
+              "id_product": "47",
+              "quantity": "1",
+              "createdAt": "5/5/2021 16:36:49.437",
+              "updatedAt": "9/5/2021 01:42:12.883",
+              "id": "16",
+              "id_status": "1"
+            },
+            {
+              "id_bill": "1",
+              "id_product": "75",
+              "quantity": "4",
+              "createdAt": "7/5/2021 06:01:39.467",
+              "updatedAt": "9/5/2021 01:42:40.317",
+              "id": "20",
+              "id_status": "2"
+            },
+            {
+              "id_bill": "1",
+              "id_product": "178",
+              "quantity": "1",
+              "createdAt": "7/5/2021 19:19:35.17",
+              "updatedAt": "9/5/2021 01:14:59.047",
+              "id": "21",
+              "id_status": "6"
+            },
+            {
+              "id_bill": "1",
+              "id_product": "53",
+              "quantity": "1",
+              "createdAt": "7/5/2021 19:23:18.263",
+              "updatedAt": "10/5/2021 05:08:08.073",
+              "id": "22",
+              "id_status": "4"
+            },
+            {
+              "id_bill": "1",
+              "id_product": "1",
+              "quantity": "2",
+              "createdAt": "8/5/2021 07:06:37.247",
+              "updatedAt": "9/5/2021 01:14:44.703",
+              "id": "27",
+              "id_status": "6"
+            },
+            {
+              "id_bill": "1",
+              "id_product": "46",
+              "quantity": "2",
+              "createdAt": "8/5/2021 07:09:33.51",
+              "updatedAt": "9/5/2021 01:15:31.06",
+              "id": "29",
+              "id_status": "6"
+            },
+            {
+              "id_bill": "1",
+              "id_product": "124",
+              "quantity": "4",
+              "createdAt": "8/5/2021 07:12:54.457",
+              "updatedAt": "9/5/2021 01:40:58.87",
+              "id": "30",
+              "id_status": "5"
+            },
+            {
+              "id_bill": "1",
+              "id_product": "36",
+              "quantity": "1",
+              "createdAt": "8/5/2021 18:30:49.777",
+              "updatedAt": "9/5/2021 01:41:16.327",
+              "id": "39",
+              "id_status": "6"
+            },
+            {
+              "id_bill": "4",
+              "id_product": "17",
+              "quantity": "2",
+              "createdAt": "31/3/2021 17:06:23.597",
+              "updatedAt": "31/3/2021 17:06:23.597",
+              "id": "42",
+              "id_status": "1"
+            },
+            {
+              "id_bill": "1",
+              "id_product": "3",
+              "quantity": "2",
+              "createdAt": "31/3/2021 17:06:23.597",
+              "updatedAt": "9/5/2021 01:40:46.937",
+              "id": "43",
+              "id_status": "2"
+            }
+          ]
+    }
+}

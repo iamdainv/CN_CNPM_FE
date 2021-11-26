@@ -1,0 +1,26 @@
+{
+    "body": {
+        "data": [
+            {
+              "id_product": "1",
+              "image": "https://cf.shopee.vn/file/91e39b4340cc83289d56a404707066fb_tn",
+              "id": "11"
+            },
+            {
+              "id_product": "233",
+              "image": "https://localhost:44348/Uploads/1620608595-Screenshot 2021-05-04 222313.png",
+              "id": "15"
+            },
+            {
+              "id_product": "233",
+              "image": "https://localhost:44348/Uploads/1620608595-Screenshot 2021-05-03 163820.png",
+              "id": "16"
+            },
+            {
+              "id_product": "233",
+              "image": "https://localhost:44348/Uploads/1620608595-181110441_2938938976383687_4543289721064636041_n.jpg",
+              "id": "17"
+            }
+          ]
+    }
+}

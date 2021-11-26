@@ -1,0 +1,228 @@
+﻿/*.userpage-sidebar {
+    display: flex;
+    flex-direction: column;
+}*/
+
+.userpage-sidebar .slide {
+    display: flex;
+    align-items: center;
+    width: 180px;
+}
+
+.userpage-sidebar a {
+    color: black;
+}
+
+.userpage-sidebar .slide span {
+    padding-left: 10px !important;
+}
+
+.user-photo {
+    display: flex;
+    align-items: center
+}
+
+.slideContent p, span {
+    margin: 0;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    cursor: pointer;
+}
+
+.account-section {
+    flex: 1 1 100%;
+    padding-bottom: 2rem;
+    margin-bottom: 1rem;
+}
+
+.userpage-icon {
+    display: inline-block;
+    /* padding: 3px; */
+    /* padding-left: 3px; */
+    /* padding-top: 1px; */
+    border-radius: 100%;
+    position: relative;
+    width: 20px;
+    height: 20px;
+}
+
+.userpage-icon svg {
+    fill: #fff;
+    stroke: #fff;
+    width: 13px;
+    height: 13px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.tab {
+    overflow: hidden;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.tab button {
+    width: 20%;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 15px;
+    font-size: 16px;
+    position: relative;
+    background-color: rgb(255,255,255);
+}
+
+.tab button.active:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+.tab button:hover {
+    color: var(--primary-color);
+}
+
+.tab button.active {
+    color: var(--primary-color);
+}
+
+.purchase-list-page__empty-page-wrapper {
+    background-color: rgb(255,255,255);
+    /*    height: calc(100% - 59px);*/
+    overflow: hidden;
+    padding: 20px;
+}
+
+.purchase-order__container {
+    display: block;
+    padding: 5px 0 5px 0;
+    position: relative;
+    width: 100%;
+}
+
+.purchase-empty-order__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60rem;
+}
+
+.purchase-empty-order__icon {
+    background-position: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/5fafbb923393b712b96488590b8f781f.png);
+    width: 10rem;
+    height: 10rem;
+    margin-bottom: 1.25rem;
+}
+
+.address-display__field-label {
+    width: 20rem;
+    text-align: right;
+    margin-right: 20px
+}
+
+.address-tag {
+    display: inline-block;
+    background: #00bfa5;
+    color: #fff;
+    border-radius: 3px;
+    padding: 3px 7px 2px;
+    text-transform: capitalize;
+    font-size: 13px;
+    font-weight: 500;
+    width: auto;
+    white-space: nowrap;
+    margin-right: 12px;
+}
+
+.address-pickup {
+    margin-left: 10px;
+    display: inline-block;
+    color: #ee4d2d;
+    border: 1px solid #ee4d2d;
+    /* font-size: .75rem; */
+    font-weight: 400;
+    height: 2.4rem;
+    padding: 0 .625rem;
+    border-radius: 1.6875rem;
+    vertical-align: .125rem;
+    line-height: 2.4rem;
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    font-size: 12px;
+}
+
+.avatar-uploader__file-input {
+    display: none;
+}
+/*start loadding */
+.spinner {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    /* line-height: 60px; */
+    height: 50px;
+    align-items: center;
+}
+
+.spinner > div {
+    width: 18px;
+    height: 18px;
+    background-color: var(--primary-color) !important;
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+    animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.spinner .bounce1 {
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+}
+
+@-webkit-keyframes sk-bouncedelay {
+    0%, 80%, 100% {
+        -webkit-transform: scale(0)
+    }
+
+    40% {
+        -webkit-transform: scale(1.0)
+    }
+}
+
+@keyframes sk-bouncedelay {
+    0%, 80%, 100% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+
+    40% {
+        -webkit-transform: scale(1.0);
+        transform: scale(1.0);
+    }
+}
+
+/*end loadding */
+
+#user-image img{
+    width : 100px;
+    height : 100px;
+    border-radius : 50%;
+    object-fit : cover;
+}
