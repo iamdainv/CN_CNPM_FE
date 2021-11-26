@@ -1,0 +1,12 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+
+orbs:
+  node: circleci/node@4.7
+
+workflows:
+  shobbebus_client:
+    jobs:
+      # For running simple node tests, you could optionally use the node/test job from the orb to replicate and replace the job above in fewer lines.
+      - node/test
