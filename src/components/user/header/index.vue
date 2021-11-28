@@ -28,7 +28,7 @@
             </div>
           </li>
           <li class="header__navbar-item">
-            <p>Test</p>
+            <p>Test cicd</p>
           </li>
         </ul>
 

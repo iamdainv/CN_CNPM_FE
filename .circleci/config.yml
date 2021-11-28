@@ -9,7 +9,7 @@ orbs:
 jobs:
   build-and-push:
     environment:
-      DOCKER_IMAGE: shobbecnpm/shobbe-c
+      DOCKER_IMAGE: shobbecnpm/shobbe-client
       DOCKER_TAG: latest
     executor: docker/docker
     steps:
