@@ -6,6 +6,5 @@ RUN npm install
 RUN npm install --save vue-container-query
 RUN npm run build:staging
 
-
 FROM nginx:latest
 COPY --from=builder-stage /app/dist /usr/share/nginx/html
