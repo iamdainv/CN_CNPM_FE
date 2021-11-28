@@ -131,31 +131,31 @@ export default {
     LoginPC,
     CartHeader,
     SortMobile,
-    LoginMobileTablet,
+    LoginMobileTablet
   },
-  data() {
+  data () {
     return {
-      keyword: '',
+      keyword: ''
     }
   },
   methods: {
-    gotoHome() {
+    gotoHome () {
       if (this.$route.name !== 'home') {
         this.$router.push({ name: 'home' })
       }
     },
-    goToAdmin() {
+    goToAdmin () {
       if (this.$store.getters.isLogin) {
         this.$router.push({ name: 'dashboard' })
       } else {
         this.$notification.warning({
           message: 'Bạn chưa đăng nhập',
-          duration: 5,
+          duration: 5
         })
         this.$router.push({ name: 'login' })
       }
     },
-    handleSearchProduct() {
+    handleSearchProduct () {
       if (this.$route.name === 'home') {
         bus.$emit('searchProductsByKeyword', this.keyword)
       } else if (this.$route.name === 'productsByCategory') {
@@ -166,8 +166,8 @@ export default {
           bus.$emit('searchProductsCategoryByKeyword', this.keyword)
         }, 0)
       }
-    },
-  },
+    }
+  }
 }
 </script>
 
