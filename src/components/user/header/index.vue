@@ -28,7 +28,7 @@
             </div>
           </li>
           <li class="header__navbar-item">
-            <p>Test cicd</p>
+            <p>Test cicd111</p>
           </li>
         </ul>
 
@@ -131,41 +131,43 @@ export default {
     LoginPC,
     CartHeader,
     SortMobile,
-    LoginMobileTablet
+    LoginMobileTablet,
   },
-  data () {
+  data() {
     return {
-      keyword: ''
+      keyword: '',
     }
   },
   methods: {
-    gotoHome () {
+    gotoHome() {
       if (this.$route.name !== 'home') {
         this.$router.push({ name: 'home' })
       }
     },
-    goToAdmin () {
+    goToAdmin() {
       if (this.$store.getters.isLogin) {
         this.$router.push({ name: 'dashboard' })
       } else {
         this.$notification.warning({
           message: 'Bạn chưa đăng nhập',
-          duration: 5
+          duration: 5,
         })
         this.$router.push({ name: 'login' })
       }
     },
-    handleSearchProduct () {
+    handleSearchProduct() {
       if (this.$route.name === 'home') {
         bus.$emit('searchProductsByKeyword', this.keyword)
       } else if (this.$route.name === 'productsByCategory') {
         bus.$emit('searchProductsCategoryByKeyword', this.keyword)
       } else {
         this.$router.push({ name: 'productsByCategory', params: { categoryId: 1 } })
-        setTimeout(() => { bus.$emit('searchProductsCategoryByKeyword', this.keyword) }, 0)
+        setTimeout(() => {
+          bus.$emit('searchProductsCategoryByKeyword', this.keyword)
+        }, 0)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
