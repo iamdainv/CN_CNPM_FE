@@ -43,7 +43,7 @@
       <div class=" product mt-5 p-5">
         <!-- comment -->
         <comment
-          :isBought="product.productDetail.userCanComment"
+          :isBought="canComment"
           :comments="comments"
           :isLoading="loadingComment"
           :totalComment="totalComment"
@@ -97,7 +97,8 @@ export default {
       loadingComment: true,
       comments: [],
       totalComment: 0,
-      visibleModalProductNotFound: false
+      visibleModalProductNotFound: false,
+      canComment: false
     }
   },
   mounted () {
@@ -114,6 +115,7 @@ export default {
             path: data.image
           }, ...data.images]
           this.product.productDetail = data
+          this.canComment = this.product.productDetail.userCanComment
           this.getListComment(data.id)
         } else if (status === 404) {
           this.visibleModalProductNotFound = true
@@ -146,10 +148,13 @@ export default {
     onSubmitCreateComment (commentText, listFileImage, star) {
       const formData = new FormData()
 
+      const billId = this.$route.query.billId
+
       const commentObj = {
         id_product: this.product.productDetail.id,
         comment: commentText,
-        star
+        star,
+        id_bill: billId
       }
 
       listFileImage.forEach(file => formData.append('files', file.fileImage))
@@ -160,6 +165,7 @@ export default {
 
       createNewComment(formData).then(response => {
         this.comments.unshift(response.data.data)
+        this.canComment = false
       })
     }
   }
