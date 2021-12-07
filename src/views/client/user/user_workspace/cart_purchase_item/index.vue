@@ -98,6 +98,11 @@
               data-purchase-id=""
               data-bill-id="product.billDetail.id"> {{ buttonTextOfStatus }} </button>
           </div>
+          <div v-if="bill.status === 4" class="purchase-card-buttons__container">
+            <div class="purchase-card-buttons__show-button-wrapper">
+              <button type="button" class="h-button__red p-3 h-color__white cursor-pointer" @click="purchaseAction">Xác nhận đơn hàng</button>
+            </div>
+          </div>
           <div v-if="bill.status === 5" class="purchase-card-buttons__container">
             <div class="purchase-card-buttons__show-button-wrapper">
               <button type="button" class="h-button__red p-3 h-color__white cursor-pointer purchase-button-primary" @click="evaluateProduct">Đánh giá sản phẩm</button>
@@ -150,10 +155,13 @@ export default {
           let callback = null
           switch (this.bill.status) {
             case PurchaseType.CANCELED:
-              actionType = 1
+              actionType = PurchaseType.ORDER
               callback = () => {
                 this.$router.push({ path: '/cart' })
               }
+              break
+            case PurchaseType.DELIVERING:
+              actionType = PurchaseType.DELIVERED
               break
             case PurchaseType.WAIT_CONFIRM:
               actionType = 2
