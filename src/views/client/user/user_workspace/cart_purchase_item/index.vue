@@ -163,6 +163,9 @@ export default {
             case PurchaseType.DELIVERING:
               actionType = PurchaseType.DELIVERED
               break
+            case PurchaseType.DELIVERED:
+                this.$router.push({ path: `/product/${this.convertToSlugToProductDetail(this.bill.product.name, this.bill.product.id)}` })
+              return
             case PurchaseType.WAIT_CONFIRM:
               actionType = 2
               break
@@ -174,13 +177,12 @@ export default {
         this.newPrice = this.bill.product.price - Math.floor((this.bill.product.discount / 100) * this.bill.product.price)
         this.totalPrice = this.newPrice * this.bill.quantity
         this.typePurchase = this.labelPurchase(this.bill.status)
-
+      console.log(this.bill.status)
       switch (this.bill.status) {
           case PurchaseType.WAIT_CONFIRM:
             this.buttonTextOfStatus = 'Hủy đơn hàng'
             break
         case PurchaseType.DELIVERED:
-        case PurchaseType.CANCELED:
           this.buttonTextOfStatus = 'Mua lại'
           break
       }
