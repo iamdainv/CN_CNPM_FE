@@ -278,7 +278,7 @@ export default {
           })
           this.keyRerender = !this.keyRerender
         } else {
-          this.$warning({ title: 'Bạn phải chọn ít nhất 1 sản phẩm !', content: 'Thêm địa chỉ', onOk: () => { } })
+          this.$warning({ title: 'Lỗi', content: 'Bạn phải chọn ít nhất một sản phẩm', onOk: () => { } })
         }
       } else {
         this.$info({ title: 'Bạn chưa có địa chỉ nào!', content: 'Thêm địa chỉ', onOk: () => { this.visibleModal = true } })
