@@ -268,14 +268,18 @@ export default {
             }
           })
         })
-        this.$store.dispatch('BuyProductsInCart', { billIds: billIds, addressId: this.addressChecked }).then(rs => {
-          this.$success({ content: 'Mua sản phẩm thành công!',
-            onOk: () => {
-              this.$router.push({ name: 'purchase' })
-            }
+        if (billIds.length > 0) {
+          this.$store.dispatch('BuyProductsInCart', { billIds: billIds, addressId: this.addressChecked }).then(rs => {
+            this.$success({ content: 'Mua sản phẩm thành công!',
+              onOk: () => {
+                this.$router.push({ name: 'purchase' })
+              }
+            })
           })
-        })
-        this.keyRerender = !this.keyRerender
+          this.keyRerender = !this.keyRerender
+        } else {
+          this.$warning({ title: 'Bạn phải chọn ít nhất 1 sản phẩm !', content: 'Thêm địa chỉ', onOk: () => { } })
+        }
       } else {
         this.$info({ title: 'Bạn chưa có địa chỉ nào!', content: 'Thêm địa chỉ', onOk: () => { this.visibleModal = true } })
       }
