@@ -177,7 +177,6 @@ export default {
         this.newPrice = this.bill.product.price - Math.floor((this.bill.product.discount / 100) * this.bill.product.price)
         this.totalPrice = this.newPrice * this.bill.quantity
         this.typePurchase = this.labelPurchase(this.bill.status)
-      console.log(this.bill.status)
       switch (this.bill.status) {
           case PurchaseType.WAIT_CONFIRM:
             this.buttonTextOfStatus = 'Hủy đơn hàng'
